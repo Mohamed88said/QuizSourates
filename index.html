@@ -31,6 +31,9 @@
             color: var(--text);
             line-height: 1.6;
             transition: all 0.3s ease;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         body.dark-mode {
@@ -144,6 +147,7 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             margin-bottom: 1.5rem;
             display: none;
+            flex-grow: 1;
         }
 
         .sourate-display {
@@ -291,6 +295,18 @@
             gap: 1rem;
             margin: 1.5rem 0;
             flex-wrap: wrap;
+            position: sticky;
+            bottom: 20px;
+            background-color: var(--bg);
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .dark-mode .controls {
+            background-color: var(--dark-bg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
         }
 
         .instructions {
@@ -374,6 +390,54 @@
             margin-bottom: 0.5rem;
         }
 
+        .hadith-source {
+            font-size: 0.8rem;
+            text-align: right;
+            color: #64748b;
+            margin-top: 0.5rem;
+            font-style: normal;
+        }
+
+        .dark-mode .hadith-source {
+            color: #94a3b8;
+        }
+
+        .verse-box {
+            background-color: #eff6ff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .dark-mode .verse-box {
+            background-color: #1e3a8a;
+            border-left-color: var(--dark-primary);
+        }
+
+        .verse-arabic {
+            font-family: var(--arabic-font);
+            font-size: 1.3rem;
+            text-align: right;
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+
+        .verse-translation {
+            margin-bottom: 0.5rem;
+        }
+
+        .verse-reference {
+            font-size: 0.8rem;
+            color: #64748b;
+            text-align: right;
+            font-style: normal;
+        }
+
+        .dark-mode .verse-reference {
+            color: #94a3b8;
+        }
+
         .theme-toggle {
             position: fixed;
             bottom: 20px;
@@ -394,6 +458,89 @@
 
         .dark-mode .theme-toggle {
             background: var(--dark-primary);
+        }
+
+        .wisdom-icon {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+            font-size: 1.2rem;
+        }
+
+        .dark-mode .wisdom-icon {
+            background: var(--dark-primary);
+        }
+
+        .wisdom-tooltip {
+            position: fixed;
+            bottom: 140px;
+            right: 20px;
+            width: 300px;
+            padding: 1rem;
+            background-color: var(--card);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 100;
+        }
+
+        .dark-mode .wisdom-tooltip {
+            background-color: var(--dark-card);
+        }
+
+        .wisdom-content {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Barre fixe pour le nom de la sourate */
+        .sourate-header {
+            position: sticky;
+            top: 0;
+            background-color: var(--card);
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            z-index: 50;
+            display: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .dark-mode .sourate-header {
+            background-color: var(--dark-card);
+            border-bottom-color: #475569;
+        }
+
+        .sourate-header-arabic {
+            font-family: var(--arabic-font);
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .dark-mode .sourate-header-arabic {
+            color: var(--dark-primary);
+        }
+
+        .sourate-header-latin {
+            font-size: 1rem;
+            color: #64748b;
+        }
+
+        .dark-mode .sourate-header-latin {
+            color: #94a3b8;
         }
 
         @media (max-width: 640px) {
@@ -425,11 +572,34 @@
             button {
                 width: 100%;
             }
+
+            .wisdom-tooltip {
+                width: 250px;
+                right: 10px;
+            }
+
+            .sourate-header-arabic {
+                font-size: 1.2rem;
+            }
+
+            .sourate-header-latin {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <button class="theme-toggle" id="themeToggle">🌙</button>
+    <button class="wisdom-icon" id="wisdomIcon">💡</button>
+    <div class="wisdom-tooltip" id="wisdomTooltip">
+        <div class="wisdom-content" id="wisdomContent"></div>
+    </div>
+    
+    <!-- Barre fixe pour le nom de la sourate -->
+    <div class="sourate-header" id="sourateHeader">
+        <div class="sourate-header-arabic" id="sourateHeaderArabic"></div>
+        <div class="sourate-header-latin" id="sourateHeaderLatin"></div>
+    </div>
     
     <div class="header">
         <div>
@@ -455,12 +625,6 @@
         <div class="progress-bar" id="progressBar"></div>
     </div>
     
-    <div class="controls">
-        <button id="startBtn">Commencer</button>
-        <button id="restartBtn" style="display: none;">Recommencer</button>
-        <button id="nextBtn" disabled>Suivant</button>
-    </div>
-    
     <div id="quizContainer" class="quiz-container">
         <div id="sourateDisplay" class="sourate-display">
             <div class="sourate-arabic" id="sourateArabic"></div>
@@ -472,9 +636,16 @@
             <div id="sourateDetails"></div>
         </div>
         
+        <div id="verseBox" class="verse-box">
+            <div class="verse-arabic" id="verseArabic"></div>
+            <div class="verse-translation" id="verseTranslation"></div>
+            <div class="verse-reference" id="verseReference"></div>
+        </div>
+        
         <div id="hadithBox" class="hadith-box">
             <div class="hadith-arabic" id="hadithArabic"></div>
             <div id="hadithTranslation"></div>
+            <div class="hadith-source" id="hadithSource"></div>
         </div>
         
         <div class="question">
@@ -491,6 +662,12 @@
     </div>
     
     <div id="scoreDisplay" class="score"></div>
+
+    <div class="controls">
+        <button id="startBtn">Commencer</button>
+        <button id="restartBtn" style="display: none;">Recommencer</button>
+        <button id="nextBtn" disabled>Suivant</button>
+    </div>
 
     <script>
         // ==================== CONFIGURATION ====================
@@ -554,65 +731,357 @@
         };
 
         const sourates = [
-            {num: 114, name: "An-Nas", arabic: "الناس", info: {fr: "Dernière sourate du Coran. Elle traite de la recherche de protection auprès d'Allah contre les mauvaises suggestions.", ar: "آخر سورة في القرآن. تتحدث عن الاستعاذة بالله من وساوس الشيطان."}},
-            {num: 113, name: "Al-Falaq", arabic: "الفلق", info: {fr: "Sourate de protection contre le mal sous toutes ses formes.", ar: "سورة للاستعاذة بالله من الشرور بكل أشكالها."}},
-            {num: 112, name: "Al-Ikhlas", arabic: "الإخلاص", info: {fr: "Elle résume le concept de Tawhid (l'unicité d'Allah). Équivalente au tiers du Coran.", ar: "تختصر مفهوم التوحيد. تعدل ثلث القرآن."}},
-            {num: 111, name: "Al-Masad", arabic: "المسد", info: {fr: "Traite du châtiment d'Abu Lahab et de sa femme pour leur opposition au Prophète.", ar: "تتحدث عن عذاب أبي لهب وزوجته لمعارضتهما الرسول."}},
-            {num: 110, name: "An-Nasr", arabic: "النصر", info: {fr: "Annonce la victoire de l'Islam et la conquête de La Mecque.", ar: "تبشر بنصر الإسلام وفتح مكة."}},
-            {num: 109, name: "Al-Kafirun", arabic: "الكافرون", info: {fr: "Établit une séparation claire entre la foi et la mécréance.", ar: "تفصل بين الإيمان والكفر."}},
-            {num: 108, name: "Al-Kawthar", arabic: "الكوثر", info: {fr: "La plus courte sourate. Promet l'abondance au Prophète.", ar: "أقصر سورة. تبشر الرسول بالخير الوفير."}},
-            {num: 107, name: "Al-Ma'un", arabic: "الماعون", info: {fr: "Décrit les caractéristiques de ceux qui renient la religion.", ar: "تصف صفات الذين يكذبون بالدين."}},
-            {num: 106, name: "Quraish", arabic: "قريش", info: {fr: "Rappelle les bienfaits d'Allah sur la tribu de Quraych.", ar: "تذكر بنعم الله على قبيلة قريش."}},
-            {num: 105, name: "Al-Fil", arabic: "الفيل", info: {fr: "Raconte l'histoire de l'armée de l'éléphant qui voulait détruire la Kaaba.", ar: "تحكي قصة أصحاب الفيل الذين أرادوا هدم الكعبة."}},
-            {num: 104, name: "Al-Humaza", arabic: "الهمزة", info: {fr: "Avertit contre les méfaits de la calomnie et de la moquerie.", ar: "تحذر من آفات الاغتياب والسخرية."}},
-            {num: 103, name: "Al-Asr", arabic: "العصر", info: {fr: "Une des sourates les plus courtes. Insiste sur la foi et les bonnes actions.", ar: "من أقصر السور. تؤكد على الإيمان والعمل الصالح."}},
-            {num: 102, name: "At-Takathur", arabic: "التكاثر", info: {fr: "Met en garde contre l'obsession des biens matériels.", ar: "تحذر من الانشغال بالتنافس في الدنيا."}},
-            {num: 101, name: "Al-Qari'a", arabic: "القارعة", info: {fr: "Décrit les événements terrifiants du Jour du Jugement.", ar: "تصف أحداث يوم القيامة المخيفة."}},
-            {num: 100, name: "Al-Adiyat", arabic: "العاديات", info: {fr: "Évoque les chevaux de guerre et l'ingratitude de l'homme.", ar: "تتحدث عن خيل الجهاد وجحود الإنسان."}},
-            {num: 99, name: "Az-Zalzala", arabic: "الزلزلة", info: {fr: "Décrit le tremblement de terre du Jour du Jugement.", ar: "تصف زلزلة يوم القيامة."}},
-            {num: 98, name: "Al-Bayyina", arabic: "البينة", info: {fr: "Parle de la mission du Prophète et du Livre clair.", ar: "تتحدث عن رسالة الرسول والكتاب المبين."}},
-            {num: 97, name: "Al-Qadr", arabic: "القدر", info: {fr: "Décrit la nuit du Destin (Laylat al-Qadr), meilleure que mille mois.", ar: "تتحدث عن ليلة القدر التي هي خير من ألف شهر."}},
-            {num: 96, name: "Al-Alaq", arabic: "العلق", info: {fr: "Première sourate révélée au Prophète. Commande la lecture au nom d'Allah.", ar: "أول سورة نزلت على الرسول. تأمر بالقراءة باسم الله."}},
-            {num: 95, name: "At-Tin", arabic: "التين", info: {fr: "Parle de la création de l'homme dans la meilleure forme.", ar: "تتحدث عن خلق الإنسان في أحسن تقويم."}},
-            {num: 94, name: "Ash-Sharh", arabic: "الشرح", info: {fr: "Console le Prophète et promet la facilité après la difficulté.", ar: "تسلي للرسول وتبشر باليسر بعد العسر."}},
-            {num: 93, name: "Ad-Duha", arabic: "الضحى", info: {fr: "Console le Prophète après une période sans révélation.", ar: "تسلي للرسول بعد انقطاع الوحي."}},
-            {num: 92, name: "Al-Layl", arabic: "الليل", info: {fr: "Contraste les chemins du bien et du mal.", ar: "تقارن بين طريق الخير وطريق الشر."}},
-            {num: 91, name: "Ash-Shams", arabic: "الشمس", info: {fr: "Utilise des serments cosmiques pour enseigner la moralité.", ar: "تستخدم القسم الكوني لتعليم الأخلاق."}},
-            {num: 90, name: "Al-Balad", arabic: "البلد", info: {fr: "Parle des difficultés de la vie et de la récompense des bonnes actions.", ar: "تتحدث عن مشاق الحياة وجزاء العمل الصالح."}},
-            {num: 89, name: "Al-Fajr", arabic: "الفجر", info: {fr: "Évoque le sort des peuples anciens et l'épreuve des biens.", ar: "تذكر مصير الأمم السابقة وابتلاء المال."}},
-            {num: 88, name: "Al-Ghashiya", arabic: "الغاشية", info: {fr: "Décrit les deux groupes au Jour du Jugement.", ar: "تصف الفريقين يوم القيامة."}},
-            {num: 87, name: "Al-A'la", arabic: "الأعلى", info: {fr: "Encourage à glorifier Allah et promet le succès aux croyants.", ar: "تحث على تسبيح الله وتبشر المؤمنين بالفلاح."}},
-            {num: 86, name: "At-Tariq", arabic: "الطارق", info: {fr: "Parle de l'origine de l'homme et de la résurrection.", ar: "تتحدث عن أصل الإنسان والبعث."}},
-            {num: 85, name: "Al-Buruj", arabic: "البروج", info: {fr: "Mentionne les gens de la tranchée et la protection d'Allah.", ar: "تذكر أصحاب الأخدود وحماية الله."}},
-            {num: 84, name: "Al-Inshiqaq", arabic: "الانشقاق", info: {fr: "Décrit le ciel se fendant et l'homme rendant compte.", ar: "تصف انشقاق السماء وحساب الإنسان."}},
-            {num: 83, name: "Al-Mutaffifin", arabic: "المطففين", info: {fr: "Condamne ceux qui trichent dans les mesures.", ar: "تندد بالذين يبخسون المكيال."}},
-            {num: 82, name: "Al-Infitar", arabic: "الانفطار", info: {fr: "Décrit le ciel se fendant et les anges enregistrant les actions.", ar: "تصف انفطار السماء وكتابة الملائكة للأعمال."}},
-            {num: 81, name: "At-Takwir", arabic: "التكوير", info: {fr: "Décrit les bouleversements cosmiques du Jour dernier.", ar: "تصف أحداث يوم القيامة الكونية."}},
-            {num: 80, name: "Abasa", arabic: "عبس", info: {fr: "Rappelle au Prophète de ne pas négliger les pauvres au profit des riches.", ar: "تذكر الرسول بعدم إهمال الفقراء لصالح الأغنياء."}},
-            {num: 79, name: "An-Nazi'at", arabic: "النازعات", info: {fr: "Parle des anges qui arrachent les âmes et de la résurrection.", ar: "تتحدث عن الملائكة التي تنزع الأرواح والبعث."}},
-            {num: 78, name: "An-Naba", arabic: "النبأ", info: {fr: "Commence par une question sur la grande nouvelle (la résurrection).", ar: "تبدأ بسؤال عن النبأ العظيم (البعث)."}}
+            {num: 114, name: "An-Nas", arabic: "الناس", 
+             info: {fr: "Dernière sourate du Coran. Elle traite de la recherche de protection auprès d'Allah contre les mauvaises suggestions.", 
+                    ar: "آخر سورة في القرآن. تتحدث عن الاستعاذة بالله من وساوس الشيطان."},
+             verse: {
+                arabic: "قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾ مَلِكِ النَّاسِ ﴿٢﴾ إِلَهِ النَّاسِ ﴿٣﴾ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ﴿٤﴾ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ﴿٥﴾ مِنَ الْجِنَّةِ وَالنَّاسِ ﴿٦﴾",
+                fr: "Dis: «Je cherche protection auprès du Seigneur des hommes, le Souverain des hommes, l'Ilah des hommes, contre le mal du mauvais conseiller, furtif, qui souffle le mal dans les poitrines des hommes, qu'il (le conseiller) soit un djinn, ou un être humain.»",
+                reference: "Sourate An-Nas (114), versets 1-6"
+             }},
+            {num: 113, name: "Al-Falaq", arabic: "الفلق", 
+             info: {fr: "Sourate de protection contre le mal sous toutes ses formes.", 
+                    ar: "سورة للاستعاذة بالله من الشرور بكل أشكالها."},
+             verse: {
+                arabic: "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾ مِن شَرِّ مَا خَلَقَ ﴿٢﴾ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿٤﴾ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾",
+                fr: "Dis: «Je cherche protection auprès du Seigneur de l'aube naissante, contre le mal des êtres qu'Il a créés, et contre le mal de l'obscurité quand elle s'approfondit, et contre le mal de celles qui soufflent (les sorcières) sur les nœuds, et contre le mal de l'envieux quand il envie.»",
+                reference: "Sourate Al-Falaq (113), versets 1-5"
+             }},
+            {num: 112, name: "Al-Ikhlas", arabic: "الإخلاص", 
+             info: {fr: "Elle résume le concept de Tawhid (l'unicité d'Allah). Équivalente au tiers du Coran.", 
+                    ar: "تختصر مفهوم التوحيد. تعدل ثلث القرآن."},
+             verse: {
+                arabic: "قُلْ هُوَ اللَّهُ أَحَدٌ ﴿١﴾ اللَّهُ الصَّمَدُ ﴿٢﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ ﴿٤﴾",
+                fr: "Dis: «Il est Allah, Unique. Allah, Le Seul à être imploré pour ce que nous désirons. Il n'a jamais engendré, n'a pas été engendré non plus. Et nul n'est égal à Lui.»",
+                reference: "Sourate Al-Ikhlas (112), versets 1-4"
+             }},
+            {num: 111, name: "Al-Masad", arabic: "المسد", 
+             info: {fr: "Traite du châtiment d'Abu Lahab et de sa femme pour leur opposition au Prophète.", 
+                    ar: "تتحدث عن عذاب أبي لهب وزوجته لمعارضتهما الرسول."},
+             verse: {
+                arabic: "تَبَّتْ يَدَا أَبِي لَهَبٍ وَتَبَّ ﴿١﴾ مَا أَغْنَىٰ عَنْهُ مَالُهُ وَمَا كَسَبَ ﴿٢﴾ سَيَصْلَىٰ نَارًا ذَاتَ لَهَبٍ ﴿٣﴾ وَامْرَأَتُهُ حَمَّالَةَ الْحَطَبِ ﴿٤﴾ فِي جِيدِهَا حَبْلٌ مِّن مَّسَدٍ ﴿٥﴾",
+                fr: "Que périssent les deux mains d'Abu-Lahab et que lui-même périsse. Sa fortune ne lui sert à rien, ni ce qu'il a acquis. Il sera brûlé dans un Feu plein de flammes. de même sa femme, la porteuse de bois, à son cou, une corde de fibres.",
+                reference: "Sourate Al-Masad (111), versets 1-5"
+             }},
+            {num: 110, name: "An-Nasr", arabic: "النصر", 
+             info: {fr: "Annonce la victoire de l'Islam et la conquête de La Mecque.", 
+                    ar: "تبشر بنصر الإسلام وفتح مكة."},
+             verse: {
+                arabic: "إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ ﴿١﴾ وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا ﴿٢﴾ فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ إِنَّهُ كَانَ تَوَّابًا ﴿٣﴾",
+                fr: "Lorsque vient le secours d'Allah ainsi que la victoire, et que tu vois les gens entrer en foule dans la religion d'Allah, alors, par la louange, célèbre la gloire de ton Seigneur et implore Son pardon. Car c'est Lui le grand Accueillant au repentir.",
+                reference: "Sourate An-Nasr (110), versets 1-3"
+             }},
+            {num: 109, name: "Al-Kafirun", arabic: "الكافرون", 
+             info: {fr: "Établit une séparation claire entre la foi et la mécréance.", 
+                    ar: "تفصل بين الإيمان والكفر."},
+             verse: {
+                arabic: "قُلْ يَا أَيُّهَا الْكَافِرُونَ ﴿١﴾ لَا أَعْبُدُ مَا تَعْبُدُونَ ﴿٢﴾ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ ﴿٣﴾ وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ ﴿٤﴾ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ ﴿٥﴾ لَكُمْ دِينُكُمْ وَلِيَ دِينِ ﴿٦﴾",
+                fr: "Dis: «Ô vous les infidèles! Je n'adore pas ce que vous adorez. Et vous n'êtes pas adorateurs de ce que j'adore. Je ne suis pas adorateur de ce que vous adorez. Et vous n'êtes pas adorateurs de ce que j'adore. À vous votre religion, et à moi ma religion.»",
+                reference: "Sourate Al-Kafirun (109), versets 1-6"
+             }},
+            {num: 108, name: "Al-Kawthar", arabic: "الكوثر", 
+             info: {fr: "La plus courte sourate. Promet l'abondance au Prophète.", 
+                    ar: "أقصر سورة. تبشر الرسول بالخير الوفير."},
+             verse: {
+                arabic: "إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ ﴿١﴾ فَصَلِّ لِرَبِّكَ وَانْحَرْ ﴿٢﴾ إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ ﴿٣﴾",
+                fr: "Nous t'avons certes accordé l'abondance. Accomplis donc la prière pour ton Seigneur et sacrifie. Celui qui te hait sera certes, sans postérité.",
+                reference: "Sourate Al-Kawthar (108), versets 1-3"
+             }},
+            {num: 107, name: "Al-Ma'un", arabic: "الماعون", 
+             info: {fr: "Décrit les caractéristiques de ceux qui renient la religion.", 
+                    ar: "تصف صفات الذين يكذبون بالدين."},
+             verse: {
+                arabic: "أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ ﴿١﴾ فَذَٰلِكَ الَّذِي يَدُعُّ الْيَتِيمَ ﴿٢﴾ وَلَا يَحُضُّ عَلَىٰ طَعَامِ الْمِسْكِينِ ﴿٣﴾ فَوَيْلٌ لِّلْمُصَلِّينَ ﴿٤﴾ الَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ ﴿٥﴾ الَّذِينَ هُمْ يُرَاءُونَ ﴿٦﴾ وَيَمْنَعُونَ الْمَاعُونَ ﴿٧﴾",
+                fr: "Vois-tu celui qui traite de mensonge la Rétribution? C'est bien lui qui repousse l'orphelin, et qui n'encourage point à nourrir le pauvre. Malheur donc à ceux qui prient tout en négligeant (et retardant) leur prière, qui sont pleins d'ostentation, et refusent l'ustensile (à celui qui en a besoin).",
+                reference: "Sourate Al-Ma'un (107), versets 1-7"
+             }},
+            {num: 106, name: "Quraish", arabic: "قريش", 
+             info: {fr: "Rappelle les bienfaits d'Allah sur la tribu de Quraych.", 
+                    ar: "تذكر بنعم الله على قبيلة قريش."},
+             verse: {
+                arabic: "لِإِيلَافِ قُرَيْشٍ ﴿١﴾ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ ﴿٢﴾ فَلْيَعْبُدُوا رَبَّ هَٰذَا الْبَيْتِ ﴿٣﴾ الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ ﴿٤﴾",
+                fr: "Pour que les Quraych soient unis, pour qu'ils soient unis durant leur voyage d'hiver et d'été. Qu'ils adorent donc le Seigneur de cette Maison (la Kaaba), qui les a nourris contre la faim et rassurés de la crainte!",
+                reference: "Sourate Quraish (106), versets 1-4"
+             }},
+            {num: 105, name: "Al-Fil", arabic: "الفيل", 
+             info: {fr: "Raconte l'histoire de l'armée de l'éléphant qui voulait détruire la Kaaba.", 
+                    ar: "تحكي قصة أصحاب الفيل الذين أرادوا هدم الكعبة."},
+             verse: {
+                arabic: "أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ ﴿١﴾ أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ ﴿٢﴾ وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ ﴿٣﴾ تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ ﴿٤﴾ فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍ ﴿٥﴾",
+                fr: "N'as-tu pas vu comment ton Seigneur a agi envers les gens de l'Éléphant? N'a-t-Il pas rendu leur ruse complètement vaine? et envoyé sur eux des oiseaux par volées qui leur lançaient des pierres d'argile? Et Il les a rendus semblables à une paille mâchée.",
+                reference: "Sourate Al-Fil (105), versets 1-5"
+             }},
+            {num: 104, name: "Al-Humaza", arabic: "الهمزة", 
+             info: {fr: "Avertit contre les méfaits de la calomnie et de la moquerie.", 
+                    ar: "تحذر من آفات الاغتياب والسخرية."},
+             verse: {
+                arabic: "وَيْلٌ لِّكُلِّ هُمَزَةٍ لُّمَزَةٍ ﴿١﴾ الَّذِي جَمَعَ مَالًا وَعَدَّدَهُ ﴿٢﴾ يَحْسَبُ أَنَّ مَالَهُ أَخْلَدَهُ ﴿٣﴾ كَلَّا لَيُنبَذَنَّ فِي الْحُطَمَةِ ﴿٤﴾ وَمَا أَدْرَاكَ مَا الْحُطَمَةُ ﴿٥﴾ نَارُ اللَّهِ الْمُوقَدَةُ ﴿٦﴾ الَّتِي تَطَّلِعُ عَلَى الْأَفْئِدَةِ ﴿٧﴾ إِنَّهَا عَلَيْهِم مُّؤْصَدَةٌ ﴿٨﴾ فِي عَمَدٍ مُّمَدَّدَةٍ ﴿٩﴾",
+                fr: "Malheur à tout calomniateur diffamateur, qui amasse une fortune et la compte, pensant que sa fortune l'immortalisera. Mais non! Il sera certes, jeté dans la Hutamah. Et qui te dira ce qu'est la Hutamah? C'est le Feu attisé d'Allah, qui monte jusqu'aux cœurs. Il se refermera sur eux, en colonnes (de flammes) étendues.",
+                reference: "Sourate Al-Humaza (104), versets 1-9"
+             }},
+            {num: 103, name: "Al-Asr", arabic: "العصر", 
+             info: {fr: "Une des sourates les plus courtes. Insiste sur la foi et les bonnes actions.", 
+                    ar: "من أقصر السور. تؤكد على الإيمان والعمل الصالح."},
+             verse: {
+                arabic: "وَالْعَصْرِ ﴿١﴾ إِنَّ الْإِنسَانَ لَفِي خُسْرٍ ﴿٢﴾ إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ ﴿٣﴾",
+                fr: "Par le Temps! L'homme est certes, en perdition, sauf ceux qui croient et accomplissent les bonnes œuvres, s'enjoignent mutuellement la vérité et s'enjoignent mutuellement l'endurance.",
+                reference: "Sourate Al-Asr (103), versets 1-3"
+             }},
+            {num: 102, name: "At-Takathur", arabic: "التكاثر", 
+             info: {fr: "Met en garde contre l'obsession des biens matériels.", 
+                    ar: "تحذر من الانشغال بالتنافس في الدنيا."},
+             verse: {
+                arabic: "أَلْهَاكُمُ التَّكَاثُرُ ﴿١﴾ حَتَّىٰ زُرْتُمُ الْمَقَابِرَ ﴿٢﴾ كَلَّا سَوْفَ تَعْلَمُونَ ﴿٣﴾ ثُمَّ كَلَّا سَوْفَ تَعْلَمُونَ ﴿٤﴾ كَلَّا لَوْ تَعْلَمُونَ عِلْمَ الْيَقِينِ ﴿٥﴾ لَتَرَوُنَّ الْجَحِيمَ ﴿٦﴾ ثُمَّ لَتَرَوُنَّهَا عَيْنَ الْيَقِينِ ﴿٧﴾ ثُمَّ لَتُسْأَلُنَّ يَوْمَئِذٍ عَنِ النَّعِيمِ ﴿٨﴾",
+                fr: "La course aux richesses vous distrait, jusqu'à ce que vous visitiez les tombes. Mais non! Vous saurez bientôt! Encore une fois, vous saurez bientôt! Si seulement vous saviez de science certaine... Vous verrez certes, la Fournaise. Vous la verrez certes, de vos propres yeux. Ensuite, ce jour-là, vous serez certes, interrogés au sujet des délices.",
+                reference: "Sourate At-Takathur (102), versets 1-8"
+             }},
+            {num: 101, name: "Al-Qari'a", arabic: "القارعة", 
+             info: {fr: "Décrit les événements terrifiants du Jour du Jugement.", 
+                    ar: "تصف أحداث يوم القيامة المخيفة."},
+             verse: {
+                arabic: "الْقَارِعَةُ ﴿١﴾ مَا الْقَارِعَةُ ﴿٢﴾ وَمَا أَدْرَاكَ مَا الْقَارِعَةُ ﴿٣﴾ يَوْمَ يَكُونُ النَّاسُ كَالْفَرَاشِ الْمَبْثُوثِ ﴿٤﴾ وَتَكُونُ الْجِبَالُ كَالْعِهْنِ الْمَنفُوشِ ﴿٥﴾ فَأَمَّا مَن ثَقُلَتْ مَوَازِينُهُ ﴿٦﴾ فَهُوَ فِي عِيشَةٍ رَّاضِيَةٍ ﴿٧﴾ وَأَمَّا مَنْ خَفَّتْ مَوَازِينُهُ ﴿٨﴾ فَأُمُّهُ هَاوِيَةٌ ﴿٩﴾ وَمَا أَدْرَاكَ مَا هِيَهْ ﴿١٠﴾ نَارٌ حَامِيَةٌ ﴿١١﴾",
+                fr: "La calamité! Qu'est-ce que la calamité? Et qui te dira ce qu'est la calamité? C'est le jour où les gens seront comme des papillons éparpillés, et les montagnes comme de la laine cardée. Quant à celui dont la balance sera lourde, il sera dans une vie agréable. Et quant à celui dont la balance sera légère, sa mère [destination] est un abîme très profond. Et qui te dira ce que c'est? C'est un Feu ardent.",
+                reference: "Sourate Al-Qari'a (101), versets 1-11"
+             }},
+            {num: 100, name: "Al-Adiyat", arabic: "العاديات", 
+             info: {fr: "Évoque les chevaux de guerre et l'ingratitude de l'homme.", 
+                    ar: "تتحدث عن خيل الجهاد وجحود الإنسان."},
+             verse: {
+                arabic: "وَالْعَادِيَاتِ ضَبْحًا ﴿١﴾ فَالْمُورِيَاتِ قَدْحًا ﴿٢﴾ فَالْمُغِيرَاتِ صُبْحًا ﴿٣﴾ فَأَثَرْنَ بِهِ نَقْعًا ﴿٤﴾ فَوَسَطْنَ بِهِ جَمْعًا ﴿٥﴾ إِنَّ الْإِنسَانَ لِرَبِّهِ لَكَنُودٌ ﴿٦﴾ وَإِنَّهُ عَلَىٰ ذَٰلِكَ لَشَهِيدٌ ﴿٧﴾ وَإِنَّهُ لِحُبِّ الْخَيْرِ لَشَدِيدٌ ﴿٨﴾ أَفَلَا يَعْلَمُ إِذَا بُعْثِرَ مَا فِي الْقُبُورِ ﴿٩﴾ وَحُصِّلَ مَا فِي الصُّدُورِ ﴿١٠﴾ إِنَّ رَبَّهُم بِهِمْ يَوْمَئِذٍ لَّخَبِيرٌ ﴿١١﴾",
+                fr: "Par les coursiers qui halètent, qui font jaillir des étincelles, qui attaquent au matin, qui soulèvent ainsi la poussière, qui pénètrent au centre de la troupe ennemie! L'homme est, en vérité, très ingrat envers son Seigneur; et pourtant, il est certes témoin de cela; et pour l'amour des richesses il est certes ardent. Ne sait-il donc pas que lorsque ce qui est dans les tombes sera bouleversé, et que sera dévoilé ce qui est dans les poitrines, ce jour-là, certes, leur Seigneur sera Parfaitement Connaisseur d'eux?",
+                reference: "Sourate Al-Adiyat (100), versets 1-11"
+             }},
+            {num: 99, name: "Az-Zalzala", arabic: "الزلزلة", 
+             info: {fr: "Décrit le tremblement de terre du Jour du Jugement.", 
+                    ar: "تصف زلزلة يوم القيامة."},
+             verse: {
+                arabic: "إِذَا زُلْزِلَتِ الْأَرْضُ زِلْزَالَهَا ﴿١﴾ وَأَخْرَجَتِ الْأَرْضُ أَثْقَالَهَا ﴿٢﴾ وَقَالَ الْإِنسَانُ مَا لَهَا ﴿٣﴾ يَوْمَئِذٍ تُحَدِّثُ أَخْبَارَهَا ﴿٤﴾ بِأَنَّ رَبَّكَ أَوْحَىٰ لَهَا ﴿٥﴾ يَوْمَئِذٍ يَصْدُرُ النَّاسُ أَشْتَاتًا لِّيُرَوْا أَعْمَالَهُمْ ﴿٦﴾ فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ ﴿٧﴾ وَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ شَرًّا يَرَهُ ﴿٨﴾",
+                fr: "Lorsque la terre tremblera d'un violent tremblement, et que la terre fera sortir ses fardeaux, et que l'homme dira: «Qu'a-t-elle?» ce jour-là, elle contera son histoire, selon ce que ton Seigneur lui aura révélé [ordonné]. Ce jour-là, les gens sortiront séparément pour que leur soient montrées leurs œuvres. Quiconque fait un bien fût-ce du poids d'un atome, le verra, et quiconque fait un mal fût-ce du poids d'un atome, le verra.",
+                reference: "Sourate Az-Zalzala (99), versets 1-8"
+             }},
+            {num: 98, name: "Al-Bayyina", arabic: "البينة", 
+             info: {fr: "Parle de la mission du Prophète et du Livre clair.", 
+                    ar: "تتحدث عن رسالة الرسول والكتاب المبين."},
+             verse: {
+                arabic: "لَمْ يَكُنِ الَّذِينَ كَفَرُوا مِنْ أَهْلِ الْكِتَابِ وَالْمُشْرِكِينَ مُنفَكِّينَ حَتَّىٰ تَأْتِيَهُمُ الْبَيِّنَةُ ﴿١﴾ رَسُولٌ مِّنَ اللَّهِ يَتْلُو صُحُفًا مُّطَهَّرَةً ﴿٢﴾ فِيهَا كُتُبٌ قَيِّمَةٌ ﴿٣﴾ وَمَا تَفَرَّقَ الَّذِينَ أُوتُوا الْكِتَابَ إِلَّا مِن بَعْدِ مَا جَاءَتْهُمُ الْبَيِّنَةُ ﴿٤﴾ وَمَا أُمِرُوا إِلَّا لِيَعْبُدُوا اللَّهَ مُخْلِصِينَ لَهُ الدِّينَ حُنَفَاءَ وَيُقِيمُوا الصَّلَاةَ وَيُؤْتُوا الزَّكَاةَ وَذَٰلِكَ دِينُ الْقَيِّمَةِ ﴿٥﴾",
+                fr: "Les infidèles parmi les gens du Livre, ainsi que les Associateurs, ne cesseront pas de mécroire jusqu'à ce que leur vienne la Preuve évidente: un Messager, de la part d'Allah, qui leur récite des feuilles purifiées, dans lesquelles se trouvent des prescriptions d'une rectitude parfaite. Et ceux à qui le Livre a été donné ne se sont divisés qu'après que la preuve leur fut venue. Il ne leur a été commandé, cependant, que d'adorer Allah, Lui vouant un culte exclusif, d'accomplir la prière et d'acquitter la Zakat. Et voilà la religion de droiture.",
+                reference: "Sourate Al-Bayyina (98), versets 1-5"
+             }},
+            {num: 97, name: "Al-Qadr", arabic: "القدر", 
+             info: {fr: "Décrit la nuit du Destin (Laylat al-Qadr), meilleure que mille mois.", 
+                    ar: "تتحدث عن ليلة القدر التي هي خير من ألف شهر."},
+             verse: {
+                arabic: "إِنَّا أَنزَلْنَاهُ فِي لَيْلَةِ الْقَدْرِ ﴿١﴾ وَمَا أَدْرَاكَ مَا لَيْلَةُ الْقَدْرِ ﴿٢﴾ لَيْلَةُ الْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ ﴿٣﴾ تَنَزَّلُ الْمَلَائِكَةُ وَالرُّوحُ فِيهَا بِإِذْنِ رَبِّهِم مِّن كُلِّ أَمْرٍ ﴿٤﴾ سَلَامٌ هِيَ حَتَّىٰ مَطْلَعِ الْفَجْرِ ﴿٥﴾",
+                fr: "Nous l'avons certes, fait descendre (le Coran) pendant la nuit d'Al-Qadr. Et qui te dira ce qu'est la nuit d'Al-Qadr? La nuit d'Al-Qadr est meilleure que mille mois. Durant celle-ci descendent les Anges ainsi que l'Esprit, par permission de leur Seigneur pour tout ordre. Elle est paix et salut jusqu'à l'apparition de l'aube.",
+                reference: "Sourate Al-Qadr (97), versets 1-5"
+             }},
+            {num: 96, name: "Al-Alaq", arabic: "العلق", 
+             info: {fr: "Première sourate révélée au Prophète. Commande la lecture au nom d'Allah.", 
+                    ar: "أول سورة نزلت على الرسول. تأمر بالقراءة باسم الله."},
+             verse: {
+                arabic: "اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ ﴿١﴾ خَلَقَ الْإِنسَانَ مِنْ عَلَقٍ ﴿٢﴾ اقْرَأْ وَرَبُّكَ الْأَكْرَمُ ﴿٣﴾ الَّذِي عَلَّمَ بِالْقَلَمِ ﴿٤﴾ عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ ﴿٥﴾",
+                fr: "Lis, au nom de ton Seigneur qui a créé, qui a créé l'homme d'une adhérence. Lis! Ton Seigneur est le Très Noble, qui a enseigné par la plume [le calame], a enseigné à l'homme ce qu'il ne savait pas.",
+                reference: "Sourate Al-Alaq (96), versets 1-5"
+             }},
+            {num: 95, name: "At-Tin", arabic: "التين", 
+             info: {fr: "Parle de la création de l'homme dans la meilleure forme.", 
+                    ar: "تتحدث عن خلق الإنسان في أحسن تقويم."},
+             verse: {
+                arabic: "وَالتِّينِ وَالزَّيْتُونِ ﴿١﴾ وَطُورِ سِينِينَ ﴿٢﴾ وَهَٰذَا الْبَلَدِ الْأَمِينِ ﴿٣﴾ لَقَدْ خَلَقْنَا الْإِنسَانَ فِي أَحْسَنِ تَقْوِيمٍ ﴿٤﴾ ثُمَّ رَدَدْنَاهُ أَسْفَلَ سَافِلِينَ ﴿٥﴾ إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ فَلَهُمْ أَجْرٌ غَيْرُ مَمْنُونٍ ﴿٦﴾",
+                fr: "Par le figuier et l'olivier! Et par le Mont Sinin! Et par cette Cité sûre! Nous avons certes créé l'homme dans la forme la plus parfaite. Ensuite, Nous l'avons ramené au niveau le plus bas, sauf ceux qui croient et accomplissent les bonnes œuvres: ceux-là auront une récompense jamais interrompue.",
+                reference: "Sourate At-Tin (95), versets 1-6"
+             }},
+            {num: 94, name: "Ash-Sharh", arabic: "الشرح", 
+             info: {fr: "Console le Prophète et promet la facilité après la difficulté.", 
+                    ar: "تسلي للرسول وتبشر باليسر بعد العسر."},
+             verse: {
+                arabic: "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ ﴿١﴾ وَوَضَعْنَا عَنكَ وِزْرَكَ ﴿٢﴾ الَّذِي أَنقَضَ ظَهْرَكَ ﴿٣﴾ وَرَفَعْنَا لَكَ ذِكْرَكَ ﴿٤﴾ فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ﴿٥﴾ إِنَّ مَعَ الْعُسْرِ يُسْرًا ﴿٦﴾ فَإِذَا فَرَغْتَ فَانصَبْ ﴿٧﴾ وَإِلَىٰ رَبِّكَ فَارْغَبْ ﴿٨﴾",
+                fr: "Ne t'avons-Nous pas ouvert la poitrine? Et ne t'avons-Nous pas déchargé du fardeau qui accablait ton dos? Et exalté pour toi ta renommée? A côté de la difficulté est, certes, une facilité! A côté de la difficulté est, certes, une facilité! Lorsque tu te libères, donc, lève-toi, et à ton Seigneur aspire.",
+                reference: "Sourate Ash-Sharh (94), versets 1-8"
+             }},
+            {num: 93, name: "Ad-Duha", arabic: "الضحى", 
+             info: {fr: "Console le Prophète après une période sans révélation.", 
+                    ar: "تسلي للرسول بعد انقطاع الوحي."},
+             verse: {
+                arabic: "وَالضُّحَىٰ ﴿١﴾ وَاللَّيْلِ إِذَا سَجَىٰ ﴿٢﴾ مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ ﴿٣﴾ وَلَلْآخِرَةُ خَيْرٌ لَّكَ مِنَ الْأُولَىٰ ﴿٤﴾ وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ ﴿٥﴾ أَلَمْ يَجِدْكَ يَتِيمًا فَآوَىٰ ﴿٦﴾ وَوَجَدَكَ ضَالًّا فَهَدَىٰ ﴿٧﴾ وَوَجَدَكَ عَائِلًا فَأَغْنَىٰ ﴿٨﴾",
+                fr: "Par le jour montant! Et par la nuit quand elle couvre tout! Ton Seigneur ne t'a ni abandonné, ni détesté. La vie dernière t'est, certes, meilleure que la vie présente. Ton Seigneur t'accordera certes [tes souhaits], et alors tu seras satisfait. Ne t'a-t-Il pas trouvé orphelin? Alors Il t'a accueilli! Ne t'a-t-Il pas trouvé égaré? Alors Il t'a guidé. Ne t'a-t-Il pas trouvé pauvre? Alors Il t'a enrichi.",
+                reference: "Sourate Ad-Duha (93), versets 1-8"
+             }},
+            {num: 92, name: "Al-Layl", arabic: "الليل", 
+             info: {fr: "Contraste les chemins du bien et du mal.", 
+                    ar: "تقارن بين طريق الخير وطريق الشر."},
+             verse: {
+                arabic: "وَاللَّيْلِ إِذَا يَغْشَىٰ ﴿١﴾ وَالنَّهَارِ إِذَا تَجَلَّىٰ ﴿٢﴾ وَمَا خَلَقَ الذَّكَرَ وَالْأُنثَىٰ ﴿٣﴾ إِنَّ سَعْيَكُمْ لَشَتَّىٰ ﴿٤﴾ فَأَمَّا مَن أَعْطَىٰ وَاتَّقَىٰ ﴿٥﴾ وَصَدَّقَ بِالْحُسْنَىٰ ﴿٦﴾ فَسَنُيَسِّرُهُ لِلْيُسْرَىٰ ﴿٧﴾ وَأَمَّا مَن بَخِلَ وَاسْتَغْنَىٰ ﴿٨﴾ وَكَذَّبَ بِالْحُسْنَىٰ ﴿٩﴾ فَسَنُيَسِّرُهُ لِلْعُسْرَىٰ ﴿١٠﴾",
+                fr: "Par la nuit quand elle enveloppe! Par le jour quand il éclaire! Et par ce qu'Il a créé, mâle et femelle! Vos efforts sont divergents. Quant à celui qui donne, craint Allah, et croit en la plus belle récompense, Nous lui faciliterons la voie au plus grand bonheur. Et quant à celui qui est avare, se dispense (de l'adoration d'Allah), et traite de mensonge la plus belle récompense, Nous lui faciliterons la voie à la plus grande difficulté.",
+                reference: "Sourate Al-Layl (92), versets 1-10"
+             }},
+            {num: 91, name: "Ash-Shams", arabic: "الشمس", 
+             info: {fr: "Utilise des serments cosmiques pour enseigner la moralité.", 
+                    ar: "تستخدم القسم الكوني لتعليم الأخلاق."},
+             verse: {
+                arabic: "وَالشَّمْسِ وَضُحَاهَا ﴿١﴾ وَالْقَمَرِ إِذَا تَلَاهَا ﴿٢﴾ وَالنَّهَارِ إِذَا جَلَّاهَا ﴿٣﴾ وَاللَّيْلِ إِذَا يَغْشَاهَا ﴿٤﴾ وَالسَّمَاءِ وَمَا بَنَاهَا ﴿٥﴾ وَالْأَرْضِ وَمَا طَحَاهَا ﴿٦﴾ وَنَفْسٍ وَمَا سَوَّاهَا ﴿٧﴾ فَأَلْهَمَهَا فُجُورَهَا وَتَقْوَاهَا ﴿٨﴾ قَدْ أَفْلَحَ مَن زَكَّاهَا ﴿٩﴾ وَقَدْ خَابَ مَن دَسَّاهَا ﴿١٠﴾",
+                fr: "Par le soleil et sa clarté! Et par la lune quand elle le suit! Et par le jour quand il l'éclaire! Et par la nuit quand elle l'enveloppe! Et par le ciel et Celui qui l'a construit! Et par la terre et Celui qui l'a étendue! Et par l'âme et Celui qui l'a harmonieusement façonnée; et lui a alors inspiré son immoralité, de même que sa piété! A réussi, certes, celui qui la purifie. Et est perdu, certes, celui qui la corrompt.",
+                reference: "Sourate Ash-Shams (91), versets 1-10"
+             }},
+            {num: 90, name: "Al-Balad", arabic: "البلد", 
+             info: {fr: "Parle des difficultés de la vie et de la récompense des bonnes actions.", 
+                    ar: "تصف مشاق الحياة وجزاء العمل الصالح."},
+             verse: {
+                arabic: "لَا أُقْسِمُ بِهَٰذَا الْبَلَدِ ﴿١﴾ وَأَنتَ حِلٌّ بِهَٰذَا الْبَلَدِ ﴿٢﴾ وَوَالِدٍ وَمَا وَلَدَ ﴿٣﴾ لَقَدْ خَلَقْنَا الْإِنسَانَ فِي كَبَدٍ ﴿٤﴾ أَيَحْسَبُ أَن لَّن يَقْدِرَ عَلَيْهِ أَحَدٌ ﴿٥﴾ يَقُولُ أَهْلَكْتُ مَالًا لُّبَدًا ﴿٦﴾ أَيَحْسَبُ أَن لَّمْ يَرَهُ أَحَدٌ ﴿٧﴾ أَلَمْ نَجْعَل لَّهُ عَيْنَيْنِ ﴿٨﴾ وَلِسَانًا وَشَفَتَيْنِ ﴿٩﴾ وَهَدَيْنَاهُ النَّجْدَيْنِ ﴿١٠﴾",
+                fr: "Non! ... Je jure par cette Cité! Et toi, tu es un résident dans cette cité. Et par le géniteur et ce qu'il engendre! Nous avons certes créé l'homme pour une vie de lutte. Pense-t-il que personne ne pourra rien contre lui? Il dit: «J'ai gaspillé beaucoup de biens». Pense-t-il que nul ne l'a vu? Ne lui avons-Nous pas assigné deux yeux, et une langue et deux lèvres? Ne l'avons-Nous pas guidé aux deux voies [du bien et du mal]?",
+                reference: "Sourate Al-Balad (90), versets 1-10"
+             }},
+            {num: 89, name: "Al-Fajr", arabic: "الفجر", 
+             info: {fr: "Évoque le sort des peuples anciens et l'épreuve des biens.", 
+                    ar: "تذكر مصير الأمم السابقة وابتلاء المال."},
+             verse: {
+                arabic: "وَالْفَجْرِ ﴿١﴾ وَلَيَالٍ عَشْرٍ ﴿٢﴾ وَالشَّفْعِ وَالْوَتْرِ ﴿٣﴾ وَاللَّيْلِ إِذَا يَسْرِ ﴿٤﴾ هَلْ فِي ذَٰلِكَ قَسَمٌ لِّذِي حِجْرٍ ﴿٤﴾ أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِعَادٍ ﴿٥﴾ إِرَمَ ذَاتِ الْعِمَادِ ﴿٦﴾ الَّتِي لَمْ يُخْلَقْ مِثْلُهَا فِي الْبِلَادِ ﴿٧﴾ وَثَمُودَ الَّذِينَ جَابُوا الصَّخْرَ بِالْوَادِ ﴿٨﴾ وَفِرْعَوْنَ ذِي الْأَوْتَادِ ﴿٩﴾",
+                fr: "Par l'aube, et par les dix nuits, et par le pair et l'impair, et par la nuit quand elle s'écoule! N'y a-t-il pas là un serment, pour un doué d'intelligence? N'as-tu pas vu comment ton Seigneur a agi avec les 'Aad, avec Iram, la cité à la colonne remarquable, dont jamais pareille ne fut construite parmi les villes? Et avec les Thamûd qui taillaient le rocher dans la vallée? Ainsi qu'avec Pharaon, l'homme aux épieux?",
+                reference: "Sourate Al-Fajr (89), versets 1-9"
+             }},
+            {num: 88, name: "Al-Ghashiya", arabic: "الغاشية", 
+             info: {fr: "Décrit les deux groupes au Jour du Jugement.", 
+                    ar: "تصف الفريقين يوم القيامة."},
+             verse: {
+                arabic: "هَلْ أَتَاكَ حَدِيثُ الْغَاشِيَةِ ﴿١﴾ وُجُوهٌ يَوْمَئِذٍ خَاشِعَةٌ ﴿٢﴾ عَامِلَةٌ نَّاصِبَةٌ ﴿٣﴾ تَصْلَىٰ نَارًا حَامِيَةً ﴿٤﴾ تُسْقَىٰ مِنْ عَيْنٍ آنِيَةٍ ﴿٥﴾ لَّيْسَ لَهُمْ طَعَامٌ إِلَّا مِن ضَرِيعٍ ﴿٦﴾ لَّا يُسْمِنُ وَلَا يُغْنِي مِن جُوعٍ ﴿٧﴾ وُجُوهٌ يَوْمَئِذٍ نَّاعِمَةٌ ﴿٨﴾ لِّسَعْيِهَا رَاضِيَةٌ ﴿٩﴾ فِي جَنَّةٍ عَالِيَةٍ ﴿١٠﴾",
+                fr: "T'est-il parvenu le récit de l'Enveloppante? Ce jour-là, il y aura des visages humiliés, travaillant et épuisés. Ils brûleront dans un Feu très chaud. On leur fera boire d'une source bouillante. Ils n'auront d'autre nourriture que des plantes épineuses qui ne les nourrissent ni ne les rassasient. Ce jour-là, il y aura [aussi] des visages épanouis, satisfaits de leurs efforts, dans un Jardin haut placé.",
+                reference: "Sourate Al-Ghashiya (88), versets 1-10"
+             }},
+            {num: 87, name: "Al-A'la", arabic: "الأعلى", 
+             info: {fr: "Encourage à glorifier Allah et promet le succès aux croyants.", 
+                    ar: "تحث على تسبيح الله وتبشر المؤمنين بالفلاح."},
+             verse: {
+                arabic: "سَبِّحِ اسْمَ رَبِّكَ الْأَعْلَى ﴿١﴾ الَّذِي خَلَقَ فَسَوَّىٰ ﴿٢﴾ وَالَّذِي قَدَّرَ فَهَدَىٰ ﴿٣﴾ وَالَّذِي أَخْرَجَ الْمَرْعَىٰ ﴿٤﴾ فَجَعَلَهُ غُثَاءً أَحْوَىٰ ﴿٥﴾ سَنُقْرِئُكَ فَلَا تَنسَىٰ ﴿٦﴾ إِلَّا مَا شَاءَ اللَّهُ إِنَّهُ يَعْلَمُ الْجَهْرَ وَمَا يَخْفَىٰ ﴿٧﴾ وَنُيَسِّرُكَ لِلْيُسْرَىٰ ﴿٨﴾ فَذَكِّرْ إِن نَّفَعَتِ الذِّكْرَىٰ ﴿٩﴾",
+                fr: "Glorifie le nom de ton Seigneur, le Très Haut, qui a créé et agencé harmonieusement, qui a déterminé et guidé, et qui a fait pousser le pâturage, et en a fait ensuite un foin sombre. Nous te ferons réciter [le Coran], de sorte que tu n'oublieras que ce qu'Allah veut. Car, Il connaît ce qui paraît au grand jour ainsi que ce qui est caché. Nous te mettrons sur la voie la plus facile. Rappelle donc, si le rappel profite.",
+                reference: "Sourate Al-A'la (87), versets 1-9"
+             }},
+            {num: 86, name: "At-Tariq", arabic: "الطارق", 
+             info: {fr: "Parle de l'origine de l'homme et de la résurrection.", 
+                    ar: "تتحدث عن أصل الإنسان والبعث."},
+             verse: {
+                arabic: "وَالسَّمَاءِ وَالطَّارِقِ ﴿١﴾ وَمَا أَدْرَاكَ مَا الطَّارِقُ ﴿٢﴾ النَّجْمُ الثَّاقِبُ ﴿٣﴾ إِن كُلُّ نَفْسٍ لَّمَّا عَلَيْهَا حَافِظٌ ﴿٤﴾ فَلْيَنظُرِ الْإِنسَانُ مِمَّ خُلِقَ ﴿٥﴾ خُلِقَ مِن مَّاءٍ دَافِقٍ ﴿٦﴾ يَخْرُجُ مِن بَيْنِ الصُّلْبِ وَالتَّرَائِبِ ﴿٧﴾ إِنَّهُ عَلَىٰ رَجْعِهِ لَقَادِرٌ ﴿٨﴾ يَوْمَ تُبْلَى السَّرَائِرُ ﴿٩﴾ فَمَا لَهُ مِن قُوَّةٍ وَلَا نَاصِرٍ ﴿١٠﴾",
+                fr: "Par le ciel et par l'astre nocturne! Et qui te dira ce qu'est l'astre nocturne? C'est l'étoile vivement brillante. Il n'est pas d'âme qui n'ait sur elle un gardien. Que l'homme considère donc de quoi il a été créé. Il a été créé d'une giclée d'eau sortie d'entre les lombes et les côtes. Certes, [Allah] est capable de le ressusciter, le jour où les secrets seront dévoilés. Alors il n'aura ni force ni secoureur.",
+                reference: "Sourate At-Tariq (86), versets 1-10"
+             }},
+            {num: 85, name: "Al-Buruj", arabic: "البروج", 
+             info: {fr: "Mentionne les gens de la tranchée et la protection d'Allah.", 
+                    ar: "تذكر أصحاب الأخدود وحماية الله."},
+             verse: {
+                arabic: "وَالسَّمَاءِ ذَاتِ الْبُرُوجِ ﴿١﴾ وَالْيَوْمِ الْمَوْعُودِ ﴿٢﴾ وَشَاهِدٍ وَمَشْهُودٍ ﴿٣﴾ قُتِلَ أَصْحَابُ الْأُخْدُودِ ﴿٤﴾ النَّارِ ذَاتِ الْوَقُودِ ﴿٥﴾ إِذْ هُمْ عَلَيْهَا قُعُودٌ ﴿٦﴾ وَهُمْ عَلَىٰ مَا يَفْعَلُونَ بِالْمُؤْمِنِينَ شُهُودٌ ﴿٧﴾ وَمَا نَقَمُوا مِنْهُمْ إِلَّا أَن يُؤْمِنُوا بِاللَّهِ الْعَزِيزِ الْحَمِيدِ ﴿٨﴾ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ وَاللَّهُ عَلَىٰ كُلِّ شَيْءٍ شَهِيدٌ ﴿٩﴾",
+                fr: "Par le ciel aux constellations! Et par le jour promis! Et par un témoin et ce dont on témoigne! Que périssent les gens de la tranchée, du feu plein de combustible, alors qu'ils étaient assis tout autour, témoins de ce qu'ils faisaient subir aux croyants. Ils ne leur en voulaient que parce qu'ils croyaient en Allah, le Puissant, le Digne de louange, à qui appartient la royauté des cieux et de la terre. Et Allah est témoin de toute chose.",
+                reference: "Sourate Al-Buruj (85), versets 1-9"
+             }},
+            {num: 84, name: "Al-Inshiqaq", arabic: "الانشقاق", 
+             info: {fr: "Décrit le ciel se fendant et l'homme rendant compte.", 
+                    ar: "تصف انشقاق السماء وحساب الإنسان."},
+             verse: {
+                arabic: "إِذَا السَّمَاءُ انشَقَّتْ ﴿١﴾ وَأَذِنَتْ لِرَبِّهَا وَحُقَّتْ ﴿٢﴾ وَإِذَا الْأَرْضُ مُدَّتْ ﴿٣﴾ وَأَلْقَتْ مَا فِيهَا وَتَخَلَّتْ ﴿٤﴾ وَأَذِنَتْ لِرَبِّهَا وَحُقَّتْ ﴿٥﴾ يَا أَيُّهَا الْإِنسَانُ إِنَّكَ كَادِحٌ إِلَىٰ رَبِّكَ كَدْحًا فَمُلَاقِيهِ ﴿٦﴾ فَأَمَّا مَنْ أُوتِيَ كِتَابَهُ بِيَمِينِهِ ﴿٧﴾ فَسَوْفَ يُحَاسَبُ حِسَابًا يَسِيرًا ﴿٨﴾ وَيَنقَلِبُ إِلَىٰ أَهْلِهِ مَسْرُورًا ﴿٩﴾",
+                fr: "Quand le ciel se déchirera, et qu'il obéira à son Seigneur - et fera ce qu'il doit faire - et que la terre sera nivelée, et qu'elle rejettera ce qui est en son sein et se videra, et qu'elle obéira à son Seigneur - et fera ce qu'elle doit faire... Ô homme! Toi qui t'efforces vers ton Seigneur, tu Le rencontreras alors. Celui à qui on remettra son Livre en sa main droite, sera jugé par un jugement facile, et retournera réjoui auprès des siens.",
+                reference: "Sourate Al-Inshiqaq (84), versets 1-9"
+             }},
+            {num: 83, name: "Al-Mutaffifin", arabic: "المطففين", 
+             info: {fr: "Condamne ceux qui trichent dans les mesures.", 
+                    ar: "تندد بالذين يبخسون المكيال."},
+             verse: {
+                arabic: "وَيْلٌ لِّلْمُطَفِّفِينَ ﴿١﴾ الَّذِينَ إِذَا اكْتَالُوا عَلَى النَّاسِ يَسْتَوْفُونَ ﴿٢﴾ وَإِذَا كَالُوهُمْ أَو وَّزَنُوهُمْ يُخْسِرُونَ ﴿٣﴾ أَلَا يَظُنُّ أُولَٰئِكَ أَنَّهُم مَّبْعُوثُونَ ﴿٤﴾ لِيَوْمٍ عَظِيمٍ ﴿٥﴾ يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ ﴿٦﴾",
+                fr: "Malheur aux fraudeurs, qui, lorsqu'ils font mesurer pour eux-mêmes exigent la pleine mesure, et qui lorsqu'eux-mêmes mesurent ou pèsent pour les autres, [leur] causent perte. Ceux-là ne pensent-ils pas qu'ils seront ressuscités en un jour terrible, le jour où les gens se tiendront debout devant le Seigneur de l'univers?",
+                reference: "Sourate Al-Mutaffifin (83), versets 1-6"
+             }},
+            {num: 82, name: "Al-Infitar", arabic: "الانفطار", 
+             info: {fr: "Décrit le ciel se fendant et les anges enregistrant les actions.", 
+                    ar: "تصف انفطار السماء وكتابة الملائكة للأعمال."},
+             verse: {
+                arabic: "إِذَا السَّمَاءُ انفَطَرَتْ ﴿١﴾ وَإِذَا الْكَوَاكِبُ انتَثَرَتْ ﴿٢﴾ وَإِذَا الْبِحَارُ فُجِّرَتْ ﴿٣﴾ وَإِذَا الْقُبُورُ بُعْثِرَتْ ﴿٤﴾ عَلِمَتْ نَفْسٌ مَّا قَدَّمَتْ وَأَخَّرَتْ ﴿٥﴾ يَا أَيُّهَا الْإِنسَانُ مَا غَرَّكَ بِرَبِّكَ الْكَرِيمِ ﴿٦﴾ الَّذِي خَلَقَكَ فَسَوَّاكَ فَعَدَلَكَ ﴿٧﴾ فِي أَيِّ صُورَةٍ مَّا شَاءَ رَكَّبَكَ ﴿٨﴾",
+                fr: "Quand le ciel se déchirera, et que les étoiles se disperseront, et que les mers confondront leurs eaux, et que les tombes seront bouleversées, alors chaque âme saura ce qu'elle a avancé et ce qu'elle a remis de faire. Ô homme! Qu'est-ce qui t'a trompé au sujet de ton Seigneur, le Noble, qui t'a créé, puis modelé et constitué harmonieusement? Il t'a façonné dans la forme qu'Il a voulue.",
+                reference: "Sourate Al-Infitar (82), versets 1-8"
+             }},
+            {num: 81, name: "At-Takwir", arabic: "التكوير", 
+             info: {fr: "Décrit les bouleversements cosmiques du Jour dernier.", 
+                    ar: "تصف أحداث يوم القيامة الكونية."},
+             verse: {
+                arabic: "إِذَا الشَّمْسُ كُوِّرَتْ ﴿١﴾ وَإِذَا النُّجُومُ انكَدَرَتْ ﴿٢﴾ وَإِذَا الْجِبَالُ سُيِّرَتْ ﴿٣﴾ وَإِذَا الْعِشَارُ عُطِّلَتْ ﴿٤﴾ وَإِذَا الْوُحُوشُ حُشِرَتْ ﴿٥﴾ وَإِذَا الْبِحَارُ سُجِّرَتْ ﴿٦﴾ وَإِذَا النُّفُوسُ زُوِّجَتْ ﴿٧﴾ وَإِذَا الْمَوْءُودَةُ سُئِلَتْ ﴿٨﴾ بِأَيِّ ذَنبٍ قُتِلَتْ ﴿٩﴾",
+                fr: "Quand le soleil sera obscurci, et que les étoiles deviendront ternes, et que les montagnes seront mises en marche, et que les chamelles à terme seront délaissées, et que les bêtes sauvages seront rassemblées, et que les mers seront allumées, et que les âmes seront appariées, et qu'on demandera à la fillette enterrée vivante pour quel péché elle a été tuée.",
+                reference: "Sourate At-Takwir (81), versets 1-9"
+             }},
+            {num: 80, name: "Abasa", arabic: "عبس", 
+             info: {fr: "Rappelle au Prophète de ne pas négliger les pauvres au profit des riches.", 
+                    ar: "تذكر الرسول بعدم إهمال الفقراء لصالح الأغنياء."},
+             verse: {
+                arabic: "عَبَسَ وَتَوَلَّىٰ ﴿١﴾ أَن جَاءَهُ الْأَعْمَىٰ ﴿٢﴾ وَمَا يُدْرِيكَ لَعَلَّهُ يَزَّكَّىٰ ﴿٣﴾ أَوْ يَذَّكَّرُ فَتَنفَعَهُ الذِّكْرَىٰ ﴿٤﴾ أَمَّا مَنِ اسْتَغْنَىٰ ﴿٥﴾ فَأَنتَ لَهُ تَصَدَّىٰ ﴿٦﴾ وَمَا عَلَيْكَ أَلَّا يَزَّكَّىٰ ﴿٧﴾ وَأَمَّا مَن جَاءَكَ يَسْعَىٰ ﴿٨﴾ وَهُوَ يَخْشَىٰ ﴿٩﴾ فَأَنتَ عَنْهُ تَلَهَّىٰ ﴿١٠﴾",
+                fr: "Il s'est renfrogné et il s'est détourné parce que l'aveugle est venu à lui. Qui te dira? Peut-être cherche-t-il à se purifier, ou à recevoir un enseignement qui lui profiterait. Quant à celui qui se complait dans sa suffisance, tu vas vers lui avec empressement, alors qu'il ne t'incombe en rien qu'il ne se purifie pas. Et quant à celui qui vient à toi avec empressement tout en craignant, tu ne t'en soucies pas.",
+                reference: "Sourate Abasa (80), versets 1-10"
+             }},
+            {num: 79, name: "An-Nazi'at", arabic: "النازعات", 
+             info: {fr: "Parle des anges qui arrachent les âmes et de la résurrection.", 
+                    ar: "تتحدث عن الملائكة التي تنزع الأرواح والبعث."},
+             verse: {
+                arabic: "وَالنَّازِعَاتِ غَرْقًا ﴿١﴾ وَالنَّاشِطَاتِ نَشْطًا ﴿٢﴾ وَالسَّابِحَاتِ سَبْحًا ﴿٣﴾ فَالسَّابِقَاتِ سَبْقًا ﴿٤﴾ فَالْمُدَبِّرَاتِ أَمْرًا ﴿٥﴾ يَوْمَ تَرْجُفُ الرَّاجِفَةُ ﴿٦﴾ تَتْبَعُهَا الرَّادِفَةُ ﴿٧﴾ قُلُوبٌ يَوْمَئِذٍ وَاجِفَةٌ ﴿٨﴾ أَبْصَارُهَا خَاشِعَةٌ ﴿٩﴾",
+                fr: "Par ceux qui arrachent violemment! Et par ceux qui recueillent avec douceur! Et par ceux qui voguent librement! Puis par ceux qui devancent avec célérité! Puis par ceux qui règlent les commandes! Le jour où le premier souffle secouera violemment, suivi d'un second souffle, les cœurs ce jour-là seront palpitants, et les regards seront baissés.",
+                reference: "Sourate An-Nazi'at (79), versets 1-9"
+             }},
+            {num: 78, name: "An-Naba", arabic: "النبأ", 
+             info: {fr: "Commence par une question sur la grande nouvelle (la résurrection).", 
+                    ar: "تبدأ بسؤال عن النبأ العظيم (البعث)."},
+             verse: {
+                arabic: "عَمَّ يَتَسَاءَلُونَ ﴿١﴾ عَنِ النَّبَإِ الْعَظِيمِ ﴿٢﴾ الَّذِي هُمْ فِيهِ مُخْتَلِفُونَ ﴿٣﴾ كَلَّا سَيَعْلَمُونَ ﴿٤﴾ ثُمَّ كَلَّا سَيَعْلَمُونَ ﴿٥﴾ أَلَمْ نَجْعَلِ الْأَرْضَ مِهَادًا ﴿٦﴾ وَالْجِبَالَ أَوْتَادًا ﴿٧﴾ وَخَلَقْنَاكُمْ أَزْوَاجًا ﴿٨﴾ وَجَعَلْنَا نَوْمَكُمْ سُبَاتًا ﴿٩﴾",
+                fr: "Sur quoi s'interrogent-ils mutuellement? A propos de la grande nouvelle au sujet de laquelle ils divergent. Mais non! Ils sauront bientôt! Encore une fois, non! Ils sauront bientôt! N'avons-Nous pas fait de la terre une couche? et (placé) les montagnes comme des piquets? Et Nous vous avons créés en couples, et assigné votre sommeil pour votre repos,",
+                reference: "Sourate An-Naba (78), versets 1-9"
+             }}
         ];
 
         const hadiths = [
             {
                 arabic: "خيركم من تعلم القرآن وعلمه",
-                fr: "Le meilleur d'entre vous est celui qui apprend le Coran et l'enseigne."
+                fr: "Le meilleur d'entre vous est celui qui apprend le Coran et l'enseigne.",
+                source: "Rapporté par Al-Bukhari"
             },
             {
                 arabic: "اقرؤوا القرآن فإنه يأتي يوم القيامة شفيعاً لأصحابه",
-                fr: "Lisez le Coran car il viendra le Jour de la Résurrection comme intercesseur pour ceux qui le récitaient."
+                fr: "Lisez le Coran car il viendra le Jour de la Résurrection comme intercesseur pour ceux qui le récitaient.",
+                source: "Rapporté par Muslim"
             },
             {
                 arabic: "من قرأ حرفاً من كتاب الله فله به حسنة، والحسنة بعشر أمثالها",
-                fr: "Celui qui lit une lettre du Livre d'Allah aura une bonne action, et la bonne action est multipliée par dix."
+                fr: "Celui qui lit une lettre du Livre d'Allah aura une bonne action, et la bonne action est multipliée par dix.",
+                source: "Rapporté par At-Tirmidhi"
             },
             {
                 arabic: "إن لله أهلين من الناس: أهل القرآن هم أهل الله وخاصته",
-                fr: "Allah a des gens qu'Il a choisis parmi les hommes : les gens du Coran sont les gens d'Allah et Ses proches."
+                fr: "Allah a des gens qu'Il a choisis parmi les hommes : les gens du Coran sont les gens d'Allah et Ses proches.",
+                source: "Rapporté par Ibn Majah"
             },
             {
                 arabic: "ما اجتمع قوم في بيت من بيوت الله يتلون كتاب الله ويتدارسونه بينهم إلا نزلت عليهم السكينة وغشيتهم الرحمة وحفتهم الملائكة وذكرهم الله فيمن عنده",
-                fr: "Quand des gens se réunissent dans une mosquée pour réciter et étudier le Coran, la sérénité descend sur eux, la miséricorde les couvre, les anges les entourent et Allah les mentionne à ceux qui sont auprès de Lui."
+                fr: "Quand des gens se réunissent dans une mosquée pour réciter et étudier le Coran, la sérénité descend sur eux, la miséricorde les couvre, les anges les entourent et Allah les mentionne à ceux qui sont auprès de Lui.",
+                source: "Rapporté par Muslim"
+            }
+        ];
+
+        const verses = [
+            {
+                arabic: "اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ مَثَلُ نُورِهِ كَمِشْكَاةٍ فِيهَا مِصْبَاحٌ الْمِصْبَاحُ فِي زُجَاجَةٍ الزُّجَاجَةُ كَأَنَّهَا كَوْكَبٌ دُرِّيٌّ يُوقَدُ مِن شَجَرَةٍ مُّبَارَكَةٍ زَيْتُونَةٍ لَّا شَرْقِيَّةٍ وَلَا غَرْبِيَّةٍ يَكَادُ زَيْتُهَا يُضِيءُ وَلَوْ لَمْ تَمْسَسْهُ نَارٌ نُّورٌ عَلَىٰ نُورٍ يَهْدِي اللَّهُ لِنُورِهِ مَن يَشَاءُ وَيَضْرِبُ اللَّهُ الْأَمْثَالَ لِلنَّاسِ وَاللَّهُ بِكُلِّ شَيْءٍ عَلِيمٌ",
+                fr: "Allah est la Lumière des cieux et de la terre. Sa lumière est semblable à une niche où se trouve une lampe. La lampe est dans un (récipient de) cristal et celui-ci ressemble à un astre de grand éclat; son combustible vient d'un arbre béni: un olivier ni oriental ni occidental dont l'huile semble éclairer sans même que le feu la touche. Lumière sur lumière. Allah guide vers Sa lumière qui Il veut. Allah propose aux hommes des paraboles et Allah est Omniscient.",
+                reference: "Sourate An-Nur (24), verset 35"
+            },
+            {
+                arabic: "يَا أَيُّهَا الَّذِينَ آمَنُوا اصْبِرُوا وَصَابِرُوا وَرَابِطُوا وَاتَّقُوا اللَّهَ لَعَلَّكُمْ تُفْلِحُونَ",
+                fr: "Ô vous qui avez cru! Soyez endurants. Incitez-vous à l'endurance. Luttez constamment (contre l'ennemi) et craignez Allah, afin que vous réussissiez!",
+                reference: "Sourate Al-Imran (3), verset 200"
+            },
+            {
+                arabic: "وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ فَلْيَسْتَجِيبُوا لِي وَلْيُؤْمِنُوا بِي لَعَلَّهُمْ يَرْشُدُونَ",
+                fr: "Et quand Mes serviteurs t'interrogent sur Moi.. alors Je suis tout proche: Je réponds à l'appel de celui qui Me prie quand il Me prie. Qu'ils répondent à Mon appel, et qu'ils croient en Moi, afin qu'ils soient bien guidés.",
+                reference: "Sourate Al-Baqara (2), verset 186"
+            },
+            {
+                arabic: "وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ إِنَّ اللَّهَ بَالِغُ أَمْرِهِ قَدْ جَعَلَ اللَّهُ لِكُلِّ شَيْءٍ قَدْرًا",
+                fr: "Et quiconque craint Allah, Il lui donnera une issue, et lui accordera Ses dons par [des moyens] sur lesquels il ne comptait pas. Et quiconque place sa confiance en Allah, Il [Allah] lui suffit. Allah atteint ce qu'Il Se propose, et Allah a assigné une mesure à chaque chose.",
+                reference: "Sourate At-Talaq (65), versets 2-3"
+            },
+            {
+                arabic: "إِنَّمَا يُوَفَّى الصَّابِرُونَ أَجْرَهُم بِغَيْرِ حِسَابٍ",
+                fr: "Les endurants auront leur pleine récompense sans compter.",
+                reference: "Sourate Az-Zumar (39), verset 10"
             }
         ];
 
@@ -624,6 +1093,7 @@
         let totalQuestions = 0;
         let currentLanguage = 'fr';
         let darkMode = false;
+        let wisdomTimeout = null;
 
         // ==================== ÉLÉMENTS DU DOM ====================
         const elements = {
@@ -653,11 +1123,22 @@
             body: document.body,
             sourateInfo: document.getElementById('sourateInfo'),
             sourateDetails: document.getElementById('sourateDetails'),
+            verseBox: document.getElementById('verseBox'),
+            verseArabic: document.getElementById('verseArabic'),
+            verseTranslation: document.getElementById('verseTranslation'),
+            verseReference: document.getElementById('verseReference'),
             hadithBox: document.getElementById('hadithBox'),
             hadithArabic: document.getElementById('hadithArabic'),
             hadithTranslation: document.getElementById('hadithTranslation'),
+            hadithSource: document.getElementById('hadithSource'),
             infoTitle: document.getElementById('infoTitle'),
-            themeToggle: document.getElementById('themeToggle')
+            themeToggle: document.getElementById('themeToggle'),
+            wisdomIcon: document.getElementById('wisdomIcon'),
+            wisdomTooltip: document.getElementById('wisdomTooltip'),
+            wisdomContent: document.getElementById('wisdomContent'),
+            sourateHeader: document.getElementById('sourateHeader'),
+            sourateHeaderArabic: document.getElementById('sourateHeaderArabic'),
+            sourateHeaderLatin: document.getElementById('sourateHeaderLatin')
         };
 
         // ==================== INITIALISATION ====================
@@ -667,6 +1148,9 @@
             elements.progressContainer.style.display = 'none';
             elements.scoreDisplay.style.display = 'none';
             elements.restartBtn.style.display = 'none';
+            elements.verseBox.style.display = 'none';
+            elements.hadithBox.style.display = 'none';
+            elements.sourateHeader.style.display = 'none';
             
             // Ajouter les écouteurs d'événements
             elements.startBtn.addEventListener('click', startQuiz);
@@ -683,6 +1167,10 @@
             elements.nextInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') checkAnswers();
             });
+            
+            // Gestion de l'icône de sagesse
+            elements.wisdomIcon.addEventListener('mouseenter', showWisdom);
+            elements.wisdomIcon.addEventListener('mouseleave', hideWisdom);
             
             // Initialiser en français
             switchLanguage('fr');
@@ -732,7 +1220,9 @@
                 displayCurrentSourate();
                 updateResultsDisplay();
                 displaySourateInfo();
+                displayVerse();
                 displayRandomHadith();
+                updateSourateHeader();
             }
         }
 
@@ -782,6 +1272,7 @@
             elements.startBtn.style.display = 'none';
             elements.restartBtn.style.display = 'inline-block';
             elements.nextBtn.disabled = false;
+            elements.sourateHeader.style.display = 'block';
             
             // Afficher la première question
             showQuestion();
@@ -800,8 +1291,14 @@
             // Afficher les informations sur la sourate
             displaySourateInfo();
             
+            // Afficher un verset représentatif
+            displayVerse();
+            
             // Afficher un hadith aléatoire
             displayRandomHadith();
+            
+            // Mettre à jour la barre d'en-tête
+            updateSourateHeader();
             
             // Activer les champs de saisie
             elements.prevInput.disabled = false;
@@ -821,6 +1318,11 @@
             elements.sourateLatin.textContent = `${currentSourate.num}. ${currentSourate.name}`;
         }
 
+        function updateSourateHeader() {
+            elements.sourateHeaderArabic.textContent = currentSourate.arabic;
+            elements.sourateHeaderLatin.textContent = `${currentSourate.num}. ${currentSourate.name}`;
+        }
+
         function displaySourateInfo() {
             if (currentSourate.info) {
                 elements.sourateDetails.textContent = currentSourate.info[currentLanguage];
@@ -830,11 +1332,23 @@
             }
         }
 
+        function displayVerse() {
+            if (currentSourate.verse) {
+                elements.verseArabic.textContent = currentSourate.verse.arabic;
+                elements.verseTranslation.textContent = currentSourate.verse.fr;
+                elements.verseReference.textContent = currentSourate.verse.reference;
+                elements.verseBox.style.display = 'block';
+            } else {
+                elements.verseBox.style.display = 'none';
+            }
+        }
+
         function displayRandomHadith() {
             if (hadiths.length > 0) {
                 const randomHadith = hadiths[Math.floor(Math.random() * hadiths.length)];
                 elements.hadithArabic.textContent = randomHadith.arabic;
                 elements.hadithTranslation.textContent = randomHadith.fr;
+                elements.hadithSource.textContent = randomHadith.source;
                 elements.hadithBox.style.display = 'block';
             } else {
                 elements.hadithBox.style.display = 'none';
@@ -922,6 +1436,7 @@
             elements.startBtn.style.display = 'inline-block';
             elements.restartBtn.style.display = 'inline-block';
             elements.nextBtn.disabled = true;
+            elements.sourateHeader.style.display = 'none';
             
             // Afficher le score final
             elements.scoreDisplay.textContent = `${translations[currentLanguage].quizFinished} ${score}/${totalQuestions}`;
@@ -964,6 +1479,43 @@
                 : `${translations[currentLanguage].incorrect} ${translations[currentLanguage][position]} ${currentName} ${translations[currentLanguage].comes} ${adjacentName}`;
             
             resultElement.textContent = newText;
+        }
+
+        function showWisdom() {
+            clearTimeout(wisdomTimeout);
+            
+            // Alterner entre versets et hadiths
+            const isVerset = Math.random() > 0.5;
+            let content;
+            
+            if (isVerset && verses.length > 0) {
+                const verse = verses[Math.floor(Math.random() * verses.length)];
+                content = `
+                    <div class="verse-arabic">${verse.arabic}</div>
+                    <div class="verse-translation">${verse.fr}</div>
+                    <div class="verse-reference">${verse.reference}</div>
+                `;
+            } else if (hadiths.length > 0) {
+                const hadith = hadiths[Math.floor(Math.random() * hadiths.length)];
+                content = `
+                    <div class="hadith-arabic">${hadith.arabic}</div>
+                    <div>${hadith.fr}</div>
+                    <div class="hadith-source">${hadith.source}</div>
+                `;
+            }
+            
+            elements.wisdomContent.innerHTML = content;
+            elements.wisdomTooltip.style.display = 'block';
+            
+            // Changer le contenu périodiquement si l'utilisateur garde la souris dessus
+            wisdomTimeout = setTimeout(() => {
+                showWisdom();
+            }, 5000);
+        }
+
+        function hideWisdom() {
+            clearTimeout(wisdomTimeout);
+            elements.wisdomTooltip.style.display = 'none';
         }
 
         // Démarrer l'application
