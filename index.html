@@ -16,11 +16,6 @@
             --arabic-font: 'Traditional Arabic', 'Arial', sans-serif;
         }
 
-        [lang="ar"] {
-            font-family: var(--arabic-font);
-            direction: rtl;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 800px;
@@ -88,6 +83,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             margin-bottom: 1.5rem;
+            display: none;
         }
 
         .sourate-display {
@@ -190,6 +186,7 @@
             background-color: #e0f2fe;
             border-radius: 8px;
             color: var(--primary);
+            display: none;
         }
 
         .controls {
@@ -214,6 +211,7 @@
             border-radius: 4px;
             margin-bottom: 1.5rem;
             overflow: hidden;
+            display: none;
         }
 
         .progress-bar {
@@ -222,10 +220,6 @@
             border-radius: 4px;
             width: 0%;
             transition: width 0.4s ease;
-        }
-
-        .hidden {
-            display: none;
         }
 
         @media (max-width: 640px) {
@@ -281,7 +275,7 @@
         <p id="instruction-text">Vous pouvez répondre en français ou en arabe. Cliquez sur "Commencer" pour démarrer.</p>
     </div>
     
-    <div class="progress-container hidden" id="progressContainer">
+    <div class="progress-container" id="progressContainer">
         <div class="progress-bar" id="progressBar"></div>
     </div>
     
@@ -290,7 +284,7 @@
         <button id="nextBtn" disabled>Suivant</button>
     </div>
     
-    <div id="quizContainer" class="quiz-container hidden">
+    <div id="quizContainer" class="quiz-container">
         <div id="sourateDisplay" class="sourate-display">
             <div class="sourate-arabic" id="sourateArabic"></div>
             <div class="sourate-latin" id="sourateLatin"></div>
@@ -309,7 +303,7 @@
         </div>
     </div>
     
-    <div id="scoreDisplay" class="score hidden"></div>
+    <div id="scoreDisplay" class="score"></div>
 
     <script>
         // ==================== CONFIGURATION ====================
@@ -429,32 +423,46 @@
             body: document.body
         };
 
-        // ==================== ÉCOUTEURS D'ÉVÉNEMENTS ====================
-        elements.startBtn.addEventListener('click', startQuiz);
-        elements.nextBtn.addEventListener('click', nextQuestion);
-        elements.frBtn.addEventListener('click', () => switchLanguage('fr'));
-        elements.arBtn.addEventListener('click', () => switchLanguage('ar'));
-
-        elements.prevInput.addEventListener('keypress', (e) => e.key === 'Enter' && checkAnswers());
-        elements.nextInput.addEventListener('keypress', (e) => e.key === 'Enter' && checkAnswers());
+        // ==================== INITIALISATION ====================
+        function init() {
+            // Masquer les éléments du quiz au démarrage
+            elements.quizContainer.style.display = 'none';
+            elements.progressContainer.style.display = 'none';
+            elements.scoreDisplay.style.display = 'none';
+            
+            // Ajouter les écouteurs d'événements
+            elements.startBtn.addEventListener('click', startQuiz);
+            elements.nextBtn.addEventListener('click', nextQuestion);
+            elements.frBtn.addEventListener('click', () => switchLanguage('fr'));
+            elements.arBtn.addEventListener('click', () => switchLanguage('ar'));
+            
+            elements.prevInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkAnswers();
+            });
+            
+            elements.nextInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkAnswers();
+            });
+            
+            // Initialiser en français
+            switchLanguage('fr');
+        }
 
         // ==================== FONCTIONS PRINCIPALES ====================
-
         function switchLanguage(lang) {
             currentLanguage = lang;
             
-            // Mettre à jour les textes de l'interface
-            Object.keys(translations[lang]).forEach(key => {
-                const element = elements[key];
-                if (element) {
-                    if (key === 'instruction1' || key === 'instruction2' || 
-                        key === 'prevLabel' || key === 'nextLabel') {
-                        element.innerHTML = translations[lang][key];
-                    } else {
-                        element.textContent = translations[lang][key];
-                    }
-                }
-            });
+            // Mettre à jour tous les textes
+            updateElementText('title', translations[lang].title);
+            updateElementText('subtitle', translations[lang].subtitle);
+            updateElementText('instructionsTitle', translations[lang].instructionsTitle);
+            updateElementHTML('instruction1', translations[lang].instruction1);
+            updateElementHTML('instruction2', translations[lang].instruction2);
+            updateElementText('instructionText', translations[lang].instructionText);
+            updateElementHTML('prevLabel', translations[lang].prevLabel);
+            updateElementHTML('nextLabel', translations[lang].nextLabel);
+            updateElementText('startBtn', translations[lang].startBtn);
+            updateElementText('nextBtn', translations[lang].nextBtn);
             
             // Mettre à jour les placeholders
             elements.prevInput.placeholder = translations[lang].placeholder;
@@ -474,10 +482,18 @@
             // Mettre à jour l'affichage de la sourate courante si le quiz est en cours
             if (currentSourate) {
                 displayCurrentSourate();
+                updateResultsDisplay();
             }
-            
-            // Mettre à jour les résultats affichés
-            updateResultsDisplay();
+        }
+
+        function updateElementText(id, text) {
+            const element = elements[id];
+            if (element) element.textContent = text;
+        }
+
+        function updateElementHTML(id, html) {
+            const element = elements[id];
+            if (element) element.innerHTML = html;
         }
 
         function startQuiz() {
@@ -488,9 +504,9 @@
             totalQuestions = 0;
             
             // Afficher les éléments du quiz
-            elements.quizContainer.classList.remove('hidden');
-            elements.progressContainer.classList.remove('hidden');
-            elements.scoreDisplay.classList.add('hidden');
+            elements.quizContainer.style.display = 'block';
+            elements.progressContainer.style.display = 'block';
+            elements.scoreDisplay.style.display = 'none';
             elements.startBtn.disabled = true;
             elements.nextBtn.disabled = false;
             
@@ -499,7 +515,7 @@
         }
 
         function showQuestion() {
-            // Réinitialiser l'interface pour la nouvelle question
+            // Réinitialiser l'interface
             resetQuestionUI();
             
             // Obtenir la sourate courante
@@ -526,6 +542,15 @@
             elements.sourateLatin.textContent = `${currentSourate.num}. ${currentSourate.name}`;
         }
 
+        function resetQuestionUI() {
+            elements.prevInput.value = '';
+            elements.nextInput.value = '';
+            elements.prevResult.textContent = '';
+            elements.prevResult.className = 'result';
+            elements.nextResult.textContent = '';
+            elements.nextResult.className = 'result';
+        }
+
         function checkAnswers() {
             // Trouver les sourates adjacentes
             const prevSourate = sourates.find(s => s.num === currentSourate.num + 1);
@@ -547,9 +572,8 @@
             const userAnswer = inputElement.value.trim();
             
             if (!correctSourate) {
-                const text = position === 'after' 
-                    ? `${currentSourate.arabic} ${translations[currentLanguage].lastSourate}`
-                    : `${currentSourate.arabic} ${translations[currentLanguage].firstSourate}`;
+                const textKey = position === 'after' ? 'lastSourate' : 'firstSourate';
+                const text = `${currentLanguage === 'ar' ? currentSourate.arabic : currentSourate.name} ${translations[currentLanguage][textKey]}`;
                 resultElement.textContent = text;
                 return;
             }
@@ -573,10 +597,8 @@
             // Mettre à jour le score
             if (isCorrect) {
                 score++;
-                totalQuestions++;
-            } else {
-                totalQuestions++;
             }
+            totalQuestions++;
         }
 
         function nextQuestion() {
@@ -597,28 +619,18 @@
         }
 
         function endQuiz() {
-            elements.quizContainer.classList.add('hidden');
+            elements.quizContainer.style.display = 'none';
             elements.startBtn.disabled = false;
             elements.nextBtn.disabled = true;
             
             // Afficher le score final
             elements.scoreDisplay.textContent = `${translations[currentLanguage].quizFinished} ${score}/${totalQuestions}`;
-            elements.scoreDisplay.classList.remove('hidden');
-        }
-
-        // ==================== FONCTIONS UTILITAIRES ====================
-        function resetQuestionUI() {
-            elements.prevInput.value = '';
-            elements.nextInput.value = '';
-            elements.prevResult.textContent = '';
-            elements.prevResult.className = 'result';
-            elements.nextResult.textContent = '';
-            elements.nextResult.className = 'result';
+            elements.scoreDisplay.style.display = 'block';
         }
 
         function updateScore() {
             elements.scoreDisplay.textContent = `${translations[currentLanguage].score} ${score}/${totalQuestions}`;
-            elements.scoreDisplay.classList.remove('hidden');
+            elements.scoreDisplay.style.display = 'block';
         }
 
         function updateProgressBar() {
@@ -628,7 +640,7 @@
 
         function updateResultsDisplay() {
             // Mettre à jour les textes des résultats si des réponses sont affichées
-            if (elements.prevResult.textContent.includes(translations['fr'].correct) {
+            if (elements.prevResult.textContent.includes(translations['fr'].correct)) {
                 updateResultText(elements.prevResult);
             }
             
@@ -654,8 +666,8 @@
             resultElement.textContent = newText;
         }
 
-        // Initialiser l'interface en français
-        switchLanguage('fr');
+        // Démarrer l'application
+        init();
     </script>
 </body>
 </html>
