@@ -14,6 +14,12 @@
             --card: #ffffff;
             --text: #1e293b;
             --arabic-font: 'Traditional Arabic', 'Arial', sans-serif;
+            
+            /* Mode sombre */
+            --dark-bg: #1e293b;
+            --dark-card: #334155;
+            --dark-text: #f8fafc;
+            --dark-primary: #60a5fa;
         }
 
         body {
@@ -24,6 +30,48 @@
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .dark-mode .quiz-container,
+        .dark-mode .instructions,
+        .dark-mode .score {
+            background-color: var(--dark-card);
+        }
+
+        .dark-mode .sourate-display {
+            background-color: #475569;
+        }
+
+        .dark-mode input[type="text"] {
+            background-color: #1e293b;
+            color: white;
+            border-color: #475569;
+        }
+
+        .dark-mode button:not(.lang-btn) {
+            background-color: var(--dark-primary);
+        }
+
+        .dark-mode button:not(.lang-btn):hover {
+            background-color: #3b82f6;
+        }
+
+        .dark-mode .language-switcher {
+            background-color: #475569;
+        }
+
+        .dark-mode .lang-btn:not(.active) {
+            color: var(--dark-text);
+        }
+
+        .dark-mode .progress-container {
+            background-color: #475569;
         }
 
         .rtl {
@@ -46,11 +94,19 @@
             font-size: 1.8rem;
         }
 
+        .dark-mode h1 {
+            color: var(--dark-primary);
+        }
+
         h2 {
             color: var(--text);
             margin: 0.5rem 0 1.5rem;
             font-size: 1.3rem;
             font-weight: 500;
+        }
+
+        .dark-mode h2 {
+            color: var(--dark-text);
         }
 
         .language-switcher {
@@ -77,6 +133,10 @@
             color: white;
         }
 
+        .dark-mode .lang-btn.active {
+            background: var(--dark-primary);
+        }
+
         .quiz-container {
             background-color: var(--card);
             padding: 1.5rem;
@@ -97,6 +157,10 @@
             color: var(--primary);
         }
 
+        .dark-mode .sourate-display {
+            color: var(--dark-primary);
+        }
+
         .sourate-arabic {
             font-family: var(--arabic-font);
             font-size: 2rem;
@@ -109,6 +173,10 @@
             color: #64748b;
         }
 
+        .dark-mode .sourate-latin {
+            color: #94a3b8;
+        }
+
         .question {
             margin-bottom: 1.2rem;
         }
@@ -118,6 +186,10 @@
             margin-bottom: 0.5rem;
             font-weight: 600;
             color: var(--text);
+        }
+
+        .dark-mode label {
+            color: var(--dark-text);
         }
 
         input[type="text"] {
@@ -135,6 +207,11 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .dark-mode input[type="text"]:focus {
+            border-color: var(--dark-primary);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3);
         }
 
         button {
@@ -158,6 +235,10 @@
             cursor: not-allowed;
         }
 
+        .dark-mode button:disabled {
+            background-color: #64748b;
+        }
+
         .result {
             margin-top: 0.8rem;
             padding: 0.8rem;
@@ -171,10 +252,20 @@
             border-left: 4px solid var(--correct);
         }
 
+        .dark-mode .correct {
+            background-color: #166534;
+            color: #86efac;
+        }
+
         .incorrect {
             background-color: #fee2e2;
             color: var(--incorrect);
             border-left: 4px solid var(--incorrect);
+        }
+
+        .dark-mode .incorrect {
+            background-color: #7f1d1d;
+            color: #fca5a5;
         }
 
         .score {
@@ -187,6 +278,11 @@
             border-radius: 8px;
             color: var(--primary);
             display: none;
+        }
+
+        .dark-mode .score {
+            background-color: #1e40af;
+            color: var(--dark-text);
         }
 
         .controls {
@@ -204,6 +300,10 @@
             margin-bottom: 1.5rem;
         }
 
+        .dark-mode .instructions {
+            background-color: #1e40af;
+        }
+
         .progress-container {
             width: 100%;
             height: 8px;
@@ -214,12 +314,86 @@
             display: none;
         }
 
+        .dark-mode .progress-container {
+            background-color: #475569;
+        }
+
         .progress-bar {
             height: 100%;
             background-color: var(--primary);
             border-radius: 4px;
             width: 0%;
             transition: width 0.4s ease;
+        }
+
+        .dark-mode .progress-bar {
+            background-color: var(--dark-primary);
+        }
+
+        .sourate-info {
+            background-color: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .dark-mode .sourate-info {
+            background-color: #475569;
+        }
+
+        .sourate-info-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .dark-mode .sourate-info-title {
+            color: var(--dark-primary);
+        }
+
+        .hadith-box {
+            background-color: #ecfdf5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--correct);
+            font-style: italic;
+        }
+
+        .dark-mode .hadith-box {
+            background-color: #064e3b;
+            border-left-color: #34d399;
+        }
+
+        .hadith-arabic {
+            font-family: var(--arabic-font);
+            font-size: 1.2rem;
+            text-align: right;
+            margin-bottom: 0.5rem;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .dark-mode .theme-toggle {
+            background: var(--dark-primary);
         }
 
         @media (max-width: 640px) {
@@ -255,10 +429,12 @@
     </style>
 </head>
 <body>
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+    
     <div class="header">
         <div>
             <h1 id="title">Quiz des Sourates du Coran</h1>
-            <h2 id="subtitle">De An-Nas (114) à Al-Inshiqaq (84)</h2>
+            <h2 id="subtitle">De An-Naba (78) à An-Nas (114)</h2>
         </div>
         <div class="language-switcher">
             <button class="lang-btn active" id="frBtn">Français</button>
@@ -281,6 +457,7 @@
     
     <div class="controls">
         <button id="startBtn">Commencer</button>
+        <button id="restartBtn" style="display: none;">Recommencer</button>
         <button id="nextBtn" disabled>Suivant</button>
     </div>
     
@@ -288,6 +465,16 @@
         <div id="sourateDisplay" class="sourate-display">
             <div class="sourate-arabic" id="sourateArabic"></div>
             <div class="sourate-latin" id="sourateLatin"></div>
+        </div>
+        
+        <div id="sourateInfo" class="sourate-info">
+            <div class="sourate-info-title" id="infoTitle">Informations sur la sourate</div>
+            <div id="sourateDetails"></div>
+        </div>
+        
+        <div id="hadithBox" class="hadith-box">
+            <div class="hadith-arabic" id="hadithArabic"></div>
+            <div id="hadithTranslation"></div>
         </div>
         
         <div class="question">
@@ -310,7 +497,7 @@
         const translations = {
             fr: {
                 title: "Quiz des Sourates du Coran",
-                subtitle: "De An-Nas (114) à Al-Inshiqaq (84)",
+                subtitle: "De An-Naba (78) à An-Nas (114)",
                 instructionsTitle: "Instructions :",
                 instruction1: "Pour chaque sourate affichée, indiquez quelle sourate vient <strong>après</strong> (numéro inférieur)",
                 instruction2: "Et quelle sourate vient <strong>avant</strong> (numéro supérieur)",
@@ -318,6 +505,7 @@
                 prevLabel: "Sourate qui vient <strong>après</strong> :",
                 nextLabel: "Sourate qui vient <strong>avant</strong> :",
                 startBtn: "Commencer",
+                restartBtn: "Recommencer",
                 nextBtn: "Suivant",
                 correct: "✅ Correct !",
                 incorrect: "❌ Incorrect.",
@@ -325,14 +513,19 @@
                 before: "Avant",
                 comes: "vient",
                 lastSourate: "est la dernière sourate (An-Nas).",
-                firstSourate: "est la première sourate (Al-Inshiqaq).",
+                firstSourate: "est la première sourate (An-Naba).",
                 score: "Score :",
                 quizFinished: "Quiz terminé ! Score final :",
-                placeholder: "Nom de la sourate..."
+                placeholder: "Nom de la sourate...",
+                infoTitle: "Informations sur la sourate",
+                themeToggle: {
+                    light: "🌙",
+                    dark: "☀️"
+                }
             },
             ar: {
                 title: "اختبار ترتيب سور القرآن",
-                subtitle: "من سورة الناس (١١٤) إلى الانشقاق (٨٤)",
+                subtitle: "من سورة النبأ (٧٨) إلى الناس (١١٤)",
                 instructionsTitle: "التعليمات:",
                 instruction1: "لكل سورة معروضة، حدد السورة التي تأتي <strong>بعدها</strong> (رقم أقل)",
                 instruction2: "والسورة التي تأتي <strong>قبلها</strong> (رقم أعلى)",
@@ -340,6 +533,7 @@
                 prevLabel: "السورة التي تأتي <strong>بعد</strong> :",
                 nextLabel: "السورة التي تأتي <strong>قبل</strong> :",
                 startBtn: "ابدأ",
+                restartBtn: "إعادة البدء",
                 nextBtn: "التالي",
                 correct: "✅ صحيح!",
                 incorrect: "❌ خطأ!",
@@ -347,45 +541,79 @@
                 before: "قبل",
                 comes: "تأتي",
                 lastSourate: "هي آخر سورة (الناس).",
-                firstSourate: "هي أول سورة (الانشقاق).",
+                firstSourate: "هي أول سورة (النبأ).",
                 score: "النتيجة :",
                 quizFinished: "انتهى الاختبار! النتيجة النهائية :",
-                placeholder: "اسم السورة..."
+                placeholder: "اسم السورة...",
+                infoTitle: "معلومات عن السورة",
+                themeToggle: {
+                    light: "🌙",
+                    dark: "☀️"
+                }
             }
         };
 
         const sourates = [
-            {num: 114, name: "An-Nas", arabic: "الناس"},
-            {num: 113, name: "Al-Falaq", arabic: "الفلق"},
-            {num: 112, name: "Al-Ikhlas", arabic: "الإخلاص"},
-            {num: 111, name: "Al-Masad", arabic: "المسد"},
-            {num: 110, name: "An-Nasr", arabic: "النصر"},
-            {num: 109, name: "Al-Kafirun", arabic: "الكافرون"},
-            {num: 108, name: "Al-Kawthar", arabic: "الكوثر"},
-            {num: 107, name: "Al-Ma'un", arabic: "الماعون"},
-            {num: 106, name: "Quraish", arabic: "قريش"},
-            {num: 105, name: "Al-Fil", arabic: "الفيل"},
-            {num: 104, name: "Al-Humaza", arabic: "الهمزة"},
-            {num: 103, name: "Al-Asr", arabic: "العصر"},
-            {num: 102, name: "At-Takathur", arabic: "التكاثر"},
-            {num: 101, name: "Al-Qari'a", arabic: "القارعة"},
-            {num: 100, name: "Al-Adiyat", arabic: "العاديات"},
-            {num: 99, name: "Az-Zalzala", arabic: "الزلزلة"},
-            {num: 98, name: "Al-Bayyina", arabic: "البينة"},
-            {num: 97, name: "Al-Qadr", arabic: "القدر"},
-            {num: 96, name: "Al-Alaq", arabic: "العلق"},
-            {num: 95, name: "At-Tin", arabic: "التين"},
-            {num: 94, name: "Ash-Sharh", arabic: "الشرح"},
-            {num: 93, name: "Ad-Duha", arabic: "الضحى"},
-            {num: 92, name: "Al-Layl", arabic: "الليل"},
-            {num: 91, name: "Ash-Shams", arabic: "الشمس"},
-            {num: 90, name: "Al-Balad", arabic: "البلد"},
-            {num: 89, name: "Al-Fajr", arabic: "الفجر"},
-            {num: 88, name: "Al-Ghashiya", arabic: "الغاشية"},
-            {num: 87, name: "Al-A'la", arabic: "الأعلى"},
-            {num: 86, name: "At-Tariq", arabic: "الطارق"},
-            {num: 85, name: "Al-Buruj", arabic: "البروج"},
-            {num: 84, name: "Al-Inshiqaq", arabic: "الانشقاق"}
+            {num: 114, name: "An-Nas", arabic: "الناس", info: {fr: "Dernière sourate du Coran. Elle traite de la recherche de protection auprès d'Allah contre les mauvaises suggestions.", ar: "آخر سورة في القرآن. تتحدث عن الاستعاذة بالله من وساوس الشيطان."}},
+            {num: 113, name: "Al-Falaq", arabic: "الفلق", info: {fr: "Sourate de protection contre le mal sous toutes ses formes.", ar: "سورة للاستعاذة بالله من الشرور بكل أشكالها."}},
+            {num: 112, name: "Al-Ikhlas", arabic: "الإخلاص", info: {fr: "Elle résume le concept de Tawhid (l'unicité d'Allah). Équivalente au tiers du Coran.", ar: "تختصر مفهوم التوحيد. تعدل ثلث القرآن."}},
+            {num: 111, name: "Al-Masad", arabic: "المسد", info: {fr: "Traite du châtiment d'Abu Lahab et de sa femme pour leur opposition au Prophète.", ar: "تتحدث عن عذاب أبي لهب وزوجته لمعارضتهما الرسول."}},
+            {num: 110, name: "An-Nasr", arabic: "النصر", info: {fr: "Annonce la victoire de l'Islam et la conquête de La Mecque.", ar: "تبشر بنصر الإسلام وفتح مكة."}},
+            {num: 109, name: "Al-Kafirun", arabic: "الكافرون", info: {fr: "Établit une séparation claire entre la foi et la mécréance.", ar: "تفصل بين الإيمان والكفر."}},
+            {num: 108, name: "Al-Kawthar", arabic: "الكوثر", info: {fr: "La plus courte sourate. Promet l'abondance au Prophète.", ar: "أقصر سورة. تبشر الرسول بالخير الوفير."}},
+            {num: 107, name: "Al-Ma'un", arabic: "الماعون", info: {fr: "Décrit les caractéristiques de ceux qui renient la religion.", ar: "تصف صفات الذين يكذبون بالدين."}},
+            {num: 106, name: "Quraish", arabic: "قريش", info: {fr: "Rappelle les bienfaits d'Allah sur la tribu de Quraych.", ar: "تذكر بنعم الله على قبيلة قريش."}},
+            {num: 105, name: "Al-Fil", arabic: "الفيل", info: {fr: "Raconte l'histoire de l'armée de l'éléphant qui voulait détruire la Kaaba.", ar: "تحكي قصة أصحاب الفيل الذين أرادوا هدم الكعبة."}},
+            {num: 104, name: "Al-Humaza", arabic: "الهمزة", info: {fr: "Avertit contre les méfaits de la calomnie et de la moquerie.", ar: "تحذر من آفات الاغتياب والسخرية."}},
+            {num: 103, name: "Al-Asr", arabic: "العصر", info: {fr: "Une des sourates les plus courtes. Insiste sur la foi et les bonnes actions.", ar: "من أقصر السور. تؤكد على الإيمان والعمل الصالح."}},
+            {num: 102, name: "At-Takathur", arabic: "التكاثر", info: {fr: "Met en garde contre l'obsession des biens matériels.", ar: "تحذر من الانشغال بالتنافس في الدنيا."}},
+            {num: 101, name: "Al-Qari'a", arabic: "القارعة", info: {fr: "Décrit les événements terrifiants du Jour du Jugement.", ar: "تصف أحداث يوم القيامة المخيفة."}},
+            {num: 100, name: "Al-Adiyat", arabic: "العاديات", info: {fr: "Évoque les chevaux de guerre et l'ingratitude de l'homme.", ar: "تتحدث عن خيل الجهاد وجحود الإنسان."}},
+            {num: 99, name: "Az-Zalzala", arabic: "الزلزلة", info: {fr: "Décrit le tremblement de terre du Jour du Jugement.", ar: "تصف زلزلة يوم القيامة."}},
+            {num: 98, name: "Al-Bayyina", arabic: "البينة", info: {fr: "Parle de la mission du Prophète et du Livre clair.", ar: "تتحدث عن رسالة الرسول والكتاب المبين."}},
+            {num: 97, name: "Al-Qadr", arabic: "القدر", info: {fr: "Décrit la nuit du Destin (Laylat al-Qadr), meilleure que mille mois.", ar: "تتحدث عن ليلة القدر التي هي خير من ألف شهر."}},
+            {num: 96, name: "Al-Alaq", arabic: "العلق", info: {fr: "Première sourate révélée au Prophète. Commande la lecture au nom d'Allah.", ar: "أول سورة نزلت على الرسول. تأمر بالقراءة باسم الله."}},
+            {num: 95, name: "At-Tin", arabic: "التين", info: {fr: "Parle de la création de l'homme dans la meilleure forme.", ar: "تتحدث عن خلق الإنسان في أحسن تقويم."}},
+            {num: 94, name: "Ash-Sharh", arabic: "الشرح", info: {fr: "Console le Prophète et promet la facilité après la difficulté.", ar: "تسلي للرسول وتبشر باليسر بعد العسر."}},
+            {num: 93, name: "Ad-Duha", arabic: "الضحى", info: {fr: "Console le Prophète après une période sans révélation.", ar: "تسلي للرسول بعد انقطاع الوحي."}},
+            {num: 92, name: "Al-Layl", arabic: "الليل", info: {fr: "Contraste les chemins du bien et du mal.", ar: "تقارن بين طريق الخير وطريق الشر."}},
+            {num: 91, name: "Ash-Shams", arabic: "الشمس", info: {fr: "Utilise des serments cosmiques pour enseigner la moralité.", ar: "تستخدم القسم الكوني لتعليم الأخلاق."}},
+            {num: 90, name: "Al-Balad", arabic: "البلد", info: {fr: "Parle des difficultés de la vie et de la récompense des bonnes actions.", ar: "تتحدث عن مشاق الحياة وجزاء العمل الصالح."}},
+            {num: 89, name: "Al-Fajr", arabic: "الفجر", info: {fr: "Évoque le sort des peuples anciens et l'épreuve des biens.", ar: "تذكر مصير الأمم السابقة وابتلاء المال."}},
+            {num: 88, name: "Al-Ghashiya", arabic: "الغاشية", info: {fr: "Décrit les deux groupes au Jour du Jugement.", ar: "تصف الفريقين يوم القيامة."}},
+            {num: 87, name: "Al-A'la", arabic: "الأعلى", info: {fr: "Encourage à glorifier Allah et promet le succès aux croyants.", ar: "تحث على تسبيح الله وتبشر المؤمنين بالفلاح."}},
+            {num: 86, name: "At-Tariq", arabic: "الطارق", info: {fr: "Parle de l'origine de l'homme et de la résurrection.", ar: "تتحدث عن أصل الإنسان والبعث."}},
+            {num: 85, name: "Al-Buruj", arabic: "البروج", info: {fr: "Mentionne les gens de la tranchée et la protection d'Allah.", ar: "تذكر أصحاب الأخدود وحماية الله."}},
+            {num: 84, name: "Al-Inshiqaq", arabic: "الانشقاق", info: {fr: "Décrit le ciel se fendant et l'homme rendant compte.", ar: "تصف انشقاق السماء وحساب الإنسان."}},
+            {num: 83, name: "Al-Mutaffifin", arabic: "المطففين", info: {fr: "Condamne ceux qui trichent dans les mesures.", ar: "تندد بالذين يبخسون المكيال."}},
+            {num: 82, name: "Al-Infitar", arabic: "الانفطار", info: {fr: "Décrit le ciel se fendant et les anges enregistrant les actions.", ar: "تصف انفطار السماء وكتابة الملائكة للأعمال."}},
+            {num: 81, name: "At-Takwir", arabic: "التكوير", info: {fr: "Décrit les bouleversements cosmiques du Jour dernier.", ar: "تصف أحداث يوم القيامة الكونية."}},
+            {num: 80, name: "Abasa", arabic: "عبس", info: {fr: "Rappelle au Prophète de ne pas négliger les pauvres au profit des riches.", ar: "تذكر الرسول بعدم إهمال الفقراء لصالح الأغنياء."}},
+            {num: 79, name: "An-Nazi'at", arabic: "النازعات", info: {fr: "Parle des anges qui arrachent les âmes et de la résurrection.", ar: "تتحدث عن الملائكة التي تنزع الأرواح والبعث."}},
+            {num: 78, name: "An-Naba", arabic: "النبأ", info: {fr: "Commence par une question sur la grande nouvelle (la résurrection).", ar: "تبدأ بسؤال عن النبأ العظيم (البعث)."}}
+        ];
+
+        const hadiths = [
+            {
+                arabic: "خيركم من تعلم القرآن وعلمه",
+                fr: "Le meilleur d'entre vous est celui qui apprend le Coran et l'enseigne."
+            },
+            {
+                arabic: "اقرؤوا القرآن فإنه يأتي يوم القيامة شفيعاً لأصحابه",
+                fr: "Lisez le Coran car il viendra le Jour de la Résurrection comme intercesseur pour ceux qui le récitaient."
+            },
+            {
+                arabic: "من قرأ حرفاً من كتاب الله فله به حسنة، والحسنة بعشر أمثالها",
+                fr: "Celui qui lit une lettre du Livre d'Allah aura une bonne action, et la bonne action est multipliée par dix."
+            },
+            {
+                arabic: "إن لله أهلين من الناس: أهل القرآن هم أهل الله وخاصته",
+                fr: "Allah a des gens qu'Il a choisis parmi les hommes : les gens du Coran sont les gens d'Allah et Ses proches."
+            },
+            {
+                arabic: "ما اجتمع قوم في بيت من بيوت الله يتلون كتاب الله ويتدارسونه بينهم إلا نزلت عليهم السكينة وغشيتهم الرحمة وحفتهم الملائكة وذكرهم الله فيمن عنده",
+                fr: "Quand des gens se réunissent dans une mosquée pour réciter et étudier le Coran, la sérénité descend sur eux, la miséricorde les couvre, les anges les entourent et Allah les mentionne à ceux qui sont auprès de Lui."
+            }
         ];
 
         // ==================== ÉTAT DE L'APPLICATION ====================
@@ -395,6 +623,7 @@
         let score = 0;
         let totalQuestions = 0;
         let currentLanguage = 'fr';
+        let darkMode = false;
 
         // ==================== ÉLÉMENTS DU DOM ====================
         const elements = {
@@ -407,6 +636,7 @@
             prevLabel: document.getElementById('prevLabel'),
             nextLabel: document.getElementById('nextLabel'),
             startBtn: document.getElementById('startBtn'),
+            restartBtn: document.getElementById('restartBtn'),
             nextBtn: document.getElementById('nextBtn'),
             quizContainer: document.getElementById('quizContainer'),
             sourateArabic: document.getElementById('sourateArabic'),
@@ -420,7 +650,14 @@
             progressBar: document.getElementById('progressBar'),
             frBtn: document.getElementById('frBtn'),
             arBtn: document.getElementById('arBtn'),
-            body: document.body
+            body: document.body,
+            sourateInfo: document.getElementById('sourateInfo'),
+            sourateDetails: document.getElementById('sourateDetails'),
+            hadithBox: document.getElementById('hadithBox'),
+            hadithArabic: document.getElementById('hadithArabic'),
+            hadithTranslation: document.getElementById('hadithTranslation'),
+            infoTitle: document.getElementById('infoTitle'),
+            themeToggle: document.getElementById('themeToggle')
         };
 
         // ==================== INITIALISATION ====================
@@ -429,12 +666,15 @@
             elements.quizContainer.style.display = 'none';
             elements.progressContainer.style.display = 'none';
             elements.scoreDisplay.style.display = 'none';
+            elements.restartBtn.style.display = 'none';
             
             // Ajouter les écouteurs d'événements
             elements.startBtn.addEventListener('click', startQuiz);
+            elements.restartBtn.addEventListener('click', startQuiz);
             elements.nextBtn.addEventListener('click', nextQuestion);
             elements.frBtn.addEventListener('click', () => switchLanguage('fr'));
             elements.arBtn.addEventListener('click', () => switchLanguage('ar'));
+            elements.themeToggle.addEventListener('click', toggleDarkMode);
             
             elements.prevInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') checkAnswers();
@@ -446,6 +686,12 @@
             
             // Initialiser en français
             switchLanguage('fr');
+            
+            // Charger le thème depuis le localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                enableDarkMode();
+            }
         }
 
         // ==================== FONCTIONS PRINCIPALES ====================
@@ -462,7 +708,9 @@
             updateElementHTML('prevLabel', translations[lang].prevLabel);
             updateElementHTML('nextLabel', translations[lang].nextLabel);
             updateElementText('startBtn', translations[lang].startBtn);
+            updateElementText('restartBtn', translations[lang].restartBtn);
             updateElementText('nextBtn', translations[lang].nextBtn);
+            updateElementText('infoTitle', translations[lang].infoTitle);
             
             // Mettre à jour les placeholders
             elements.prevInput.placeholder = translations[lang].placeholder;
@@ -483,7 +731,31 @@
             if (currentSourate) {
                 displayCurrentSourate();
                 updateResultsDisplay();
+                displaySourateInfo();
+                displayRandomHadith();
             }
+        }
+
+        function toggleDarkMode() {
+            if (darkMode) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        }
+
+        function enableDarkMode() {
+            elements.body.classList.add('dark-mode');
+            darkMode = true;
+            elements.themeToggle.textContent = translations[currentLanguage].themeToggle.dark;
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function disableDarkMode() {
+            elements.body.classList.remove('dark-mode');
+            darkMode = false;
+            elements.themeToggle.textContent = translations[currentLanguage].themeToggle.light;
+            localStorage.setItem('theme', 'light');
         }
 
         function updateElementText(id, text) {
@@ -507,7 +779,8 @@
             elements.quizContainer.style.display = 'block';
             elements.progressContainer.style.display = 'block';
             elements.scoreDisplay.style.display = 'none';
-            elements.startBtn.disabled = true;
+            elements.startBtn.style.display = 'none';
+            elements.restartBtn.style.display = 'inline-block';
             elements.nextBtn.disabled = false;
             
             // Afficher la première question
@@ -523,6 +796,12 @@
             
             // Afficher la sourate
             displayCurrentSourate();
+            
+            // Afficher les informations sur la sourate
+            displaySourateInfo();
+            
+            // Afficher un hadith aléatoire
+            displayRandomHadith();
             
             // Activer les champs de saisie
             elements.prevInput.disabled = false;
@@ -540,6 +819,26 @@
         function displayCurrentSourate() {
             elements.sourateArabic.textContent = currentSourate.arabic;
             elements.sourateLatin.textContent = `${currentSourate.num}. ${currentSourate.name}`;
+        }
+
+        function displaySourateInfo() {
+            if (currentSourate.info) {
+                elements.sourateDetails.textContent = currentSourate.info[currentLanguage];
+                elements.sourateInfo.style.display = 'block';
+            } else {
+                elements.sourateInfo.style.display = 'none';
+            }
+        }
+
+        function displayRandomHadith() {
+            if (hadiths.length > 0) {
+                const randomHadith = hadiths[Math.floor(Math.random() * hadiths.length)];
+                elements.hadithArabic.textContent = randomHadith.arabic;
+                elements.hadithTranslation.textContent = randomHadith.fr;
+                elements.hadithBox.style.display = 'block';
+            } else {
+                elements.hadithBox.style.display = 'none';
+            }
         }
 
         function resetQuestionUI() {
@@ -620,7 +919,8 @@
 
         function endQuiz() {
             elements.quizContainer.style.display = 'none';
-            elements.startBtn.disabled = false;
+            elements.startBtn.style.display = 'inline-block';
+            elements.restartBtn.style.display = 'inline-block';
             elements.nextBtn.disabled = true;
             
             // Afficher le score final
