@@ -3,276 +3,585 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz des Sourates (An-Nas à Al-Inshiqaq)</title>
+    <title>Quiz des Sourates | اختبار السور القرآنية</title>
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --correct: #16a34a;
+            --incorrect: #dc2626;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --arabic-font: 'Traditional Arabic', 'Arial', sans-serif;
+        }
+
+        [lang="ar"] {
+            font-family: var(--arabic-font);
+            direction: rtl;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
         }
-        h1, h2 {
-            color: #2c3e50;
-            text-align: center;
+
+        .rtl {
+            direction: rtl;
+            text-align: right;
         }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            color: var(--text);
+            margin: 0.5rem 0 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+            background: #e2e8f0;
+            padding: 0.3rem;
+            border-radius: 50px;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
         .quiz-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            background-color: var(--card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
         }
+
         .sourate-display {
-            font-size: 24px;
+            font-size: 1.5rem;
             font-weight: bold;
             text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            color: #2980b9;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            color: var(--primary);
         }
+
+        .sourate-arabic {
+            font-family: var(--arabic-font);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .sourate-latin {
+            font-size: 1.2rem;
+            color: #64748b;
+        }
+
         .question {
-            margin-bottom: 15px;
+            margin-bottom: 1.2rem;
         }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
         input[type="text"] {
             width: 100%;
-            padding: 10px;
-            margin: 5px 0 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 0.8rem;
+            margin: 0.3rem 0 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
             box-sizing: border-box;
+            font-size: 1rem;
+            transition: border 0.2s;
         }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
         button {
-            background-color: #3498db;
+            background-color: var(--primary);
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
-            margin-right: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
         }
+
         button:hover {
-            background-color: #2980b9;
+            background-color: var(--primary-dark);
         }
+
+        button:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+        }
+
         .result {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 4px;
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-size: 1rem;
         }
+
         .correct {
-            background-color: #d4edda;
-            color: #155724;
+            background-color: #dcfce7;
+            color: var(--correct);
+            border-left: 4px solid var(--correct);
         }
+
         .incorrect {
-            background-color: #f8d7da;
-            color: #721c24;
+            background-color: #fee2e2;
+            color: var(--incorrect);
+            border-left: 4px solid var(--incorrect);
         }
+
         .score {
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 1.2rem;
+            font-weight: 600;
             text-align: center;
-            margin: 20px 0;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #e0f2fe;
+            border-radius: 8px;
+            color: var(--primary);
         }
+
         .controls {
-            text-align: center;
-            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
         }
+
         .instructions {
-            background-color: #e8f4fc;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            background-color: #e0f2fe;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+            }
+            
+            .sourate-display {
+                font-size: 1.2rem;
+                padding: 0.8rem;
+            }
+            
+            .sourate-arabic {
+                font-size: 1.8rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Quiz des Sourates du Coran</h1>
-    <h2>An-Nas (114) à Al-Inshiqaq (84)</h2>
+    <div class="header">
+        <div>
+            <h1 id="title">Quiz des Sourates du Coran</h1>
+            <h2 id="subtitle">De An-Nas (114) à Al-Inshiqaq (84)</h2>
+        </div>
+        <div class="language-switcher">
+            <button class="lang-btn active" id="frBtn">Français</button>
+            <button class="lang-btn" id="arBtn">العربية</button>
+        </div>
+    </div>
     
-    <div class="instructions">
-        <p><strong>Instructions :</strong> Pour chaque sourate affichée, indiquez :</p>
-        <ul>
-            <li>Quelle sourate vient <strong>APRÈS</strong> elle (numéro inférieur)</li>
-            <li>Quelle sourate vient <strong>AVANT</strong> elle (numéro supérieur)</li>
+    <div class="instructions" id="instructions">
+        <p><strong id="instructions-title">Instructions :</strong></p>
+        <ul id="instructions-list">
+            <li id="instruction1">Pour chaque sourate affichée, indiquez quelle sourate vient <strong>après</strong> (numéro inférieur)</li>
+            <li id="instruction2">Et quelle sourate vient <strong>avant</strong> (numéro supérieur)</li>
         </ul>
-        <p>Cliquez sur "Commencer le quiz" pour démarrer.</p>
+        <p id="instruction-text">Vous pouvez répondre en français ou en arabe. Cliquez sur "Commencer" pour démarrer.</p>
+    </div>
+    
+    <div class="progress-container hidden" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
     
     <div class="controls">
-        <button id="startBtn">Commencer le quiz</button>
-        <button id="nextBtn" disabled>Question suivante</button>
+        <button id="startBtn">Commencer</button>
+        <button id="nextBtn" disabled>Suivant</button>
     </div>
     
-    <div id="quizContainer" class="quiz-container" style="display: none;">
-        <div id="sourateDisplay" class="sourate-display"></div>
+    <div id="quizContainer" class="quiz-container hidden">
+        <div id="sourateDisplay" class="sourate-display">
+            <div class="sourate-arabic" id="sourateArabic"></div>
+            <div class="sourate-latin" id="sourateLatin"></div>
+        </div>
         
         <div class="question">
-            <label for="prevInput">Quelle sourate vient <strong>APRÈS</strong> celle-ci ?</label>
-            <input type="text" id="prevInput">
+            <label for="prevInput" id="prevLabel">Sourate qui vient <strong>après</strong> :</label>
+            <input type="text" id="prevInput" dir="auto" placeholder="Nom de la sourate...">
             <div id="prevResult" class="result"></div>
         </div>
         
         <div class="question">
-            <label for="nextInput">Quelle sourate vient <strong>AVANT</strong> celle-ci ?</label>
-            <input type="text" id="nextInput">
+            <label for="nextInput" id="nextLabel">Sourate qui vient <strong>avant</strong> :</label>
+            <input type="text" id="nextInput" dir="auto" placeholder="Nom de la sourate...">
             <div id="nextResult" class="result"></div>
         </div>
     </div>
     
-    <div id="scoreDisplay" class="score"></div>
-    
+    <div id="scoreDisplay" class="score hidden"></div>
+
     <script>
-        // Liste des sourates de An-Nas (114) à Al-Inshiqaq (84)
+        // ==================== CONFIGURATION ====================
+        const translations = {
+            fr: {
+                title: "Quiz des Sourates du Coran",
+                subtitle: "De An-Nas (114) à Al-Inshiqaq (84)",
+                instructionsTitle: "Instructions :",
+                instruction1: "Pour chaque sourate affichée, indiquez quelle sourate vient <strong>après</strong> (numéro inférieur)",
+                instruction2: "Et quelle sourate vient <strong>avant</strong> (numéro supérieur)",
+                instructionText: "Vous pouvez répondre en français ou en arabe. Cliquez sur \"Commencer\" pour démarrer.",
+                prevLabel: "Sourate qui vient <strong>après</strong> :",
+                nextLabel: "Sourate qui vient <strong>avant</strong> :",
+                startBtn: "Commencer",
+                nextBtn: "Suivant",
+                correct: "✅ Correct !",
+                incorrect: "❌ Incorrect.",
+                after: "Après",
+                before: "Avant",
+                comes: "vient",
+                lastSourate: "est la dernière sourate (An-Nas).",
+                firstSourate: "est la première sourate (Al-Inshiqaq).",
+                score: "Score :",
+                quizFinished: "Quiz terminé ! Score final :",
+                placeholder: "Nom de la sourate..."
+            },
+            ar: {
+                title: "اختبار ترتيب سور القرآن",
+                subtitle: "من سورة الناس (١١٤) إلى الانشقاق (٨٤)",
+                instructionsTitle: "التعليمات:",
+                instruction1: "لكل سورة معروضة، حدد السورة التي تأتي <strong>بعدها</strong> (رقم أقل)",
+                instruction2: "والسورة التي تأتي <strong>قبلها</strong> (رقم أعلى)",
+                instructionText: "يمكنك الإجابة بالعربية أو الفرنسية. انقر على \"ابدأ\" للبدء.",
+                prevLabel: "السورة التي تأتي <strong>بعد</strong> :",
+                nextLabel: "السورة التي تأتي <strong>قبل</strong> :",
+                startBtn: "ابدأ",
+                nextBtn: "التالي",
+                correct: "✅ صحيح!",
+                incorrect: "❌ خطأ!",
+                after: "بعد",
+                before: "قبل",
+                comes: "تأتي",
+                lastSourate: "هي آخر سورة (الناس).",
+                firstSourate: "هي أول سورة (الانشقاق).",
+                score: "النتيجة :",
+                quizFinished: "انتهى الاختبار! النتيجة النهائية :",
+                placeholder: "اسم السورة..."
+            }
+        };
+
         const sourates = [
-            {num: 114, name: "An-Nas"},
-            {num: 113, name: "Al-Falaq"},
-            {num: 112, name: "Al-Ikhlas"},
-            {num: 111, name: "Al-Masad"},
-            {num: 110, name: "An-Nasr"},
-            {num: 109, name: "Al-Kafirun"},
-            {num: 108, name: "Al-Kawthar"},
-            {num: 107, name: "Al-Ma'un"},
-            {num: 106, name: "Quraish"},
-            {num: 105, name: "Al-Fil"},
-            {num: 104, name: "Al-Humaza"},
-            {num: 103, name: "Al-Asr"},
-            {num: 102, name: "At-Takathur"},
-            {num: 101, name: "Al-Qari'a"},
-            {num: 100, name: "Al-Adiyat"},
-            {num: 99, name: "Az-Zalzala"},
-            {num: 98, name: "Al-Bayyina"},
-            {num: 97, name: "Al-Qadr"},
-            {num: 96, name: "Al-Alaq"},
-            {num: 95, name: "At-Tin"},
-            {num: 94, name: "Ash-Sharh"},
-            {num: 93, name: "Ad-Duha"},
-            {num: 92, name: "Al-Layl"},
-            {num: 91, name: "Ash-Shams"},
-            {num: 90, name: "Al-Balad"},
-            {num: 89, name: "Al-Fajr"},
-            {num: 88, name: "Al-Ghashiya"},
-            {num: 87, name: "Al-A'la"},
-            {num: 86, name: "At-Tariq"},
-            {num: 85, name: "Al-Buruj"},
-            {num: 84, name: "Al-Inshiqaq"}
+            {num: 114, name: "An-Nas", arabic: "الناس"},
+            {num: 113, name: "Al-Falaq", arabic: "الفلق"},
+            {num: 112, name: "Al-Ikhlas", arabic: "الإخلاص"},
+            {num: 111, name: "Al-Masad", arabic: "المسد"},
+            {num: 110, name: "An-Nasr", arabic: "النصر"},
+            {num: 109, name: "Al-Kafirun", arabic: "الكافرون"},
+            {num: 108, name: "Al-Kawthar", arabic: "الكوثر"},
+            {num: 107, name: "Al-Ma'un", arabic: "الماعون"},
+            {num: 106, name: "Quraish", arabic: "قريش"},
+            {num: 105, name: "Al-Fil", arabic: "الفيل"},
+            {num: 104, name: "Al-Humaza", arabic: "الهمزة"},
+            {num: 103, name: "Al-Asr", arabic: "العصر"},
+            {num: 102, name: "At-Takathur", arabic: "التكاثر"},
+            {num: 101, name: "Al-Qari'a", arabic: "القارعة"},
+            {num: 100, name: "Al-Adiyat", arabic: "العاديات"},
+            {num: 99, name: "Az-Zalzala", arabic: "الزلزلة"},
+            {num: 98, name: "Al-Bayyina", arabic: "البينة"},
+            {num: 97, name: "Al-Qadr", arabic: "القدر"},
+            {num: 96, name: "Al-Alaq", arabic: "العلق"},
+            {num: 95, name: "At-Tin", arabic: "التين"},
+            {num: 94, name: "Ash-Sharh", arabic: "الشرح"},
+            {num: 93, name: "Ad-Duha", arabic: "الضحى"},
+            {num: 92, name: "Al-Layl", arabic: "الليل"},
+            {num: 91, name: "Ash-Shams", arabic: "الشمس"},
+            {num: 90, name: "Al-Balad", arabic: "البلد"},
+            {num: 89, name: "Al-Fajr", arabic: "الفجر"},
+            {num: 88, name: "Al-Ghashiya", arabic: "الغاشية"},
+            {num: 87, name: "Al-A'la", arabic: "الأعلى"},
+            {num: 86, name: "At-Tariq", arabic: "الطارق"},
+            {num: 85, name: "Al-Buruj", arabic: "البروج"},
+            {num: 84, name: "Al-Inshiqaq", arabic: "الانشقاق"}
         ];
 
-        // Variables du quiz
-        let currentSourate;
+        // ==================== ÉTAT DE L'APPLICATION ====================
+        let currentSourate = null;
         let shuffledSourates = [];
         let currentIndex = 0;
         let score = 0;
         let totalQuestions = 0;
+        let currentLanguage = 'fr';
 
-        // Éléments DOM
-        const startBtn = document.getElementById('startBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const quizContainer = document.getElementById('quizContainer');
-        const sourateDisplay = document.getElementById('sourateDisplay');
-        const prevInput = document.getElementById('prevInput');
-        const nextInput = document.getElementById('nextInput');
-        const prevResult = document.getElementById('prevResult');
-        const nextResult = document.getElementById('nextResult');
-        const scoreDisplay = document.getElementById('scoreDisplay');
+        // ==================== ÉLÉMENTS DU DOM ====================
+        const elements = {
+            title: document.getElementById('title'),
+            subtitle: document.getElementById('subtitle'),
+            instructionsTitle: document.getElementById('instructions-title'),
+            instruction1: document.getElementById('instruction1'),
+            instruction2: document.getElementById('instruction2'),
+            instructionText: document.getElementById('instruction-text'),
+            prevLabel: document.getElementById('prevLabel'),
+            nextLabel: document.getElementById('nextLabel'),
+            startBtn: document.getElementById('startBtn'),
+            nextBtn: document.getElementById('nextBtn'),
+            quizContainer: document.getElementById('quizContainer'),
+            sourateArabic: document.getElementById('sourateArabic'),
+            sourateLatin: document.getElementById('sourateLatin'),
+            prevInput: document.getElementById('prevInput'),
+            nextInput: document.getElementById('nextInput'),
+            prevResult: document.getElementById('prevResult'),
+            nextResult: document.getElementById('nextResult'),
+            scoreDisplay: document.getElementById('scoreDisplay'),
+            progressContainer: document.getElementById('progressContainer'),
+            progressBar: document.getElementById('progressBar'),
+            frBtn: document.getElementById('frBtn'),
+            arBtn: document.getElementById('arBtn'),
+            body: document.body
+        };
 
-        // Démarrer le quiz
-        startBtn.addEventListener('click', startQuiz);
-        nextBtn.addEventListener('click', nextQuestion);
+        // ==================== ÉCOUTEURS D'ÉVÉNEMENTS ====================
+        elements.startBtn.addEventListener('click', startQuiz);
+        elements.nextBtn.addEventListener('click', nextQuestion);
+        elements.frBtn.addEventListener('click', () => switchLanguage('fr'));
+        elements.arBtn.addEventListener('click', () => switchLanguage('ar'));
 
-        // Fonction pour démarrer le quiz
+        elements.prevInput.addEventListener('keypress', (e) => e.key === 'Enter' && checkAnswers());
+        elements.nextInput.addEventListener('keypress', (e) => e.key === 'Enter' && checkAnswers());
+
+        // ==================== FONCTIONS PRINCIPALES ====================
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Mettre à jour les textes de l'interface
+            Object.keys(translations[lang]).forEach(key => {
+                const element = elements[key];
+                if (element) {
+                    if (key === 'instruction1' || key === 'instruction2' || 
+                        key === 'prevLabel' || key === 'nextLabel') {
+                        element.innerHTML = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            // Mettre à jour les placeholders
+            elements.prevInput.placeholder = translations[lang].placeholder;
+            elements.nextInput.placeholder = translations[lang].placeholder;
+            
+            // Changer la direction du document
+            if (lang === 'ar') {
+                elements.body.classList.add('rtl');
+                elements.frBtn.classList.remove('active');
+                elements.arBtn.classList.add('active');
+            } else {
+                elements.body.classList.remove('rtl');
+                elements.frBtn.classList.add('active');
+                elements.arBtn.classList.remove('active');
+            }
+            
+            // Mettre à jour l'affichage de la sourate courante si le quiz est en cours
+            if (currentSourate) {
+                displayCurrentSourate();
+            }
+            
+            // Mettre à jour les résultats affichés
+            updateResultsDisplay();
+        }
+
         function startQuiz() {
-            // Mélanger les sourates
+            // Initialiser le quiz
             shuffledSourates = [...sourates].sort(() => Math.random() - 0.5);
             currentIndex = 0;
             score = 0;
             totalQuestions = 0;
             
-            // Afficher le quiz
-            quizContainer.style.display = 'block';
-            startBtn.disabled = true;
-            nextBtn.disabled = false;
+            // Afficher les éléments du quiz
+            elements.quizContainer.classList.remove('hidden');
+            elements.progressContainer.classList.remove('hidden');
+            elements.scoreDisplay.classList.add('hidden');
+            elements.startBtn.disabled = true;
+            elements.nextBtn.disabled = false;
             
             // Afficher la première question
             showQuestion();
         }
 
-        // Afficher une question
         function showQuestion() {
-            // Réinitialiser les champs
-            prevInput.value = '';
-            nextInput.value = '';
-            prevResult.textContent = '';
-            prevResult.className = 'result';
-            nextResult.textContent = '';
-            nextResult.className = 'result';
+            // Réinitialiser l'interface pour la nouvelle question
+            resetQuestionUI();
             
             // Obtenir la sourate courante
             currentSourate = shuffledSourates[currentIndex];
-            sourateDisplay.textContent = `${currentSourate.num}. ${currentSourate.name}`;
+            
+            // Afficher la sourate
+            displayCurrentSourate();
             
             // Activer les champs de saisie
-            prevInput.disabled = false;
-            nextInput.disabled = false;
+            elements.prevInput.disabled = false;
+            elements.nextInput.disabled = false;
+            elements.prevInput.focus();
+            
+            // Mettre à jour la direction des inputs
+            elements.prevInput.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+            elements.nextInput.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+            
+            // Mettre à jour la barre de progression
+            updateProgressBar();
         }
 
-        // Vérifier les réponses
+        function displayCurrentSourate() {
+            elements.sourateArabic.textContent = currentSourate.arabic;
+            elements.sourateLatin.textContent = `${currentSourate.num}. ${currentSourate.name}`;
+        }
+
         function checkAnswers() {
-            // Trouver la sourate précédente (numéro supérieur)
-            let prevSourate = sourates.find(s => s.num === currentSourate.num + 1);
+            // Trouver les sourates adjacentes
+            const prevSourate = sourates.find(s => s.num === currentSourate.num + 1);
+            const nextSourate = sourates.find(s => s.num === currentSourate.num - 1);
             
-            // Trouver la sourate suivante (numéro inférieur)
-            let nextSourate = sourates.find(s => s.num === currentSourate.num - 1);
-            
-            // Vérifier la réponse pour "sourate précédente" (APRÈS)
-            let prevAnswer = prevInput.value.trim();
-            let isPrevCorrect = false;
-            
-            if (prevSourate) {
-                isPrevCorrect = prevAnswer.toLowerCase() === prevSourate.name.toLowerCase();
-                prevResult.textContent = isPrevCorrect 
-                    ? `✅ Correct ! Après ${currentSourate.name} vient ${prevSourate.name}`
-                    : `❌ Incorrect. Après ${currentSourate.name} vient ${prevSourate.name}`;
-                prevResult.className = isPrevCorrect ? 'result correct' : 'result incorrect';
-                
-                if (isPrevCorrect) score++;
-                totalQuestions++;
-            } else {
-                prevResult.textContent = `${currentSourate.name} est la dernière sourate dans cette liste (An-Nas).`;
-            }
-            
-            // Vérifier la réponse pour "sourate suivante" (AVANT)
-            let nextAnswer = nextInput.value.trim();
-            let isNextCorrect = false;
-            
-            if (nextSourate) {
-                isNextCorrect = nextAnswer.toLowerCase() === nextSourate.name.toLowerCase();
-                nextResult.textContent = isNextCorrect 
-                    ? `✅ Correct ! Avant ${currentSourate.name} vient ${nextSourate.name}`
-                    : `❌ Incorrect. Avant ${currentSourate.name} vient ${nextSourate.name}`;
-                nextResult.className = isNextCorrect ? 'result correct' : 'result incorrect';
-                
-                if (isNextCorrect) score++;
-                totalQuestions++;
-            } else {
-                nextResult.textContent = `${currentSourate.name} est la première sourate dans cette liste (Al-Inshiqaq).`;
-            }
+            // Vérifier les réponses
+            checkAnswer(elements.prevInput, elements.prevResult, prevSourate, 'after');
+            checkAnswer(elements.nextInput, elements.nextResult, nextSourate, 'before');
             
             // Désactiver les champs de saisie
-            prevInput.disabled = true;
-            nextInput.disabled = true;
+            elements.prevInput.disabled = true;
+            elements.nextInput.disabled = true;
             
             // Mettre à jour le score
             updateScore();
         }
 
-        // Question suivante
+        function checkAnswer(inputElement, resultElement, correctSourate, position) {
+            const userAnswer = inputElement.value.trim();
+            
+            if (!correctSourate) {
+                const text = position === 'after' 
+                    ? `${currentSourate.arabic} ${translations[currentLanguage].lastSourate}`
+                    : `${currentSourate.arabic} ${translations[currentLanguage].firstSourate}`;
+                resultElement.textContent = text;
+                return;
+            }
+            
+            // Vérifier si la réponse est correcte (en français ou en arabe)
+            const isCorrect = userAnswer.toLowerCase() === correctSourate.name.toLowerCase() || 
+                             userAnswer === correctSourate.arabic;
+            
+            // Préparer le texte de résultat
+            const currentName = currentLanguage === 'ar' ? currentSourate.arabic : currentSourate.name;
+            const correctName = currentLanguage === 'ar' ? correctSourate.arabic : correctSourate.name;
+            
+            const resultText = isCorrect
+                ? `${translations[currentLanguage].correct} ${translations[currentLanguage][position]} ${currentName} ${translations[currentLanguage].comes} ${correctName}`
+                : `${translations[currentLanguage].incorrect} ${translations[currentLanguage][position]} ${currentName} ${translations[currentLanguage].comes} ${correctName}`;
+            
+            // Afficher le résultat
+            resultElement.textContent = resultText;
+            resultElement.className = isCorrect ? 'result correct' : 'result incorrect';
+            
+            // Mettre à jour le score
+            if (isCorrect) {
+                score++;
+                totalQuestions++;
+            } else {
+                totalQuestions++;
+            }
+        }
+
         function nextQuestion() {
-            // Vérifier d'abord les réponses si c'est la première fois
-            if (prevInput.disabled === false && nextInput.disabled === false) {
+            // Vérifier d'abord les réponses si nécessaire
+            if (!elements.prevInput.disabled && !elements.nextInput.disabled) {
                 checkAnswers();
                 return;
             }
@@ -283,31 +592,70 @@
             if (currentIndex < shuffledSourates.length) {
                 showQuestion();
             } else {
-                // Quiz terminé
-                quizContainer.style.display = 'none';
-                startBtn.disabled = false;
-                nextBtn.disabled = true;
-                scoreDisplay.textContent = `Quiz terminé ! Votre score final : ${score}/${totalQuestions}`;
+                endQuiz();
             }
         }
 
-        // Mettre à jour le score
+        function endQuiz() {
+            elements.quizContainer.classList.add('hidden');
+            elements.startBtn.disabled = false;
+            elements.nextBtn.disabled = true;
+            
+            // Afficher le score final
+            elements.scoreDisplay.textContent = `${translations[currentLanguage].quizFinished} ${score}/${totalQuestions}`;
+            elements.scoreDisplay.classList.remove('hidden');
+        }
+
+        // ==================== FONCTIONS UTILITAIRES ====================
+        function resetQuestionUI() {
+            elements.prevInput.value = '';
+            elements.nextInput.value = '';
+            elements.prevResult.textContent = '';
+            elements.prevResult.className = 'result';
+            elements.nextResult.textContent = '';
+            elements.nextResult.className = 'result';
+        }
+
         function updateScore() {
-            scoreDisplay.textContent = `Score: ${score}/${totalQuestions}`;
+            elements.scoreDisplay.textContent = `${translations[currentLanguage].score} ${score}/${totalQuestions}`;
+            elements.scoreDisplay.classList.remove('hidden');
         }
 
-        // Permettre de soumettre avec Entrée
-        prevInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkAnswers();
+        function updateProgressBar() {
+            const progress = ((currentIndex + 1) / shuffledSourates.length) * 100;
+            elements.progressBar.style.width = `${progress}%`;
+        }
+
+        function updateResultsDisplay() {
+            // Mettre à jour les textes des résultats si des réponses sont affichées
+            if (elements.prevResult.textContent.includes(translations['fr'].correct) {
+                updateResultText(elements.prevResult);
             }
-        });
-        
-        nextInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkAnswers();
+            
+            if (elements.nextResult.textContent.includes(translations['fr'].correct)) {
+                updateResultText(elements.nextResult);
             }
-        });
+        }
+
+        function updateResultText(resultElement) {
+            const parts = resultElement.textContent.split(' ');
+            const isCorrect = parts[0] === translations['fr'].correct;
+            const position = parts[2] === translations['fr'].after ? 'after' : 'before';
+            
+            const currentName = currentLanguage === 'ar' ? currentSourate.arabic : currentSourate.name;
+            const adjacentNum = position === 'after' ? currentSourate.num + 1 : currentSourate.num - 1;
+            const adjacentSourate = sourates.find(s => s.num === adjacentNum);
+            const adjacentName = currentLanguage === 'ar' ? adjacentSourate.arabic : adjacentSourate.name;
+            
+            const newText = isCorrect
+                ? `${translations[currentLanguage].correct} ${translations[currentLanguage][position]} ${currentName} ${translations[currentLanguage].comes} ${adjacentName}`
+                : `${translations[currentLanguage].incorrect} ${translations[currentLanguage][position]} ${currentName} ${translations[currentLanguage].comes} ${adjacentName}`;
+            
+            resultElement.textContent = newText;
+        }
+
+        // Initialiser l'interface en français
+        switchLanguage('fr');
     </script>
 </body>
 </html>
