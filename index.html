@@ -581,6 +581,44 @@
             background-color: #cc0000;
         }
 
+        .rules-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #ffffff;
+            background-color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .rules-link:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .dark-mode .rules-link {
+            background-color: var(--dark-primary);
+        }
+
+        .dark-mode .rules-link:hover {
+            background-color: var(--dark-secondary);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .dark-mode .footer {
+            border-top-color: #475569;
+            color: #94a3b8;
+        }
+
         @media (max-width: 768px) {
             .content-wrapper {
                 flex-direction: column;
@@ -659,8 +697,15 @@
         <ul id="instructions-list">
             <li id="instruction1">Pour chaque sourate affichée, indiquez quelle sourate vient <strong>après</strong> (numéro inférieur)</li>
             <li id="instruction2">Et quelle sourate vient <strong>avant</strong> (numéro supérieur)</li>
+            <li id="instruction3">Vous pouvez répondre en français ou en arabe</li>
+            <li id="instruction4">Les réponses sont vérifiées de manière flexible (accents et espaces ignorés)</li>
         </ul>
-        <p id="instruction-text">Vous pouvez répondre en français ou en arabe. Cliquez sur "Commencer" pour démarrer.</p>
+        <p id="instruction-text">Cliquez sur "Commencer" pour démarrer le quiz.</p>
+        
+        <!-- Lien vers les règles de Nun Sakina -->
+        <a href="https://nunsakina.com/regles" class="rules-link" target="_blank">
+            Voir les règles de Nun Sakina
+        </a>
     </div>
     
     <div class="progress-container" id="progressContainer">
@@ -721,6 +766,11 @@
         <button id="nextBtn" disabled>Suivant</button>
     </div>
 
+    <div class="footer">
+        <p>Application développée avec ❤️ pour aider à mémoriser les sourates du Coran</p>
+        <p>© 2023 Quiz des Sourates - Tous droits réservés</p>
+    </div>
+
     <script>
         // ==================== CONFIGURATION ====================
         const translations = {
@@ -730,7 +780,9 @@
                 instructionsTitle: "Instructions :",
                 instruction1: "Pour chaque sourate affichée, indiquez quelle sourate vient <strong>après</strong> (numéro inférieur)",
                 instruction2: "Et quelle sourate vient <strong>avant</strong> (numéro supérieur)",
-                instructionText: "Vous pouvez répondre en français ou en arabe. Cliquez sur \"Commencer\" pour démarrer.",
+                instruction3: "Vous pouvez répondre en français ou en arabe",
+                instruction4: "Les réponses sont vérifiées de manière flexible (accents et espaces ignorés)",
+                instructionText: "Cliquez sur \"Commencer\" pour démarrer le quiz.",
                 prevLabel: "Sourate qui vient <strong>après</strong> :",
                 nextLabel: "Sourate qui vient <strong>avant</strong> :",
                 startBtn: "Commencer",
@@ -751,7 +803,10 @@
                     light: "🌙",
                     dark: "☀️"
                 },
-                youtubeLink: "Écouter la récitation par Saud As-Shuraim"
+                youtubeLink: "Écouter la récitation par Saud As-Shuraim",
+                rulesLink: "Voir les règles de Nun Sakina",
+                footerText1: "Application développée avec ❤️ pour aider à mémoriser les sourates du Coran",
+                footerText2: "© 2023 Quiz des Sourates - Tous droits réservés"
             },
             ar: {
                 title: "اختبار ترتيب سور القرآن",
@@ -759,7 +814,9 @@
                 instructionsTitle: "التعليمات:",
                 instruction1: "لكل سورة معروضة، حدد السورة التي تأتي <strong>بعدها</strong> (رقم أقل)",
                 instruction2: "والسورة التي تأتي <strong>قبلها</strong> (رقم أعلى)",
-                instructionText: "يمكنك الإجابة بالعربية أو الفرنسية. انقر على \"ابدأ\" للبدء.",
+                instruction3: "يمكنك الإجابة بالعربية أو الفرنسية",
+                instruction4: "يتم التحقق من الإجابات بشكل مرن (يتم تجاهل التشكيل والمسافات)",
+                instructionText: "انقر على \"ابدأ\" لبدء الاختبار.",
                 prevLabel: "السورة التي تأتي <strong>بعد</strong> :",
                 nextLabel: "السورة التي تأتي <strong>قبل</strong> :",
                 startBtn: "ابدأ",
@@ -780,7 +837,10 @@
                     light: "🌙",
                     dark: "☀️"
                 },
-                youtubeLink: "استماع إلى تلاوة سعود الشريم"
+                youtubeLink: "استماع إلى تلاوة سعود الشريم",
+                rulesLink: "رؤية قواعد نون سكينة",
+                footerText1: "تم تطوير التطبيق ب ❤️ لمساعدة في حفظ سور القرآن",
+                footerText2: "© 2023 اختبار السور - جميع الحقوق محفوظة"
             }
         };
 
@@ -969,7 +1029,7 @@
              info: {fr: "Console le Prophète et promet la facilité après la difficulté.", 
                     ar: "تسلي للرسول وتبشر باليسر بعد العسر."},
              verse: {
-                arabic: "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ ﴿١﴾ وَوَضَعْنَا عَنكَ وِزْرَكَ ﴿٢﴾ الَّذِي أَنقَضَ ظَهْرَكَ ﴿٣﴾ وَرَفَعْنَا لَكَ ذِكْرَكَ ﴿٤﴾ فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ﴿٥﴾ إِنَّ مَعَ الْعُسْرِ يُسْرًا ﴿٦﴾ فَإِذَا فَرَغْتَ فَانصَبْ ﴿٧﴾ وَإِلَىٰ رَبِّكَ فَارْغَبْ ﴿٨﴾",
+                arabic: "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ ﴿١﴾ وَوَضَعْنَا عَنكَ وِزْرَكَ ﴿٢﴾ الَّذِي أَنقَضَ ظَهْرَكَ ﴿٣﴾ وَرَفَعْنَا لَكَ ذِكْرَكَ ﴿٤﴾ فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ﴿٥﴾ إِنَّ mَعَ الْعُسْرِ يُسْرًا ﴿٦﴾ فَإِذَا فَرَغْتَ فَانصَبْ ﴿٧﴾ وَإِلَىٰ رَبِّكَ فَارْغَبْ ﴿٨﴾",
                 fr: "Ne t'avons-Nous pas ouvert la poitrine? Et ne t'avons-Nous pas déchargé du fardeau qui accablait ton dos? Et exalté pour toi ta renommée? A côté de la difficulté est, certes, une facilité! A côté de la difficulté est, certes, une facilité! Lorsque tu te libères, donc, lève-toi, et à ton Seigneur aspire.",
                 reference: "Sourate Ash-Sharh (94), versets 1-8"
              },
@@ -996,7 +1056,7 @@
              info: {fr: "Utilise des serments cosmiques pour enseigner la moralité.", 
                     ar: "تستخدم القسم الكوني لتعليم الأخلاق."},
              verse: {
-                arabic: "وَالشَّمْسِ وَضُحَاهَا ﴿١﴾ وَالْقَمَرِ إِذَا تَلَاهَا ﴿٢﴾ وَالنَّهَارِ إِذَا جَلَّاهَا ﴿٣﴾ وَاللَّيْلِ إِذَا يَغْشَاهَا ﴿٤﴾ وَالسَّمَاءِ وَمَا بَنَاهَا ﴿٥﴾ وَالْأَرْضِ وَمَا طَحَاهَا ﴿٦﴾ وَنَفْسٍ وَمَا سَوَّاهَا ﴿٧﴾ فَأَلْهَمَهَا فُجُورَهَا وَتَقْوَاهَا ﴿٨﴾ قَدْ أَفْلَحَ مَن زَكَّاهَا ﴿٩﴾ وَقَدْ خَابَ مَن دَسَّاهَا ﴿١٠﴾",
+                arabic: "وَالشَّمْسِ وَضُحَاهَا ﴿١﴾ وَالْقَمَرِ إِذَا تَلَاهَا ﴿٢﴾ وَالنَّهَارِ إِذَا جَلَّاهَا ﴿٣﴾ وَاللَّيْلِ إِذَا يَغْشَاهَا ﴿٤﴾ وَالسَّمَاءِ وَمَا بَنَاهَا ﴿٥﴾ وَالْأَرْضِ وَمَا طَحَاهَا ﴿٦﴾ وَنَفْسٍ وَمَا سَوَّاهَا ﴿٧﴾ فَأَلْهَمَهَا فُجُورَهَا وَتَقْوَاهَا ﴿٨﴾ قَدْ أَفْلَحَ مَن زَكَّاهَا ﴿٩﴾ وَقَدْ خَابَ mَن دَسَّاهَا ﴿١٠﴾",
                 fr: "Par le soleil et sa clarté! Et par la lune quand elle le suit! Et par le jour quand il l'éclaire! Et par la nuit quand elle l'enveloppe! Et par le ciel et Celui qui l'a construit! Et par la terre et Celui qui l'a étendue! Et par l'âme et Celui qui l'a harmonieusement façonnée; et lui a alors inspiré son immoralité, de même que sa piété! A réussi, certes, celui qui la purifie. Et est perdu, certes, celui qui la corrompt.",
                 reference: "Sourate Ash-Shams (91), versets 1-10"
              },
@@ -1014,7 +1074,7 @@
              info: {fr: "Évoque le sort des peuples anciens et l'épreuve des biens.", 
                     ar: "تذكر مصير الأمم السابقة وابتلاء المال."},
              verse: {
-                arabic: "وَالْفَجْرِ ﴿١﴾ وَلَيَالٍ عَشْرٍ ﴿٢﴾ وَالشَّفْعِ وَالْوَتْرِ ﴿٣﴾ وَاللَّيْلِ إِذَا يَسْرِ ﴿٤﴾ هَلْ فِي ذَٰلِكَ قَسَمٌ لِّذِي حِجْرٍ ﴿٤﴾ أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِعَادٍ ﴿٥﴾ إِرَمَ ذَاتِ الْعِمَادِ ﴿٦﴾ الَّتِي لَمْ يُخْلَقْ مِثْلُهَا فِي الْبِلَادِ ﴿٧﴾ وَثَمُودَ الَّذِينَ جَابُوا الصَّخْرَ بِالْوَادِ ﴿٨﴾ وَفِرْعَوْنَ ذِي الْأَوْتَادِ ﴿٩﴾",
+                arabic: "وَالْفَجْرِ ﴿١﴾ وَلَيَالٍ عَشْرٍ ﴿٢﴾ وَالشَّفْعِ وَالْوَتْرِ ﴿٣﴾ وَاللَّيْلِ إِذَا يَسْرِ ﴿٤﴾ هَلْ فِي ذَٰلِكَ قَسَمٌ لِّذِي حِجْرٍ ﴿٤﴾ أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِعَادٍ ﴿٥﴾ إِرَمَ ذَاتِ الْعِمَادِ ﴿٦﴾ الَّتِي لَمْ يُخْلَقْ mِثْلُهَا فِي الْبِلَادِ ﴿٧﴾ وَثَمُودَ الَّذِينَ جَابُوا الصَّخْرَ بِالْوَادِ ﴿٨﴾ وَفِرْعَوْنَ ذِي الْأَوْتَادِ ﴿٩﴾",
                 fr: "Par l'aube, et par les dix nuits, et par le pair et l'impair, et par la nuit quand elle s'écoule! N'y a-t-il pas là un serment, pour un doué d'intelligence? N'as-tu pas vu comment ton Seigneur a agi avec les 'Aad, avec Iram, la cité à la colonne remarquable, dont jamais pareille ne fut construite parmi les villes? Et avec les Thamûd qui taillaient le rocher dans la vallée? Ainsi qu'avec Pharaon, l'homme aux épieux?",
                 reference: "Sourate Al-Fajr (89), versets 1-9"
              },
@@ -1041,7 +1101,7 @@
              info: {fr: "Parle de l'origine de l'homme et de la résurrection.", 
                     ar: "تتحدث عن أصل الإنسان والبعث."},
              verse: {
-                arabic: "وَالسَّمَاءِ وَالطَّارِقِ ﴿١﴾ وَمَا أَدْرَاكَ مَا الطَّارِقُ ﴿٢﴾ النَّجْمُ الثَّاقِبُ ﴿٣﴾ إِن كُلُّ نَفْسٍ لَّمَّا عَلَيْهَا حَافِظٌ ﴿٤﴾ فَلْيَنظُرِ الْإِنسَانُ مِمَّ خُلِقَ ﴿٥﴾ خُلِقَ مِن مَّاءٍ دَافِقٍ ﴿٦﴾ يَخْرُجُ مِن بَيْنِ الصُّلْبِ وَالتَّرَائِبِ ﴿٧﴾ إِنَّهُ عَلَىٰ رَجْعِهِ لَقَادِرٌ ﴿٨﴾ يَوْمَ تُبْلَى السَّرَائِرُ ﴿٩﴾ فَمَا لَهُ مِن قُوَّةٍ وَلَا نَاصِرٍ ﴿١٠﴾",
+                arabic: "وَالسَّمَاءِ وَالطَّارِقِ ﴿١﴾ وَمَا أَدْرَاكَ مَا الطَّارِقُ ﴿٢﴾ النَّجْمُ الثَّاقِبُ ﴿٣﴾ إِن كُلُّ نَفْسٍ لَّمَّا عَلَيْهَا حَافِظٌ ﴿٤﴾ فَلْيَنظُرِ الْإِنسَانُ mِمَّ خُلِقَ ﴿٥﴾ خُلِقَ مِن مَّاءٍ دَافِقٍ ﴿٦﴾ يَخْرُجُ مِن بَيْنِ الصُّلْبِ وَالتَّرَائِبِ ﴿٧﴾ إِنَّهُ عَلَىٰ رَجْعِهِ لَقَادِرٌ ﴿٨﴾ يَوْمَ تُبْلَى السَّرَائِرُ ﴿٩﴾ فَمَا لَهُ مِن قُوَّةٍ وَلَا نَاصِرٍ ﴿١٠﴾",
                 fr: "Par le ciel et par l'astre nocturne! Et qui te dira ce qu'est l'astre nocturne? C'est l'étoile vivement brillante. Il n'est pas d'âme qui n'ait sur elle un gardien. Que l'homme considère donc de quoi il a été créé. Il a été créé d'une giclée d'eau sortie d'entre les lombes et les côtes. Certes, [Allah] est capable de le ressusciter, le jour où les secrets seront dévoilés. Alors il n'aura ni force ni secoureur.",
                 reference: "Sourate At-Tariq (86), versets 1-10"
              },
@@ -1050,7 +1110,7 @@
              info: {fr: "Mentionne les gens de la tranchée et la protection d'Allah.", 
                     ar: "تذكر أصحاب الأخدود وحماية الله."},
              verse: {
-                arabic: "وَالسَّمَاءِ ذَاتِ الْبُرُوجِ ﴿١﴾ وَالْيَوْمِ الْمَوْعُودِ ﴿٢﴾ وَشَاهِدٍ وَمَشْهُودٍ ﴿٣﴾ قُتِلَ أَصْحَابُ الْأُخْدُودِ ﴿٤﴾ النَّارِ ذَاتِ الْوَقُودِ ﴿٥﴾ إِذْ هُمْ عَلَيْهَا قُعُودٌ ﴿٦﴾ وَهُمْ عَلَىٰ مَا يَفْعَلُونَ بِالْمُؤْمِنِينَ شُهُودٌ ﴿٧﴾ وَمَا نَقَمُوا مِنْهُمْ إِلَّا أَن يُؤْمِنُوا بِاللَّهِ الْعَزِيزِ الْحَمِيدِ ﴿٨﴾ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ وَاللَّهُ عَلَىٰ كُلِّ شَيْءٍ شَهِيدٌ ﴿٩﴾",
+                arabic: "وَالسَّمَاءِ ذَاتِ الْبُرُوجِ ﴿١﴾ وَالْيَوْمِ الْمَوْعُودِ ﴿٢﴾ وَشَاهِدٍ وَمَشْهُودٍ ﴿٣﴾ قُتِلَ أَصْحَabُودِ الْأُخْدُودِ ﴿٤﴾ النَّارِ ذَاتِ الْوَقُودِ ﴿٥﴾ إِذْ هُمْ عَلَيْهَا قُعُودٌ ﴿٦﴾ وَهُمْ عَلَىٰ mَا يَفْعَلُونَ بِالْمُؤْمِنِينَ شُهُودٌ ﴿٧﴾ وَمَا نَقَمُوا مِنْهُمْ إِلَّا أَن يُؤْمِنُوا بِاللَّهِ الْعَزِيزِ الْحَمِيدِ ﴿٨﴾ الَّذِي لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ وَاللَّهُ عَلَىٰ كُلِّ شَيْءٍ شَهِيدٌ ﴿٩﴾",
                 fr: "Par le ciel aux constellations! Et par le jour promis! Et par un témoin et ce dont on témoigne! Que périssent les gens de la tranchée, du feu plein de combustible, alors qu'ils étaient assis tout autour, témoins de ce qu'ils faisaient subir aux croyants. Ils ne leur en voulaient que parce qu'ils croyaient en Allah, le Puissant, le Digne de louange, à qui appartient la royauté des cieux et de la terre. Et Allah est témoin de toute chose.",
                 reference: "Sourate Al-Buruj (85), versets 1-9"
              },
@@ -1059,7 +1119,7 @@
              info: {fr: "Décrit le ciel se fendant et l'homme rendant compte.", 
                     ar: "تصف انشقاق السماء وحساب الإنسان."},
              verse: {
-                arabic: "إِذَا السَّمَاءُ انشَقَّتْ ﴿١﴾ وَأَذِنَتْ لِرَبِّهَا وَحُقَّتْ ﴿٢﴾ وَإِذَا الْأَرْضُ مُدَّتْ ﴿٣﴾ وَأَلْقَتْ مَا فِيهَا وَتَخَلَّتْ ﴿٤﴾ وَأَذِنَتْ لِرَبِّهَا وَحُقَّتْ ﴿٥﴾ يَا أَيُّهَا الْإِنسَانُ إِنَّكَ كَادِحٌ إِلَىٰ رَبِّكَ كَدْحًا فَمُلَاقِيهِ ﴿٦﴾ فَأَمَّا مَنْ أُوتِيَ كِتَابَهُ بِيَمِينِهِ ﴿٧﴾ فَسَوْفَ يُحَاسَبُ حِسَابًا يَسِيرًا ﴿٨﴾ وَيَنقَلِبُ إِلَىٰ أَهْلِهِ مَسْرُورًا ﴿٩﴾",
+                arabic: "إِذَا السَّمَاءُ انشَقَّتْ ﴿١﴾ وَأَذِنَتْ لِرَبِّهَا وَحُقَّتْ ﴿٢﴾ وَإِذَا الْأَرْضُ مُدَّتْ ﴿٣﴾ وَأَلْقَتْ مَا فِيهَا وَتَخَلَّتْ ﴿٤﴾ وَأَذِنَتْ لِرَبِّهَا وَحُقَّتْ ﴿٥﴾ يَا أَيُّهَا الْإِنسَانُ إِنَّكَ كَادِحٌ إِلَىٰ رَبِّكَ كَدْحًا فَمُلَاقِيهِ ﴿٦﴾ فَأَمَّا مَنْ أُوتِيَ كِتَابَهُ بِيَمِينِهِ ﴿٧﴾ فَسَوْفَ يُحَاسَبُ حِسَابًا يَسِيرًا ﴿٨﴾ وَيَنقَلِبُ إِلَىٰ أَهْلِهِ مَسْرُورًا ﴿٨﴾",
                 fr: "Quand le ciel se déchirera, et qu'il obéira à son Seigneur - et fera ce qu'il doit faire - et que la terre sera nivelée, et qu'elle rejettera ce qui est en son sein et se videra, et qu'elle obéira à son Seigneur - et fera ce qu'elle doit faire... Ô homme! Toi qui t'efforces vers ton Seigneur, tu Le rencontreras alors. Celui à qui on remettra son Livre en sa main droite, sera jugé par un jugement facile, et retournera réjoui auprès des siens.",
                 reference: "Sourate Al-Inshiqaq (84), versets 1-9"
              },
@@ -1068,7 +1128,7 @@
              info: {fr: "Condamne ceux qui trichent dans les mesures.", 
                     ar: "تندد بالذين يبخسون المكيال."},
              verse: {
-                arabic: "وَيْلٌ لِّلْمُطَفِّفِينَ ﴿١﴾ الَّذِينَ إِذَا اكْتَالُوا عَلَى النَّاسِ يَسْتَوْفُونَ ﴿٢﴾ وَإِذَا كَالُوهُمْ أَو وَّزَنُوهُمْ يُخْسِرُونَ ﴿٣﴾ أَلَا يَظُنُّ أُولَٰئِكَ أَنَّهُم مَّبْعُوثُونَ ﴿٤﴾ لِيَوْمٍ عَظِيمٍ ﴿٥﴾ يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ ﴿٦﴾",
+                arabic: "وَيْلٌ لِّلْمُطَفِّفِينَ ﴿١﴾ الَّذِينَ إِذَا اكْتَالُوا عَلَى النَّاسِ يَسْتَوْفُونَ ﴿٢﴾ وَإِذَا كَالُوهُمْ أَو وَّزَنُوهُمْ يُخْسِرُونَ ﴿٣﴾ أَلَا يَظُنُّ أُولَٰئِكَ أَنَّهُم mَّبْعُوثُونَ ﴿٤﴾ لِيَوْمٍ عَظِيمٍ ﴿٥﴾ يَوْمَ يَقُومُ النَّاسُ لِرَبِّ الْعَالَمِينَ ﴿٦﴾",
                 fr: "Malheur aux fraudeurs, qui, lorsqu'ils font mesurer pour eux-mêmes exigent la pleine mesure, et qui lorsqu'eux-mêmes mesurent ou pèsent pour les autres, [leur] causent perte. Ceux-là ne pensent-ils pas qu'ils seront ressuscités en un jour terrible, le jour où les gens se tiendront debout devant le Seigneur de l'univers?",
                 reference: "Sourate Al-Mutaffifin (83), versets 1-6"
              },
@@ -1077,7 +1137,7 @@
              info: {fr: "Décrit le ciel se fendant et les anges enregistrant les actions.", 
                     ar: "تصف انفطار السماء وكتابة الملائكة للأعمال."},
              verse: {
-                arabic: "إِذَا السَّمَاءُ انفَطَرَتْ ﴿١﴾ وَإِذَا الْكَوَاكِبُ انتَثَرَتْ ﴿٢﴾ وَإِذَا الْبِحَارُ فُجِّرَتْ ﴿٣﴾ وَإِذَا الْقُبُورُ بُعْثِرَتْ ﴿٤﴾ عَلِمَتْ نَفْسٌ مَّا قَدَّمَتْ وَأَخَّرَتْ ﴿٥﴾ يَا أَيُّهَا الْإِنسَانُ مَا غَرَّكَ بِرَبِّكَ الْكَرِيمِ ﴿٦﴾ الَّذِي خَلَقَكَ فَسَوَّاكَ فَعَدَلَكَ ﴿٧﴾ فِي أَيِّ صُورَةٍ مَّا شَاءَ رَكَّبَكَ ﴿٨﴾",
+                arabic: "إِذَا السَّمَاءُ انفَطَرَتْ ﴿١﴾ وَإِذَا الْكَوَاكِبُ انتَثَرَتْ ﴿٢﴾ وَإِذَا الْبِحَارُ فُجِّرَتْ ﴿٣﴾ وَإِذَا الْقُبُورُ بُعْثِرَتْ ﴿٤﴾ عَلِمَتْ نَفْسٌ mَّا قَدَّمَتْ وَأَخَّرَتْ ﴿٥﴾ يَا أَيُّهَا الْإِنسَانُ مَا غَرَّكَ بِرَبِّكَ الْكَرِيمِ ﴿٦﴾ الَّذِي خَلَقَكَ فَسَوَّاكَ فَعَدَلَكَ ﴿٧﴾ فِي أَيِّ صُورَةٍ mَّا شَاءَ رَكَّبَكَ ﴿٨﴾",
                 fr: "Quand le ciel se déchirera, et que les étoiles se disperseront, et que les mers confondront leurs eaux, et que les tombes seront bouleversées, alors chaque âme saura ce qu'elle a avancé et ce qu'elle a remis de faire. Ô homme! Qu'est-ce qui t'a trompé au sujet de ton Seigneur, le Noble, qui t'a créé, puis modelé et constitué harmonieusement? Il t'a façonné dans la forme qu'Il a voulue.",
                 reference: "Sourate Al-Infitar (82), versets 1-8"
              },
@@ -1095,7 +1155,7 @@
              info: {fr: "Rappelle au Prophète de ne pas négliger les pauvres au profit des riches.", 
                     ar: "تذكر الرسول بعدم إهمال الفقراء لصالح الأغنياء."},
              verse: {
-                arabic: "عَبَسَ وَتَوَلَّىٰ ﴿١﴾ أَن جَاءَهُ الْأَعْمَىٰ ﴿٢﴾ وَمَا يُدْرِيكَ لَعَلَّهُ يَزَّكَّىٰ ﴿٣﴾ أَوْ يَذَّكَّرُ فَتَنفَعَهُ الذِّكْرَىٰ ﴿٤﴾ أَمَّا مَنِ اسْتَغْنَىٰ ﴿٥﴾ فَأَنتَ لَهُ تَصَدَّىٰ ﴿٦﴾ وَمَا عَلَيْكَ أَلَّا يَزَّكَّىٰ ﴿٧﴾ وَأَمَّا مَن جَاءَكَ يَسْعَىٰ ﴿٨﴾ وَهُوَ يَخْشَىٰ ﴿٩﴾ فَأَنتَ عَنْهُ تَلَهَّىٰ ﴿١٠﴾",
+                arabic: "عَبَسَ وَتَوَلَّىٰ ﴿١﴾ أَن جَاءَهُ الْأَعْمَىٰ ﴿٢﴾ وَمَا يُدْرِيكَ لَعَلَّهُ يَزَّكَّىٰ ﴿٣﴾ أَوْ يَذَّكَّرُ فَتَنفَعَهُ الذِّكْرَىٰ ﴿٤﴾ أَمَّا مَنِ اسْتَغْنَىٰ ﴿٥﴾ فَأَنتَ لَهُ تَصَدَّىٰ ﴿٦﴾ وَمَا عَلَيْكَ أَلَّا يَزَّكَّىٰ ﴿٧﴾ وَأَمَّا mَن جَاءَكَ يَسْعَىٰ ﴿٨﴾ وَهُوَ يَخْشَىٰ ﴿٩﴾ فَأَنتَ عَنْهُ تَلَهَّىٰ ﴿١٠﴾",
                 fr: "Il s'est renfrogné et il s'est détourné parce que l'aveugle est venu à lui. Qui te dira? Peut-être cherche-t-il à se purifier, ou à recevoir un enseignement qui lui profiterait. Quant à celui qui se complait dans sa suffisance, tu vas vers lui avec empressement, alors qu'il ne t'incombe en rien qu'il ne se purifie pas. Et quant à celui qui vient à toi avec empressement tout en craignant, tu ne t'en soucies pas.",
                 reference: "Sourate Abasa (80), versets 1-10"
              },
@@ -1193,6 +1253,8 @@
             instructionsTitle: document.getElementById('instructions-title'),
             instruction1: document.getElementById('instruction1'),
             instruction2: document.getElementById('instruction2'),
+            instruction3: document.getElementById('instruction3'),
+            instruction4: document.getElementById('instruction4'),
             instructionText: document.getElementById('instruction-text'),
             prevLabel: document.getElementById('prevLabel'),
             nextLabel: document.getElementById('nextLabel'),
@@ -1230,7 +1292,9 @@
             sourateHeader: document.getElementById('sourateHeader'),
             sourateHeaderArabic: document.getElementById('sourateHeaderArabic'),
             sourateHeaderLatin: document.getElementById('sourateHeaderLatin'),
-            youtubeLink: document.getElementById('youtubeLink')
+            youtubeLink: document.getElementById('youtubeLink'),
+            footerText1: document.querySelector('.footer p:first-child'),
+            footerText2: document.querySelector('.footer p:last-child')
         };
 
         // ==================== INITIALISATION ====================
@@ -1285,6 +1349,8 @@
             updateElementText('instructionsTitle', translations[lang].instructionsTitle);
             updateElementHTML('instruction1', translations[lang].instruction1);
             updateElementHTML('instruction2', translations[lang].instruction2);
+            updateElementText('instruction3', translations[lang].instruction3);
+            updateElementText('instruction4', translations[lang].instruction4);
             updateElementText('instructionText', translations[lang].instructionText);
             updateElementHTML('prevLabel', translations[lang].prevLabel);
             updateElementHTML('nextLabel', translations[lang].nextLabel);
@@ -1293,10 +1359,15 @@
             updateElementText('nextBtn', translations[lang].nextBtn);
             updateElementText('infoTitle', translations[lang].infoTitle);
             updateElementText('youtubeLink', translations[lang].youtubeLink);
+            updateElementText('footerText1', translations[lang].footerText1);
+            updateElementText('footerText2', translations[lang].footerText2);
             
             // Mettre à jour les placeholders
             elements.prevInput.placeholder = translations[lang].placeholder;
             elements.nextInput.placeholder = translations[lang].placeholder;
+            
+            // Mettre à jour le lien des règles
+            document.querySelector('.rules-link').textContent = translations[lang].rulesLink;
             
             // Changer la direction du document
             if (lang === 'ar') {
@@ -1496,9 +1567,19 @@
                 return;
             }
             
+            // Normaliser la réponse de l'utilisateur (enlever accents, espaces, etc.)
+            const normalize = (str) => {
+                return str.toLowerCase()
+                    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // enlever accents
+                    .replace(/\s+/g, ' ') // remplacer espaces multiples par un seul
+                    .trim();
+            };
+            
             // Vérifier si la réponse est correcte (en français ou en arabe)
-            const isCorrect = userAnswer.toLowerCase() === correctSourate.name.toLowerCase() || 
-                             userAnswer === correctSourate.arabic;
+            const normalizedUserAnswer = normalize(userAnswer);
+            const isCorrect = 
+                normalizedUserAnswer === normalize(correctSourate.name) || 
+                normalizedUserAnswer === normalize(correctSourate.arabic);
             
             // Préparer le texte de résultat
             const currentName = currentLanguage === 'ar' ? currentSourate.arabic : currentSourate.name;
