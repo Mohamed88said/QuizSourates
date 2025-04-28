@@ -1355,7 +1355,7 @@
              info: {fr: "Contraste les chemins du bien et du mal.", 
                     ar: "تقارن بين طريق الخير وطريق الشر."},
              verse: {
-                arabic: "وَاللَّيْلِ إِذَا يَغْشَىٰ ﴿١﴾ وَالنَّهَارِ إِذَا تَجَلَّىٰ ﴿٢﴾ وَمَا خَلَقَ الذَّكَرَ وَالْأُنثَىٰ ﴿٣﴾ إِنَّ سَعْيَكُمْ لَشَتَّىٰ ﴿٤﴾ فَأَمَّا مَن أَعْطَىٰ وَاتَّقَىٰ ﴿٥﴾ وَصَدَّقَ بِالْحُسْنَىٰ ﴿٦﴾ فَسَنُيَسِّرُهُ لِلْيُسْرَىٰ ﴿٧﴾ وَأَمَّا مَن بَخِلَ وَاسْتَغْنَىٰ ﴿٨﴾ وَكَذَّبَ بِالْحُسْنَىٰ ﴿٩﴾ فَسَنُيَسِّرُهُ لِلْعُسْرَىٰ ﴿١٠﴾",
+                arabic: "وَاللَّيْلِ إِذَا يَغْشَىٰ ﴿١﴾ وَالنَّهَارِ إِذَا تَجَلَّىٰ ﴿٢﴾ وَمَا خَلَقَ الذَّكَرَ وَالْأُنثَىٰ ﴿٣﴾ إِنَّ سَعْيَكُمْ لَشَتَّىٰ ﴿٤﴾ فَأَمَّا مَن أَعْطَىٰ وَاتَّقَىٰ ﴿٥﴾ وَصَدَّقَ بِالْحُسْنَىٰ ﴿٦﴾ فَسَنُيَسِّرُهُ لِلْيُسْرَىٰ ﴿٧﴾ وَأَمَّا مَن بَخِلَ وَاسْتَغْنَىٰ ﴿٨﴾ وَكَذَّبَ بِالْحُسْنَىٰ ﴿٨﴾ فَسَنُيَسِّرُهُ لِلْعُسْرَىٰ ﴿١٠﴾",
                 fr: "Par la nuit quand elle enveloppe! Par le jour quand il éclaire! Et par ce qu'Il a créé, mâle et femelle! Vos efforts sont divergents. Quant à celui qui donne, craint Allah, et croit en la plus belle récompense, Nous lui faciliterons la voie au plus grand bonheur. Et quant à celui qui est avare, se dispense (de l'adoration d'Allah), et traite de mensonge la plus belle récompense, Nous lui faciliterons la voie à la plus grande difficulté.",
                 reference: "Sourate Al-Layl (92), versets 1-10"
              },
@@ -1629,11 +1629,13 @@
             elements.quizContainer.style.display = 'none';
             elements.progressContainer.style.display = 'none';
             elements.scoreDisplay.style.display = 'none';
+            elements.startBtn.style.display = 'inline-block';
             elements.restartBtn.style.display = 'none';
-            elements.verseBox.style.display = 'none';
-            elements.hadithBox.style.display = 'none';
+            elements.nextBtn.disabled = true;
             elements.sourateHeader.style.display = 'none';
             elements.youtubeLink.style.display = 'none';
+            elements.verseBox.style.display = 'none';
+            elements.hadithBox.style.display = 'none';
             
             // Ajouter les écouteurs d'événements
             elements.startBtn.addEventListener('click', startQuiz);
