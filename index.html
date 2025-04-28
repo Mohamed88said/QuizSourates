@@ -1000,25 +1000,26 @@
             
             <div class="feedback-form" id="feedbackForm">
                 <form id="contactForm" action="https://formsubmit.co/mohamedsaiddiallo88@gmail.com" method="POST">
-                    <input type="hidden" name="_subject" value="Nouveau feedback - Site Web">
+                    <input type="hidden" name="_subject" value="Nouveau feedback - Quiz des Sourates">
                     <input type="hidden" name="_autoresponse" value="Merci pour votre feedback ! Nous avons bien reçu votre message. جزاك الله خيرا (Jazak Allahu khayran)">
                     <input type="hidden" name="_template" value="table">
                     <input type="hidden" name="_next" value="?feedback=success">
+                    <input type="hidden" name="_captcha" value="false">
                     
                     <div class="feedback-form-group">
                         <label for="feedbackEmail" id="feedbackEmailLabel">Votre adresse email :</label>
-                        <input type="email" id="feedbackEmail" name="email">
+                        <input type="email" id="feedbackEmail" name="email" required>
                     </div>
                     
                     <div class="feedback-form-group">
                         <label for="feedbackSubject" id="feedbackSubjectLabel">Sujet :</label>
-                        <input type="text" id="feedbackSubject" name="_subject">
+                        <input type="text" id="feedbackSubject" name="_subject" required>
                     </div>
                     
                     <div class="feedback-form-group">
                         <label id="feedbackRatingLabel">Notez votre expérience :</label>
                         <div class="feedback-rating">
-                            <input type="radio" id="star5" name="rating" value="5">
+                            <input type="radio" id="star5" name="rating" value="5" required>
                             <label for="star5"><i class="fas fa-star"></i></label>
                             <input type="radio" id="star4" name="rating" value="4">
                             <label for="star4"><i class="fas fa-star"></i></label>
@@ -1033,7 +1034,7 @@
                     
                     <div class="feedback-form-group">
                         <label for="feedbackMessage" id="feedbackMessageLabel">Votre message :</label>
-                        <textarea id="feedbackMessage" name="message"></textarea>
+                        <textarea id="feedbackMessage" name="message" required></textarea>
                     </div>
                     
                     <button type="submit" class="feedback-submit-btn" id="feedbackSubmitBtn">Envoyer le Feedback</button>
@@ -1291,7 +1292,7 @@
              info: {fr: "Décrit le tremblement de terre du Jour du Jugement.", 
                     ar: "تصف زلزلة يوم القيامة."},
              verse: {
-                arabic: "إِذَا زُلْزِلَتِ الْأَرْضُ زِلْزَالَهَا ﴿١﴾ وَأَخْرَجَتِ الْأَرْضُ أَثْقَالَهَا ﴿٢﴾ وَقَالَ الْإِنسَانُ مَا لَهَا ﴿٣﴾ يَوْمَئِذٍ تُحَدِّثُ أَخْبَارَهَا ﴿٤﴾ بِأَنَّ رَبَّكَ أَوْحَىٰ لَهَا ﴿٥﴾ يَوْمَئِذٍ يَصْدُرُ النَّاسُ أَشْتَاتًا لِّيُرَوْا أَعْمَالَهُمْ ﴿٦﴾ فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ ﴿٧﴾ وَمَن يَعْمَلْ mِثْقَالَ ذَرَّةٍ شَرًّا يَرَهُ ﴿٨﴾",
+                arabic: "إِذَا زُلْزِلَتِ الْأَرْضُ زِلْزَالَهَا ﴿١﴾ وَأَخْرَجَتِ الْأَرْضُ أَثْقَالَهَا ﴿٢﴾ وَقَالَ الْإِنسَانُ مَا لَهَا ﴿٣﴾ يَوْمَئِذٍ تُحَدِّثُ أَخْبَارَهَا ﴿٤﴾ بِأَنَّ رَبَّكَ أَوْحَىٰ لَهَا ﴿٥﴾ يَوْمَئِذٍ يَصْدُرُ النَّاسُ أَشْتَاتًا لِّيُرَوْا أَعْمَالَهُمْ ﴿٦﴾ فَمَن يَعْمَلْ mِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ ﴿٧﴾ وَمَن يَعْمَلْ mِثْقَالَ ذَرَّةٍ شَرًّا يَرَهُ ﴿٨﴾",
                 fr: "Lorsque la terre tremblera d'un violent tremblement, et que la terre fera sortir ses fardeaux, et que l'homme dira: «Qu'a-t-elle?» ce jour-là, elle contera son histoire, selon ce que ton Seigneur lui aura révélé [ordonné]. Ce jour-là, les gens sortiront séparément pour que leur soient montrées leurs œuvres. Quiconque fait un bien fût-ce du poids d'un atome, le verra, et quiconque fait un mal fût-ce du poids d'un atome, le verra.",
                 reference: "Sourate Az-Zalzala (99), versets 1-8"
              },
