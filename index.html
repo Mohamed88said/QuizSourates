@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz des Sourates | اختبار السور القرآنية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
             --primary: #2b580c;
@@ -22,6 +23,11 @@
             --dark-text: #f8fafc;
             --dark-primary: #639a67;
             --dark-secondary: #2b580c;
+            
+            /* Feedback colors */
+            --feedback-primary: #4CAF50;
+            --feedback-secondary: #2E7D32;
+            --feedback-accent: #8BC34A;
         }
 
         body {
@@ -619,6 +625,197 @@
             color: #94a3b8;
         }
 
+        /* Feedback Modal Styles */
+        .feedback-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feedback-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .dark-mode .feedback-container {
+            background-color: var(--dark-card);
+        }
+
+        .feedback-header {
+            background: linear-gradient(135deg, var(--feedback-primary), var(--feedback-secondary));
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .feedback-thank-you {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dark-mode .feedback-thank-you {
+            border-bottom-color: #475569;
+        }
+
+        .feedback-thank-you h2 {
+            color: var(--feedback-secondary);
+            margin-top: 0;
+        }
+
+        .dark-mode .feedback-thank-you h2 {
+            color: var(--feedback-accent);
+        }
+
+        .feedback-arabic {
+            font-size: 1.3em;
+            color: var(--feedback-secondary);
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .dark-mode .feedback-arabic {
+            color: var(--feedback-accent);
+        }
+
+        .feedback-form {
+            padding: 25px;
+        }
+
+        .feedback-form-group {
+            margin-bottom: 20px;
+        }
+
+        .feedback-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .dark-mode .feedback-form label {
+            color: var(--dark-text);
+        }
+
+        .feedback-form input, 
+        .feedback-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        .dark-mode .feedback-form input,
+        .dark-mode .feedback-form textarea {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            border-color: #475569;
+        }
+
+        .feedback-form input:focus, 
+        .feedback-form textarea:focus {
+            border-color: var(--feedback-accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.2);
+        }
+
+        .feedback-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .feedback-rating {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            direction: rtl;
+        }
+
+        .feedback-rating input {
+            display: none;
+        }
+
+        .feedback-rating label {
+            font-size: 30px;
+            color: #ddd;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        .feedback-rating input:checked ~ label,
+        .feedback-rating label:hover,
+        .feedback-rating label:hover ~ label {
+            color: #FFD700;
+        }
+
+        .feedback-rating input:checked + label {
+            color: #FFD700;
+        }
+
+        .feedback-submit-btn {
+            background: linear-gradient(135deg, var(--feedback-primary), var(--feedback-secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feedback-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .feedback-confirmation {
+            display: none;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .feedback-confirmation.show {
+            display: block;
+        }
+
+        .feedback-confirmation i {
+            font-size: 50px;
+            color: var(--feedback-primary);
+            margin-bottom: 20px;
+        }
+
+        .feedback-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+
         @media (max-width: 768px) {
             .content-wrapper {
                 flex-direction: column;
@@ -664,6 +861,22 @@
 
             .sourate-header-latin {
                 font-size: 1rem;
+            }
+            
+            .feedback-container {
+                width: 95%;
+            }
+            
+            .feedback-header {
+                padding: 20px 15px;
+            }
+            
+            .feedback-thank-you {
+                padding: 15px;
+            }
+            
+            .feedback-form {
+                padding: 15px;
             }
         }
     </style>
@@ -770,6 +983,73 @@
         <p>Application développée avec ❤️ pour aider à mémoriser les sourates du Coran</p>
         <p>© 2025 Quiz des Sourates - Tous droits réservés</p>
     </div>
+    
+    <!-- Feedback Modal -->
+    <div class="feedback-modal" id="feedbackModal">
+        <div class="feedback-container">
+            <button class="feedback-close-btn" id="feedbackCloseBtn">&times;</button>
+            <div class="feedback-header">
+                <h1 id="feedbackTitle">Votre Avis Nous Intéresse</h1>
+            </div>
+            
+            <div class="feedback-thank-you">
+                <h2 id="feedbackThankYouTitle">Merci pour votre visite et votre participation !</h2>
+                <p id="feedbackThankYouText">Nous apprécions le temps que vous avez pris pour participer à notre quiz. Veuillez partager votre expérience avec nous.</p>
+                <div class="feedback-arabic" id="feedbackArabic">بارك الله فيك (Barak Allahou fik)</div>
+            </div>
+            
+            <div class="feedback-form" id="feedbackForm">
+                <form id="contactForm" action="https://formsubmit.co/mohamedsaiddiallo88@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="Nouveau feedback - Site Web">
+                    <input type="hidden" name="_autoresponse" value="Merci pour votre feedback ! Nous avons bien reçu votre message. جزاك الله خيرا (Jazak Allahu khayran)">
+                    <input type="hidden" name="_template" value="table">
+                    
+                    <div class="feedback-form-group">
+                        <label for="feedbackEmail" id="feedbackEmailLabel">Votre adresse email :</label>
+                        <input type="email" id="feedbackEmail" name="email">
+                    </div>
+                    
+                    <div class="feedback-form-group">
+                        <label for="feedbackSubject" id="feedbackSubjectLabel">Sujet :</label>
+                        <input type="text" id="feedbackSubject" name="_subject">
+                    </div>
+                    
+                    <div class="feedback-form-group">
+                        <label id="feedbackRatingLabel">Notez votre expérience :</label>
+                        <div class="feedback-rating">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+                    
+                    <div class="feedback-form-group">
+                        <label for="feedbackMessage" id="feedbackMessageLabel">Votre message :</label>
+                        <textarea id="feedbackMessage" name="message"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="feedback-submit-btn" id="feedbackSubmitBtn">Envoyer le Feedback</button>
+                    
+                    <input type="hidden" name="_next" value="#confirmation">
+                </form>
+            </div>
+            
+            <div class="feedback-confirmation" id="feedbackConfirmation">
+                <i class="fas fa-check-circle"></i>
+                <h2 id="feedbackConfirmationTitle">Merci pour votre feedback !</h2>
+                <p id="feedbackConfirmationText">Nous avons bien reçu votre message et l'apprécions beaucoup.</p>
+                <div class="feedback-arabic" id="feedbackConfirmationArabic">جزاك الله خيرا (Jazak Allahu khayran)</div>
+                <p id="feedbackConfirmationText2">Nous vous répondrons dès que possible.</p>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ==================== CONFIGURATION ====================
@@ -806,7 +1086,21 @@
                 youtubeLink: "Écouter la récitation par Saud As-Shuraim",
                 rulesLink: "Voir les règles de Nun Sakina",
                 footerText1: "Application développée avec ❤️ pour aider à mémoriser les sourates du Coran",
-                footerText2: "© 2025 Quiz des Sourates - Tous droits réservés"
+                footerText2: "© 2025 Quiz des Sourates - Tous droits réservés",
+                // Feedback translations
+                feedbackTitle: "Votre Avis Nous Intéresse",
+                feedbackThankYouTitle: "Merci pour votre visite et votre participation !",
+                feedbackThankYouText: "Nous apprécions le temps que vous avez pris pour participer à notre quiz. Veuillez partager votre expérience avec nous.",
+                feedbackArabic: "بارك الله فيك (Barak Allahou fik)",
+                feedbackEmailLabel: "Votre adresse email :",
+                feedbackSubjectLabel: "Sujet :",
+                feedbackRatingLabel: "Notez votre expérience :",
+                feedbackMessageLabel: "Votre message :",
+                feedbackSubmitBtn: "Envoyer le Feedback",
+                feedbackConfirmationTitle: "Merci pour votre feedback !",
+                feedbackConfirmationText: "Nous avons bien reçu votre message et l'apprécions beaucoup.",
+                feedbackConfirmationArabic: "جزاك الله خيرا (Jazak Allahu khayran)",
+                feedbackConfirmationText2: "Nous vous répondrons dès que possible."
             },
             ar: {
                 title: "اختبار ترتيب سور القرآن",
@@ -840,7 +1134,21 @@
                 youtubeLink: "استماع إلى تلاوة سعود الشريم",
                 rulesLink: "رؤية قواعد نون سكينة",
                 footerText1: "تم تطوير التطبيق ب ❤️ لمساعدة في حفظ سور القرآن",
-                footerText2: "© 2025 اختبار السور - جميع الحقوق محفوظة"
+                footerText2: "© 2025 اختبار السور - جميع الحقوق محفوظة",
+                // Feedback translations
+                feedbackTitle: "رأيك يهمنا",
+                feedbackThankYouTitle: "شكرا لزيارتك ومشاركتك!",
+                feedbackThankYouText: "نقدر الوقت الذي قضيته في المشاركة في اختبارنا. يرجى مشاركة تجربتك معنا.",
+                feedbackArabic: "بارك الله فيك",
+                feedbackEmailLabel: "بريدك الإلكتروني:",
+                feedbackSubjectLabel: "الموضوع:",
+                feedbackRatingLabel: "قيم تجربتك:",
+                feedbackMessageLabel: "رسالتك:",
+                feedbackSubmitBtn: "إرسال الملاحظات",
+                feedbackConfirmationTitle: "شكرا لملاحظاتك!",
+                feedbackConfirmationText: "لقد استلمنا رسالتك ونقدرها كثيرا.",
+                feedbackConfirmationArabic: "جزاك الله خيرا",
+                feedbackConfirmationText2: "سوف نرد عليك في أقرب وقت ممكن."
             }
         };
 
@@ -1146,7 +1454,7 @@
              info: {fr: "Décrit les bouleversements cosmiques du Jour dernier.", 
                     ar: "تصف أحداث يوم القيامة الكونية."},
              verse: {
-                arabic: "إِذَا الشَّمْسُ كُوِّرَتْ ﴿١﴾ وَإِذَا النُّجُومُ انكَدَرَتْ ﴿٢﴾ وَإِذَا الْجِبَالُ سُيِّرَتْ ﴿٣﴾ وَإِذَا الْعِشَارُ عُطِّلَتْ ﴿٤﴾ وَإِذَا الْوُحُوشُ حُشِرَتْ ﴿٥﴾ وَإِذَا الْبِحَارُ سُجِّرَتْ ﴿٦﴾ وَإِذَا النُّفُوسُ زُوِّجَتْ ﴿٧﴾ وَإِذَا الْمَوْءُودَةُ سُئِلَتْ ﴿٨﴾ بِأَيِّ ذَنبٍ قُتِلَتْ ﴿٩﴾",
+                arabic: "إِذَا الشَّمْسُ كُوِّرَتْ ﴿١﴾ وَإِذَا النُّجُومُ انكَدَرَتْ ﴿٢﴾ وَإِذَا الْجِبَالُ سُيِّرَتْ ﴿٣﴾ وَإِذَا الْعِشَارُ عُطِّلَتْ ﴿٤﴾ وَإِذَا الْوُحُوشُ حُشِرَتْ ﴿٥﴾ وَإِذَا الْبِحَارُ سُجِّرَتْ ﴿٦﴾ وَإِذَا النُّفُوسُ زُوِّجَتْ ﴿٧﴾ وَإِذَا الْمَوْءُودَةُ سُئِلَتْ ﴿٨﴾ بِأَيِّ ذَنبٍ قُتِلَتْ ﴿٨﴾",
                 fr: "Quand le soleil sera obscurci, et que les étoiles deviendront ternes, et que les montagnes seront mises en marche, et que les chamelles à terme seront délaissées, et que les bêtes sauvages seront rassemblées, et que les mers seront allumées, et que les âmes seront appariées, et qu'on demandera à la fillette enterrée vivante pour quel péché elle a été tuée.",
                 reference: "Sourate At-Takwir (81), versets 1-9"
              },
@@ -1294,7 +1602,25 @@
             sourateHeaderLatin: document.getElementById('sourateHeaderLatin'),
             youtubeLink: document.getElementById('youtubeLink'),
             footerText1: document.querySelector('.footer p:first-child'),
-            footerText2: document.querySelector('.footer p:last-child')
+            footerText2: document.querySelector('.footer p:last-child'),
+            // Feedback elements
+            feedbackModal: document.getElementById('feedbackModal'),
+            feedbackCloseBtn: document.getElementById('feedbackCloseBtn'),
+            feedbackTitle: document.getElementById('feedbackTitle'),
+            feedbackThankYouTitle: document.getElementById('feedbackThankYouTitle'),
+            feedbackThankYouText: document.getElementById('feedbackThankYouText'),
+            feedbackArabic: document.getElementById('feedbackArabic'),
+            feedbackEmailLabel: document.getElementById('feedbackEmailLabel'),
+            feedbackSubjectLabel: document.getElementById('feedbackSubjectLabel'),
+            feedbackRatingLabel: document.getElementById('feedbackRatingLabel'),
+            feedbackMessageLabel: document.getElementById('feedbackMessageLabel'),
+            feedbackSubmitBtn: document.getElementById('feedbackSubmitBtn'),
+            feedbackConfirmation: document.getElementById('feedbackConfirmation'),
+            feedbackConfirmationTitle: document.getElementById('feedbackConfirmationTitle'),
+            feedbackConfirmationText: document.getElementById('feedbackConfirmationText'),
+            feedbackConfirmationArabic: document.getElementById('feedbackConfirmationArabic'),
+            feedbackConfirmationText2: document.getElementById('feedbackConfirmationText2'),
+            contactForm: document.getElementById('contactForm')
         };
 
         // ==================== INITIALISATION ====================
@@ -1328,6 +1654,10 @@
             // Gestion de l'icône de sagesse
             elements.wisdomIcon.addEventListener('mouseenter', showWisdom);
             elements.wisdomIcon.addEventListener('mouseleave', hideWisdom);
+            
+            // Gestion du feedback
+            elements.feedbackCloseBtn.addEventListener('click', closeFeedbackModal);
+            elements.contactForm.addEventListener('submit', handleFeedbackSubmit);
             
             // Initialiser en français
             switchLanguage('fr');
@@ -1368,6 +1698,21 @@
             
             // Mettre à jour le lien des règles
             document.querySelector('.rules-link').textContent = translations[lang].rulesLink;
+            
+            // Mettre à jour les textes du feedback
+            updateElementText('feedbackTitle', translations[lang].feedbackTitle);
+            updateElementText('feedbackThankYouTitle', translations[lang].feedbackThankYouTitle);
+            updateElementText('feedbackThankYouText', translations[lang].feedbackThankYouText);
+            updateElementText('feedbackArabic', translations[lang].feedbackArabic);
+            updateElementText('feedbackEmailLabel', translations[lang].feedbackEmailLabel);
+            updateElementText('feedbackSubjectLabel', translations[lang].feedbackSubjectLabel);
+            updateElementText('feedbackRatingLabel', translations[lang].feedbackRatingLabel);
+            updateElementText('feedbackMessageLabel', translations[lang].feedbackMessageLabel);
+            updateElementText('feedbackSubmitBtn', translations[lang].feedbackSubmitBtn);
+            updateElementText('feedbackConfirmationTitle', translations[lang].feedbackConfirmationTitle);
+            updateElementText('feedbackConfirmationText', translations[lang].feedbackConfirmationText);
+            updateElementText('feedbackConfirmationArabic', translations[lang].feedbackConfirmationArabic);
+            updateElementText('feedbackConfirmationText2', translations[lang].feedbackConfirmationText2);
             
             // Changer la direction du document
             if (lang === 'ar') {
@@ -1628,6 +1973,9 @@
             // Afficher le score final
             elements.scoreDisplay.textContent = `${translations[currentLanguage].quizFinished} ${score}/${totalQuestions}`;
             elements.scoreDisplay.style.display = 'block';
+            
+            // Afficher le formulaire de feedback
+            showFeedbackModal();
         }
 
         function updateScore() {
@@ -1703,6 +2051,43 @@
         function hideWisdom() {
             clearTimeout(wisdomTimeout);
             elements.wisdomTooltip.style.display = 'none';
+        }
+
+        // ==================== FONCTIONS DE FEEDBACK ====================
+        function showFeedbackModal() {
+            elements.feedbackModal.style.display = 'flex';
+            elements.feedbackForm.style.display = 'block';
+            elements.feedbackConfirmation.classList.remove('show');
+            
+            // Réinitialiser le formulaire
+            elements.contactForm.reset();
+        }
+
+        function closeFeedbackModal() {
+            elements.feedbackModal.style.display = 'none';
+        }
+
+        function handleFeedbackSubmit(e) {
+            e.preventDefault();
+            
+            // Envoi du formulaire via AJAX
+            fetch(elements.contactForm.action, {
+                method: 'POST',
+                body: new FormData(elements.contactForm)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Afficher le message de confirmation
+                    elements.feedbackForm.style.display = 'none';
+                    elements.feedbackConfirmation.classList.add('show');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(currentLanguage === 'fr' 
+                    ? "Une erreur s'est produite. Veuillez réessayer." 
+                    : "حدث خطأ. يرجى المحاولة مرة أخرى.");
+            });
         }
 
         // Démarrer l'application
