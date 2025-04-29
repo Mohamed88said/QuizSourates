@@ -832,6 +832,66 @@
             color: var(--dark-text);
         }
 
+        /* Message de confirmation */
+        .confirmation-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--card);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1100;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .dark-mode .confirmation-message {
+            background-color: var(--dark-card);
+        }
+
+        .confirmation-message.show {
+            display: block;
+        }
+
+        .confirmation-message i {
+            font-size: 3rem;
+            color: var(--correct);
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-message h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .confirmation-message h2 {
+            color: var(--dark-primary);
+        }
+
+        .confirmation-message p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .confirmation-message .arabic-text {
+            font-family: var(--arabic-font);
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: var(--primary);
+        }
+
+        .dark-mode .confirmation-message .arabic-text {
+            color: var(--dark-primary);
+        }
+
+        .confirmation-message button {
+            margin-top: 1rem;
+        }
+
         @media (max-width: 768px) {
             .content-wrapper {
                 flex-direction: column;
@@ -893,6 +953,18 @@
             
             .feedback-form {
                 padding: 15px;
+            }
+            
+            .confirmation-message {
+                padding: 1.5rem;
+            }
+            
+            .confirmation-message i {
+                font-size: 2.5rem;
+            }
+            
+            .confirmation-message .arabic-text {
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -1068,6 +1140,15 @@
             </div>
         </div>
     </div>
+    
+    <!-- Message de confirmation -->
+    <div class="confirmation-message" id="confirmationMessage">
+        <i class="fas fa-check-circle"></i>
+        <h2 id="confirmationTitle">Message reçu avec succès</h2>
+        <p id="confirmationText">Nous avons bien reçu votre message et vous en remercions. Nous reviendrons vers vous bientôt in sha Allah.</p>
+        <div class="arabic-text" id="confirmationArabic">جزاك الله خيرا</div>
+        <button id="confirmationCloseBtn">Fermer</button>
+    </div>
 
     <script>
         // ==================== CONFIGURATION ====================
@@ -1118,7 +1199,12 @@
                 feedbackConfirmationTitle: "Feedback envoyé avec succès !",
                 feedbackConfirmationText: "Nous avons bien reçu votre message et l'apprécions beaucoup.",
                 feedbackConfirmationArabic: "جزاك الله خيرا (Jazak Allahu khayran)",
-                feedbackConfirmationText2: "Nous vous répondrons dès que possible."
+                feedbackConfirmationText2: "Nous vous répondrons dès que possible.",
+                // Confirmation message
+                confirmationTitle: "Message reçu avec succès",
+                confirmationText: "Nous avons bien reçu votre message et vous en remercions. Nous reviendrons vers vous bientôt in sha Allah.",
+                confirmationArabic: "جزاك الله خيرا",
+                confirmationCloseBtn: "Fermer"
             },
             ar: {
                 title: "اختبار ترتيب سور القرآن",
@@ -1166,7 +1252,12 @@
                 feedbackConfirmationTitle: "تم إرسال الملاحظات بنجاح!",
                 feedbackConfirmationText: "لقد استلمنا رسالتك ونقدرها كثيرا.",
                 feedbackConfirmationArabic: "جزاك الله خيرا",
-                feedbackConfirmationText2: "سوف نرد عليك في أقرب وقت ممكن."
+                feedbackConfirmationText2: "سوف نرد عليك في أقرب وقت ممكن.",
+                // Confirmation message
+                confirmationTitle: "تم استلام رسالتك بنجاح",
+                confirmationText: "لقد استلمنا رسالتك ونشكرك عليها. سنعود إليك قريبًا إن شاء الله.",
+                confirmationArabic: "جزاك الله خيرا",
+                confirmationCloseBtn: "إغلاق"
             }
         };
 
@@ -1186,10 +1277,7 @@
              verse: {
                 arabic: "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾ مِن شَرِّ مَا خَلَقَ ﴿٢﴾ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿٤﴾ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾",
                 fr: "Dis: «Je cherche protection auprès du Seigneur de l'aube naissante, contre le mal des êtres qu'Il a créés, et contre le mal de l'obscurité quand elle s'approfondit, et contre le mal de celles qui soufflent (les sorcières) sur les nœuds, et contre le mal de l'envieux quand il envie.»",
-                reference: "Sourate Al-Falaq (113), versets 1-5"
-             },
-             youtube: "https://www.youtube.com/results?search_query=سعود+الشريم+سورة+الفلق"},
-            {num: 112, name: "Al-Ikhlas", arabic: "الإخلاص", 
+                reference: "Sourate Al-Falaq (113), versets 1-5" },{num: 112, name: "Al-Ikhlas", arabic: "الإخلاص", 
              info: {fr: "Elle résume le concept de Tawhid (l'unicité d'Allah). Équivalente au tiers du Coran.", 
                     ar: "تختصر مفهوم التوحيد. تعدل ثلث القرآن."},
              verse: {
@@ -1486,6 +1574,7 @@
                 reference: "Sourate Abasa (80), versets 1-10"
              },
              youtube: "https://www.youtube.com/results?search_query=سعود+الشريم+سورة+عبس"},
+             youtube: "https://www.youtube.com/results?search_query=سعود+الشريم+سورة+الفلق"},
             {num: 79, name: "An-Nazi'at", arabic: "النازعات", 
              info: {fr: "Parle des anges qui arrachent les âmes et de la résurrection.", 
                     ar: "تتحدث عن الملائكة التي تنزع الأرواح والبعث."},
@@ -1639,7 +1728,13 @@
             feedbackConfirmationArabic: document.getElementById('feedbackConfirmationArabic'),
             feedbackConfirmationText2: document.getElementById('feedbackConfirmationText2'),
             contactForm: document.getElementById('contactForm'),
-            feedbackScore: document.getElementById('feedbackScore')
+            feedbackScore: document.getElementById('feedbackScore'),
+            // Confirmation message elements
+            confirmationMessage: document.getElementById('confirmationMessage'),
+            confirmationTitle: document.getElementById('confirmationTitle'),
+            confirmationText: document.getElementById('confirmationText'),
+            confirmationArabic: document.getElementById('confirmationArabic'),
+            confirmationCloseBtn: document.getElementById('confirmationCloseBtn')
         };
 
         // ==================== INITIALISATION ====================
@@ -1655,6 +1750,7 @@
             elements.youtubeLink.style.display = 'none';
             elements.verseBox.style.display = 'none';
             elements.hadithBox.style.display = 'none';
+            elements.confirmationMessage.style.display = 'none';
             
             // Ajouter les écouteurs d'événements
             elements.startBtn.addEventListener('click', startQuiz);
@@ -1679,6 +1775,9 @@
             // Gestion du feedback
             elements.feedbackCloseBtn.addEventListener('click', closeFeedbackModal);
             elements.contactForm.addEventListener('submit', handleFeedbackSubmit);
+            elements.confirmationCloseBtn.addEventListener('click', () => {
+                elements.confirmationMessage.style.display = 'none';
+            });
             
             // Vérifier si on doit afficher la confirmation de feedback
             if (window.location.search.includes('feedback=success')) {
@@ -1743,6 +1842,12 @@
             updateElementText('feedbackConfirmationText', translations[lang].feedbackConfirmationText);
             updateElementText('feedbackConfirmationArabic', translations[lang].feedbackConfirmationArabic);
             updateElementText('feedbackConfirmationText2', translations[lang].feedbackConfirmationText2);
+            
+            // Mettre à jour les textes de confirmation
+            updateElementText('confirmationTitle', translations[lang].confirmationTitle);
+            updateElementText('confirmationText', translations[lang].confirmationText);
+            updateElementText('confirmationArabic', translations[lang].confirmationArabic);
+            updateElementText('confirmationCloseBtn', translations[lang].confirmationCloseBtn);
             
             // Changer la direction du document
             if (lang === 'ar') {
@@ -2109,6 +2214,9 @@
         function handleFeedbackSubmit(e) {
             e.preventDefault();
             
+            // Afficher le message de confirmation personnalisé
+            showConfirmationMessage();
+            
             // Envoi du formulaire via FormSubmit
             const formData = new FormData(elements.contactForm);
             
@@ -2121,12 +2229,8 @@
             })
             .then(response => {
                 if (response.ok) {
-                    // Afficher le message de confirmation
-                    elements.feedbackForm.style.display = 'none';
-                    elements.feedbackConfirmation.classList.add('show');
-                    
-                    // Rediriger vers la page avec le paramètre de succès
-                    window.location.href = window.location.pathname + '?feedback=success';
+                    // Fermer le modal après l'envoi
+                    closeFeedbackModal();
                 } else {
                     throw new Error('Network response was not ok');
                 }
@@ -2137,6 +2241,15 @@
                     ? "Une erreur s'est produite. Veuillez réessayer." 
                     : "حدث خطأ. يرجى المحاولة مرة أخرى.");
             });
+        }
+
+        function showConfirmationMessage() {
+            elements.confirmationMessage.style.display = 'block';
+            
+            // Fermer automatiquement après 5 secondes
+            setTimeout(() => {
+                elements.confirmationMessage.style.display = 'none';
+            }, 5000);
         }
 
         // Démarrer l'application
