@@ -1061,10 +1061,10 @@
     
     <div id="scoreDisplay" class="score"></div>
 
-    <div class="controls">
-        <button id="startBtn">Commencer</button>
-        <button id="restartBtn" style="display: none;">Recommencer</button>
-        <button id="nextBtn" disabled>Suivant</button>
+    <div class="controls button-group">
+        <button id="startBtn" type="button" class="hidden">Commencer</button>
+        <button id="restartBtn" type="button" class="hidden grouped-button">Recommencer</button>
+        <button id="nextBtn" type="button" class="grouped-button" disabled>Suivant</button>
     </div>
 
     <div class="footer">
@@ -1082,7 +1082,7 @@
             
             <div class="feedback-thank-you">
                 <h2 id="feedbackThankYouTitle">Merci pour votre visite et votre participation !</h2>
-                <p id="feedbackThankYouText">Nous apprécions le temps que vous avez pris pour participer à notre quiz. Veuillez partager votre expérience avec nous.</p>
+                <p id="feedbackThankYouText">Nous apprécions le temps que vous avez pris pour participer à notre quiz. Veuillez partager votre expérience avec nous, ou cliquez sur X pour fermer.</p>
                 <div class="feedback-arabic" id="feedbackArabic">بارك الله فيك (Barak Allahou fik)</div>
                 <!-- Ajout du score ici -->
                 <div id="feedbackScore" class="feedback-score"></div>
@@ -1097,7 +1097,7 @@
                     <input type="hidden" name="_captcha" value="false">
                     
                     <div class="feedback-form-group">
-                        <label for="feedbackEmail" id="feedbackEmailLabel">Votre adresse email :</label>
+                        <label for="feedbackEmail" id="feedbackEmailLabel">Votre adresse email (Facultatif):</label>
                         <input type="email" id="feedbackEmail" name="email" required>
                     </div>
                     
@@ -1135,7 +1135,7 @@
                 <i class="fas fa-check-circle"></i>
                 <h2 id="feedbackConfirmationTitle">Feedback envoyé avec succès !</h2>
                 <p id="feedbackConfirmationText">Nous avons bien reçu votre message et l'apprécions beaucoup.</p>
-                <div class="feedback-arabic" id="feedbackConfirmationArabic">جزاك الله خيرا (Jazak Allahu khayran)</div>
+                <div class="feedback-arabic" id="feedbackConfirmationArabic">جزاك الله خيرا (Jazaak Allahu khayran)</div>
                 <p id="feedbackConfirmationText2">Nous vous répondrons dès que possible.</p>
             </div>
         </div>
@@ -1574,7 +1574,7 @@
              verse: {
                 arabic: "عَبَسَ وَتَوَلَّىٰ ﴿١﴾ أَن جَاءَهُ الْأَعْمَىٰ ﴿٢﴾ وَمَا يُدْرِيكَ لَعَلَّهُ يَزَّكَّىٰ ﴿٣﴾ أَوْ يَذَّكَّرُ فَتَنفَعَهُ الذِّكْرَىٰ ﴿٤﴾ أَمَّا مَنِ اسْتَغْنَىٰ ﴿٥﴾ فَأَنتَ لَهُ تَصَدَّىٰ ﴿٦﴾ وَمَا عَلَيْكَ أَلَّا يَزَّكَّىٰ ﴿٧﴾ وَأَمَّا mَن جَاءَكَ يَسْعَىٰ ﴿٨﴾ وَهُوَ يَخْشَىٰ ﴿٨﴾ فَأَنتَ عَنْهُ تَلَهَّىٰ ﴿١٠﴾",
                 fr: "Il s'est renfrogné et il s'est détourné parce que l'aveugle est venu à lui. Qui te dira? Peut-être cherche-t-il à se purifier, ou à recevoir un enseignement qui lui profiterait. Quant à celui qui se complait dans sa suffisance, tu vas vers lui avec empressement, alors qu'il ne t'incombe en rien qu'il ne se purifie pas. Et quant à celui qui vient à toi avec empressement tout en craignant, tu ne t'en soucies pas.",
-                reference: "Sourate Abasa (80), versets 1-10
+                reference: "Sourate Abasa (80), versets 1-10"
                },
              youtube: "https://www.youtube.com/results?search_query=سعود+الشريم+سورة+عبس"},
             {num: 79, name: "An-Nazi'at", arabic: "النازعات", 
