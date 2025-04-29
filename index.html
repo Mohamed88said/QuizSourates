@@ -816,6 +816,22 @@
             color: white;
         }
 
+        /* Nouveau style pour le score dans le feedback */
+        .feedback-score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #e0f2fe;
+            border-radius: 8px;
+            color: var(--primary);
+        }
+
+        .dark-mode .feedback-score {
+            background-color: #1e40af;
+            color: var(--dark-text);
+        }
+
         @media (max-width: 768px) {
             .content-wrapper {
                 flex-direction: column;
@@ -996,6 +1012,8 @@
                 <h2 id="feedbackThankYouTitle">Merci pour votre visite et votre participation !</h2>
                 <p id="feedbackThankYouText">Nous apprécions le temps que vous avez pris pour participer à notre quiz. Veuillez partager votre expérience avec nous.</p>
                 <div class="feedback-arabic" id="feedbackArabic">بارك الله فيك (Barak Allahou fik)</div>
+                <!-- Ajout du score ici -->
+                <div id="feedbackScore" class="feedback-score"></div>
             </div>
             
             <div class="feedback-form" id="feedbackForm">
@@ -1043,7 +1061,7 @@
             
             <div class="feedback-confirmation" id="feedbackConfirmation">
                 <i class="fas fa-check-circle"></i>
-                <h2 id="feedbackConfirmationTitle">Merci pour votre feedback !</h2>
+                <h2 id="feedbackConfirmationTitle">Feedback envoyé avec succès !</h2>
                 <p id="feedbackConfirmationText">Nous avons bien reçu votre message et l'apprécions beaucoup.</p>
                 <div class="feedback-arabic" id="feedbackConfirmationArabic">جزاك الله خيرا (Jazak Allahu khayran)</div>
                 <p id="feedbackConfirmationText2">Nous vous répondrons dès que possible.</p>
@@ -1097,7 +1115,7 @@
                 feedbackRatingLabel: "Notez votre expérience :",
                 feedbackMessageLabel: "Votre message :",
                 feedbackSubmitBtn: "Envoyer le Feedback",
-                feedbackConfirmationTitle: "Merci pour votre feedback !",
+                feedbackConfirmationTitle: "Feedback envoyé avec succès !",
                 feedbackConfirmationText: "Nous avons bien reçu votre message et l'apprécions beaucoup.",
                 feedbackConfirmationArabic: "جزاك الله خيرا (Jazak Allahu khayran)",
                 feedbackConfirmationText2: "Nous vous répondrons dès que possible."
@@ -1145,7 +1163,7 @@
                 feedbackRatingLabel: "قيم تجربتك:",
                 feedbackMessageLabel: "رسالتك:",
                 feedbackSubmitBtn: "إرسال الملاحظات",
-                feedbackConfirmationTitle: "شكرا لملاحظاتك!",
+                feedbackConfirmationTitle: "تم إرسال الملاحظات بنجاح!",
                 feedbackConfirmationText: "لقد استلمنا رسالتك ونقدرها كثيرا.",
                 feedbackConfirmationArabic: "جزاك الله خيرا",
                 feedbackConfirmationText2: "سوف نرد عليك في أقرب وقت ممكن."
@@ -1274,7 +1292,7 @@
              info: {fr: "Décrit les événements terrifiants du Jour du Jugement.", 
                     ar: "تصف أحداث يوم القيامة المخيفة."},
              verse: {
-                arabic: "الْقَارِعَةُ ﴿١﴾ مَا الْقَارِعَةُ ﴿٢﴾ وَمَا أَدْرَاكَ مَا الْقَارِعَةُ ﴿٣﴾ يَوْمَ يَكُونُ النَّاسُ كَالْفَرَاشِ الْمَبْثُوثِ ﴿٤﴾ وَتَكُونُ الْجِبَالُ كَالْعِهْنِ الْمَنفُوشِ ﴿٥﴾ فَأَمَّا مَن ثَقُلَتْ مَوَازِينُهُ ﴿٦﴾ فَهُوَ فِي عِيشَةٍ رَّاضِيَةٍ ﴿٧﴾ وَأَمَّا مَنْ خَفَّتْ mَوَازِينُهُ ﴿٨﴾ فَأُمُّهُ هَاوِيَةٌ ﴿٩﴾ وَمَا أَدْرَاكَ مَا هِيَهْ ﴿١٠﴾ نَارٌ حَامِيَةٌ ﴿١١﴾",
+                arabic: "الْقَارِعَةُ ﴿١﴾ مَا الْقَارِعَةُ ﴿٢﴾ وَمَا أَدْرَاكَ مَا الْقَارِعَةُ ﴿٣﴾ يَوْمَ يَكُونُ النَّاسُ كَالْفَرَاشِ الْمَبْثُوثِ ﴿٤﴾ وَتَكُونُ الْجِبَالُ كَالْعِهْنِ الْمَنفُوشِ ﴿٥﴾ فَأَمَّا مَن ثَقُلَتْ mَوَازِينُهُ ﴿٦﴾ فَهُوَ فِي عِيشَةٍ رَّاضِيَةٍ ﴿٧﴾ وَأَمَّا مَنْ خَفَّتْ mَوَازِينُهُ ﴿٨﴾ فَأُمُّهُ هَاوِيَةٌ ﴿٩﴾ وَمَا أَدْرَاكَ مَا هِيَهْ ﴿١٠﴾ نَارٌ حَامِيَةٌ ﴿١١﴾",
                 fr: "La calamité! Qu'est-ce que la calamité? Et qui te dira ce qu'est la calamité? C'est le jour où les gens seront comme des papillons éparpillés, et les montagnes comme de la laine cardée. Quant à celui dont la balance sera lourde, il sera dans une vie agréable. Et quant à celui dont la balance sera légère, sa mère [destination] est un abîme très profond. Et qui te dira ce que c'est? C'est un Feu ardent.",
                 reference: "Sourate Al-Qari'a (101), versets 1-11"
              },
@@ -1620,7 +1638,8 @@
             feedbackConfirmationText: document.getElementById('feedbackConfirmationText'),
             feedbackConfirmationArabic: document.getElementById('feedbackConfirmationArabic'),
             feedbackConfirmationText2: document.getElementById('feedbackConfirmationText2'),
-            contactForm: document.getElementById('contactForm')
+            contactForm: document.getElementById('contactForm'),
+            feedbackScore: document.getElementById('feedbackScore')
         };
 
         // ==================== INITIALISATION ====================
@@ -1982,11 +2001,12 @@
             elements.youtubeLink.style.display = 'none';
             
             // Afficher le score final
-            elements.scoreDisplay.textContent = `${translations[currentLanguage].quizFinished} ${score}/${totalQuestions}`;
+            const scoreText = `${translations[currentLanguage].quizFinished} ${score}/${totalQuestions}`;
+            elements.scoreDisplay.textContent = scoreText;
             elements.scoreDisplay.style.display = 'block';
             
-            // Afficher le formulaire de feedback
-            showFeedbackModal();
+            // Afficher le formulaire de feedback avec le score
+            showFeedbackModal(scoreText);
         }
 
         function updateScore() {
@@ -2065,10 +2085,18 @@
         }
 
         // ==================== FONCTIONS DE FEEDBACK ====================
-        function showFeedbackModal() {
+        function showFeedbackModal(scoreText = '') {
             elements.feedbackModal.style.display = 'flex';
             elements.feedbackForm.style.display = 'block';
             elements.feedbackConfirmation.classList.remove('show');
+            
+            // Afficher le score dans le feedback
+            if (scoreText) {
+                elements.feedbackScore.textContent = scoreText;
+                elements.feedbackScore.style.display = 'block';
+            } else {
+                elements.feedbackScore.style.display = 'none';
+            }
             
             // Réinitialiser le formulaire
             elements.contactForm.reset();
