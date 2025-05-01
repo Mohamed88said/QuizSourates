@@ -1,1835 +1,2107 @@
 <!DOCTYPE html>
-<html lang="fr" id="htmlElement">
+<html lang="fr" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Les Règles de Nun Sakinah et Tanwin en Tajwid</title>
+    <title>Règles de Tajweed - Tanwin & Nun Sakinah</title>
     <style>
         :root {
-            --bg-color: #f9f9f9;
+            --primary-color: #4CAF50;
+            --secondary-color: #2E7D32;
             --text-color: #333;
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --box-bg: white;
-            --box-border: #ddd;
-            --exercise-bg: #e8f8f5;
-            --exercise-border: #1abc9c;
-            --example-bg: #f0f7fd;
-            --note-bg: #fffde7;
-            --note-border: #fbc02d;
-            --quiz-bg: #eaf2f8;
-            --quiz-border: #2980b9;
-            --feedback-bg: #f8f9fa;
-            --feedback-border: #6c757d;
-            --quiz-option-text: #333;
-            --quiz-question-text: #333;
+            --bg-color: #f5f5f5;
+            --card-bg: #fff;
+            --shadow: 0 4px 8px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --verse-font-size: 2rem;
+            --arabic-font-size: 1.8rem;
         }
 
         .dark-mode {
-            --bg-color: #1a1a2e;
-            --text-color: #e6e6e6;
-            --primary-color: #4cc9f0;
-            --secondary-color: #4361ee;
-            --box-bg: #16213e;
-            --box-border: #0f3460;
-            --exercise-bg: #1b3a4b;
-            --exercise-border: #006466;
-            --example-bg: #1e3a8a;
-            --note-bg: #4a4e69;
-            --note-border: #f9c74f;
-            --quiz-bg: #1e3a5f;
-            --quiz-border: #3a7bd5;
-            --feedback-bg: #343a40;
-            --feedback-border: #495057;
-            --quiz-option-text: #e6e6e6;
-            --quiz-question-text: #e6e6e6;
+            --primary-color: #689F38;
+            --secondary-color: #33691E;
+            --text-color: #f5f5f5;
+            --bg-color: #121212;
+            --card-bg: #1E1E1E;
+            --shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
+            background-color: var(--bg-color);
             color: var(--text-color);
-            max-width: 900px;
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: var(--bg-color);
-            transition: all 0.3s ease;
         }
-        
-        h1, h2, h3 {
-            color: var(--primary-color);
-            text-align: center;
-        }
-        
-        h1 {
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 10px;
-        }
-        
-        h2 {
-            background-color: var(--example-bg);
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 30px;
-        }
-        
-        h3 {
-            color: var(--secondary-color);
-            border-left: 4px solid var(--secondary-color);
-            padding-left: 10px;
-            text-align: left;
-        }
-        
-        .rule-box {
-            background-color: var(--box-bg);
-            border: 1px solid var(--box-border);
-            border-radius: 5px;
-            padding: 15px;
-            margin: 20px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .example {
-            background-color: var(--example-bg);
-            border-left: 4px solid var(--secondary-color);
-            padding: 10px 15px;
-            margin: 15px 0;
-            font-family: 'Traditional Arabic', 'Arial', sans-serif;
-            font-size: 18px;
-            direction: rtl;
-        }
-        
-        .exercise {
-            background-color: var(--exercise-bg);
-            border: 1px solid var(--exercise-border);
-            border-radius: 5px;
-            padding: 15px;
-            margin: 20px 0;
-        }
-        
-        .quiz-section {
-            background-color: var(--quiz-bg);
-            border: 1px solid var(--quiz-border);
-            border-radius: 5px;
-            padding: 20px;
-            margin: 30px 0;
-        }
-        
-        .quiz-question {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: var(--box-bg);
-            border-radius: 5px;
-        }
-        
-        .quiz-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        @media (max-width: 600px) {
-            .quiz-options {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .quiz-option {
-            padding: 8px;
-            border: 1px solid var(--box-border);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: var(--quiz-option-text);
-        }
-        
-        .quiz-option:hover {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-        
-        .quiz-option.selected {
-            background-color: var(--secondary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        
-        .quiz-option.correct {
-            background-color: #2ecc71;
-            color: white;
-            border-color: #27ae60;
-        }
-        
-        .quiz-option.incorrect {
-            background-color: #e74c3c;
-            color: white;
-            border-color: #c0392b;
-        }
-        
-        .quiz-feedback {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-        }
-        
-        .quiz-feedback.correct {
-            background-color: #d5f5e3;
-            border: 1px solid #2ecc71;
-            display: block;
-        }
-        
-        .quiz-feedback.incorrect {
-            background-color: #fadbd8;
-            border: 1px solid #e74c3c;
-            display: block;
-        }
-        
-        .quiz-next {
-            margin-top: 15px;
-            display: none;
-        }
-        
-        .note {
-            background-color: var(--note-bg);
-            border-left: 4px solid var(--note-border);
-            padding: 10px 15px;
-            margin: 15px 0;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        
-        th, td {
-            border: 1px solid var(--box-border);
-            padding: 8px;
-            text-align: center;
-        }
-        
-        th {
-            background-color: var(--box-bg);
-        }
-        
-        .arabic {
-            font-family: 'Traditional Arabic', 'Arial', sans-serif;
-            font-size: 20px;
-            direction: rtl;
-        }
-        
-        .translation {
-            font-style: italic;
-            color: var(--text-color);
-            opacity: 0.8;
-        }
-        
-        .resource-card {
-            background: var(--box-bg);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
-        
-        .resource-icon {
-            font-size: 24px;
-            margin-right: 15px;
-            color: var(--secondary-color);
+
+        .dark-mode header {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        
-        .resource-content {
-            flex: 1;
-        }
-        
-        .resource-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .resource-desc {
-            opacity: 0.8;
-            font-size: 14px;
-        }
-        
-        .resource-link {
-            color: var(--secondary-color);
-            text-decoration: none;
-        }
-        
-        .hidden-answer {
-            color: transparent;
-            background: var(--bg-color);
-            padding: 2px 5px;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .hidden-answer:hover {
-            color: var(--text-color);
-            background: var(--box-bg);
-        }
-        
-        .letters-box {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-        }
-        
-        .letter-card {
-            background: var(--example-bg);
-            border-radius: 4px;
-            padding: 8px 12px;
-            font-family: 'Traditional Arabic';
-            font-size: 20px;
-            text-align: center;
-            min-width: 30px;
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
         }
 
         .controls {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
         }
 
-        .control-btn {
-            background-color: var(--secondary-color);
-            color: white;
+        button {
+            padding: 8px 16px;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s;
-        }
-
-        .control-btn:hover {
+            border-radius: var(--border-radius);
             background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
         }
 
-        .quiz-link {
-            display: block;
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .rule-card {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .rule-item {
+            padding: 15px;
+            border-left: 4px solid var(--primary-color);
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .rule-item h3 {
+            color: var(--secondary-color);
+            margin-bottom: 8px;
+        }
+
+        .quiz-container {
+            display: none;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .verse {
+            font-size: var(--verse-font-size);
             text-align: center;
             margin: 20px 0;
-            font-size: 18px;
+            direction: rtl;
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
         }
 
-        /* Feedback Modal Styles */
-        .feedback-modal {
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .option {
+            padding: 12px;
+            background-color: var(--card-bg);
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .option.selected {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .feedback {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: var(--border-radius);
             display: none;
+        }
+
+        .correct {
+            background-color: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .incorrect {
+            background-color: rgba(244, 67, 54, 0.2);
+            border-left: 4px solid #F44336;
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Styles pour la bulle de quiz */
+        .quiz-bubble {
             position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            transition: var(--transition);
         }
 
-        .feedback-content {
-            background-color: var(--feedback-bg);
-            margin: 10% auto;
+        .quiz-bubble:hover {
+            transform: scale(1.1);
+        }
+
+        .quiz-bubble-icon {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .quiz-popup {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            max-height: 500px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
             padding: 20px;
-            border: 1px solid var(--feedback-border);
-            border-radius: 8px;
-            width: 80%;
-            max-width: 500px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
         }
 
-        .feedback-header {
+        .quiz-popup.active {
+            display: flex;
+        }
+
+        .quiz-popup-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
 
-        .feedback-title {
-            font-size: 1.5em;
-            color: var(--primary-color);
-        }
-
-        .close-btn {
-            color: var(--text-color);
-            font-size: 1.5em;
+        .close-popup {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
             cursor: pointer;
+            color: var(--text-color);
         }
 
-        .close-btn:hover {
+        /* Styles pour les exercices */
+        .exercise {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(76, 175, 80, 0.05);
+            border-radius: var(--border-radius);
+        }
+
+        .exercise h4 {
+            margin-bottom: 10px;
             color: var(--secondary-color);
         }
 
-        .rating-stars {
-            display: flex;
-            justify-content: center;
-            margin: 15px 0;
-            direction: ltr;
+        .exercise-question {
+            margin-bottom: 10px;
         }
 
-        .star {
-            font-size: 2em;
-            color: #ddd;
-            cursor: pointer;
-            transition: color 0.2s;
-            margin: 0 5px;
-        }
-
-        .star:hover, .star.active {
-            color: #ffc107;
-        }
-
-        .feedback-form {
+        .exercise-options {
             display: flex;
             flex-direction: column;
+            gap: 8px;
         }
 
-        .feedback-form input,
-        .feedback-form textarea {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid var(--box-border);
-            background-color: var(--box-bg);
-            color: var(--text-color);
-        }
-
-        .feedback-form textarea {
-            height: 100px;
-        }
-
-        .feedback-form button {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--secondary-color);
-            color: white;
+        .exercise-option {
+            padding: 8px;
+            background-color: var(--card-bg);
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: var(--transition);
         }
 
-        .feedback-form button:hover {
+        .exercise-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .exercise-option.selected {
             background-color: var(--primary-color);
-        }
-
-        .feedback-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--secondary-color);
             color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 1.5em;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
+            border-color: var(--primary-color);
         }
 
-        .feedback-btn:hover {
-            background-color: var(--primary-color);
-        }
-
-        .thank-you-message {
-            text-align: center;
-            padding: 20px;
+        .exercise-feedback {
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: var(--border-radius);
             display: none;
         }
 
-        .thank-you-message .arabic-dua {
-            font-family: 'Traditional Arabic', 'Arial', sans-serif;
-            font-size: 24px;
-            direction: rtl;
-            margin: 15px 0;
+        .exercise-correct {
+            background-color: rgba(76, 175, 80, 0.2);
+            border-left: 3px solid var(--primary-color);
         }
 
-        @media (max-width: 600px) {
-            .controls {
+        .exercise-incorrect {
+            background-color: rgba(244, 67, 54, 0.2);
+            border-left: 3px solid #F44336;
+        }
+
+        .check-answers {
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        .check-answers:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Styles pour l'analyseur de tanwin */
+        #arabic-input {
+            width: 100%;
+            padding: 10px;
+            font-size: var(--arabic-font-size);
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            direction: rtl;
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
+        }
+
+        #analyze-btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #analysis-results {
+            background-color: rgba(76, 175, 80, 0.1);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+        }
+
+        #results-content {
+            margin-top: 10px;
+        }
+
+        .tanwin-result {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .tanwin-type {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .rule-explanation {
+            font-style: italic;
+            margin-top: 5px;
+            color: var(--text-color);
+        }
+
+        .visual-representation {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+            direction: rtl;
+        }
+
+        .tanwin-visualization {
+            font-size: 1.8rem;
+            margin: 10px 0;
+            text-align: center;
+            direction: rtl;
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --verse-font-size: 1.5rem;
+                --arabic-font-size: 1.4rem;
+            }
+
+            header {
                 flex-direction: column;
+                gap: 15px;
             }
             
-            .control-btn {
+            .controls {
                 width: 100%;
-                margin-bottom: 5px;
+                justify-content: center;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
             }
 
-            .feedback-content {
-                margin: 20% auto;
+            .quiz-popup {
                 width: 90%;
+                right: 5%;
+                bottom: 80px;
+            }
+
+            .visual-representation {
+                font-size: 1.2rem;
+            }
+
+            .tanwin-visualization {
+                font-size: 1.4rem;
             }
         }
 
-        /* Ajout pour le texte des questions du quiz */
-        #quiz-question {
-            color: var(--quiz-question-text);
-            margin-bottom: 15px;
+        @media (max-width: 480px) {
+            :root {
+                --verse-font-size: 1.3rem;
+                --arabic-font-size: 1.2rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .rule-item h3 {
+                font-size: 1.1rem;
+            }
+
+            .visual-representation {
+                font-size: 1rem;
+            }
+
+            .tanwin-visualization {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="controls">
-        <button id="darkModeBtn" class="control-btn">Mode Sombre</button>
-        <button id="languageBtn" class="control-btn">Français / العربية</button>
-        <button id="checkRulesBtn" class="control-btn">Vérifier les Règles</button>
-    </div>
+    <div class="container">
+        <header>
+            <h1 id="title">Règles de Tajweed - Tanwin & Nun Sakinah</h1>
+            <div class="controls">
+                <button id="language-btn">العربية</button>
+                <button id="dark-mode-btn">Mode Sombre</button>
+            </div>
+        </header>
 
-    <h1 id="title">Les Règles de Nun Sakinah et Tanwin en Tajwid</h1>
-    
-    <div class="rule-box">
-        <p id="intro-text">La "Nun Sakinah" (نون ساكنة) est un nun (ن) sans voyelle (soukoune), tandis que le "Tanwin" est le nun implicite qui apparaît sous forme de double voyelle (ـًـٍـٌ) en fin de mot. En tajwid, il existe quatre règles principales qui s'appliquent lorsqu'une nun sakinah ou un tanwin rencontre certaines lettres.</p>
-    </div>
-    
-    <h2 id="section1">1. Izhar Halqi (الإظهار الحلقي)</h2>
-    
-    <div class="rule-box">
-        <h3 id="izhar-def">Définition</h3>
-        <p id="izhar-def-text">L'Izhar Halqi (manifestation gutturale) se produit lorsque la nun sakinah ou le tanwin est suivi d'une des six lettres gutturales: ء ه ع ح غ خ. Dans ce cas, le nun est prononcé clairement sans nasalisation (ghunnah).</p>
-        
-        <h3 id="izhar-letters">Lettres concernées</h3>
-        <div class="letters-box">
-            <div class="letter-card">ء</div>
-            <div class="letter-card">ه</div>
-            <div class="letter-card">ع</div>
-            <div class="letter-card">ح</div>
-            <div class="letter-card">غ</div>
-            <div class="letter-card">خ</div>
+        <div class="card">
+            <h2 id="lessons-title">Leçons sur les Règles</h2>
+            <div class="rule-card">
+                <div class="rule-item">
+                    <h3 id="rule1-title">1. Al-Izhar Al-Halqi (الإظهار الحلقي)</h3>
+                    <p id="rule1-desc">Lorsque après le tanwin ou le nun sakinah vient l'une des lettres de la gorge (ء، ه، ع، ح، غ، خ), on prononce clairement le "n" sans assimilation. Cette règle s'appelle "Izhar" qui signifie "montrer clairement". Les lettres concernées sont appelées "lettres de la gorge" car elles sont prononcées depuis différentes parties de la gorge.</p>
+                    
+                    <div class="tanwin-visualization" id="rule1-visual-fr">
+                        <p><strong>Représentation du tanwin :</strong> Dans le cas d'Al-Izhar, le tanwin est écrit normalement avec ses deux traits alignés (ـًـٍـٌ) car il n'y a pas de fusion ou de modification du son. Le nun sakinah (نْ) est écrit avec un soukoun clair au-dessus.</p>
+                        <p>Exemple avec tanwin : عَلِيٌّ حَكِيمٌ (les deux traits du tanwin sont alignés)</p>
+                        <p>Exemple avec nun sakinah : مِنْ خَيْرٍ (le soukoun est clairement visible sur le ن)</p>
+                    </div>
+                    
+                    <div class="tanwin-visualization" id="rule1-visual-ar" style="display: none;">
+                        <p><strong>تمثيل التنوين:</strong> في حالة الإظهار الحلقي، يتم كتابة التنوين بشكل طبيعي بخطين متوازيين (ـًـٍـٌ) لأنه لا يوجد دمج أو تعديل في الصوت. النون الساكنة (نْ) مكتوبة بسكون واضح فوقها.</p>
+                        <p>مثال مع التنوين: عَلِيٌّ حَكِيمٌ (الخطان للتنوين متوازيان)</p>
+                        <p>مثال مع النون الساكنة: مِنْ خَيْرٍ (السكون واضح على النون)</p>
+                    </div>
+                    
+                    <div class="exercise">
+                        <h4 id="exercise1-title">Exercice 1: Al-Izhar Al-Halqi</h4>
+                        <div class="exercise-question" id="exercise1-q1">Quelle lettre suit le tanwin dans "مِنْ خَيْرٍ" et quelle règle s'applique?</div>
+                        <div class="exercise-options" id="exercise1-options1">
+                            <div class="exercise-option" data-correct="false">ب - Al-Iqlab</div>
+                            <div class="exercise-option" data-correct="true">خ - Al-Izhar Al-Halqi</div>
+                            <div class="exercise-option" data-correct="false">ي - Al-Idgham Ma'al Ghunna</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <div class="exercise-question" id="exercise1-q2">Dans "عَلِيٌّ حَكِيمٌ", comment sont représentés les deux traits du tanwin avant le ح?</div>
+                        <div class="exercise-options" id="exercise1-options2">
+                            <div class="exercise-option" data-correct="false">Ils sont fusionnés en un seul trait</div>
+                            <div class="exercise-option" data-correct="true">Ils sont alignés normalement</div>
+                            <div class="exercise-option" data-correct="false">Un trait est plus haut que l'autre</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <div class="exercise-question" id="exercise1-q3">Quelles sont les lettres de Al-Izhar Al-Halqi?</div>
+                        <div class="exercise-options" id="exercise1-options3">
+                            <div class="exercise-option" data-correct="false">ي، ن، م، و</div>
+                            <div class="exercise-option" data-correct="true">ء، ه، ع، ح، غ، خ</div>
+                            <div class="exercise-option" data-correct="false">ت، ث، ج، د، ذ</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <button class="check-answers" id="exercise1-check">Vérifier les réponses</button>
+                    </div>
+                </div>
+                
+                <div class="rule-item">
+                    <h3 id="rule2-title">2. Al-Idgham Ma'al Ghunna (الإدغام بغنة)</h3>
+                    <p id="rule2-desc">Lorsque après le tanwin ou le nun sakinah vient l'une des lettres (ي، ن، م، و), on assimile en prononçant avec une nasalisation (ghunna). La ghunna est un son nasal qui dure environ 2 temps. L'idgham signifie "fusion" ou "assimilation". Les lettres concernées peuvent être mémorisées avec le mot "يَنْمُو" (il grandit).</p>
+                    
+                    <div class="tanwin-visualization" id="rule2-visual-fr">
+                        <p><strong>Représentation du tanwin :</strong> Dans Al-Idgham Ma'al Ghunna, le tanwin n'est pas écrit avec ses deux traits alignés. Les deux traits sont légèrement décalés pour indiquer la fusion avec nasalisation. Le nun sakinah (نْ) est complètement assimilé et n'apparaît pas visuellement, mais la nasalisation est présente dans la prononciation.</p>
+                        <p>Exemple avec tanwin : غفورٌ رحيم (les traits du tanwin sont légèrement décalés avant le ر)</p>
+                        <p>Exemple avec nun sakinah : مِنْ نِعْمَةٍ (le ن est assimilé dans le ن suivant avec ghunna)</p>
+                    </div>
+                    
+                    <div class="tanwin-visualization" id="rule2-visual-ar" style="display: none;">
+                        <p><strong>تمثيل التنوين:</strong> في الإدغام بغنة، لا يتم كتابة التنوين بخطين متوازيين. يتم كتابة الخطين بشكل متباعد قليلاً للإشارة إلى الدمج مع الغنة. النون الساكنة (نْ) يتم دمجها بالكامل ولا تظهر مرئيًا، لكن الغنة موجودة في النطق.</p>
+                        <p>مثال مع التنوين: غفورٌ رحيم (خطا التنوين متباعدان قليلاً قبل الراء)</p>
+                        <p>مثال مع النون الساكنة: مِنْ نِعْمَةٍ (النون تندمج في النون التالية مع غنة)</p>
+                    </div>
+                    
+                    <div class="exercise">
+                        <h4 id="exercise2-title">Exercice 2: Al-Idgham Ma'al Ghunna</h4>
+                        <div class="exercise-question" id="exercise2-q1">Quelle règle s'applique dans "مِنْ نِعْمَةٍ"?</div>
+                        <div class="exercise-options" id="exercise2-options1">
+                            <div class="exercise-option" data-correct="false">Al-Izhar</div>
+                            <div class="exercise-option" data-correct="true">Al-Idgham Ma'al Ghunna</div>
+                            <div class="exercise-option" data-correct="false">Al-Iqlab</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <div class="exercise-question" id="exercise2-q2">Comment sont représentés les traits du tanwin dans Al-Idgham Ma'al Ghunna?</div>
+                        <div class="exercise-options" id="exercise2-options2">
+                            <div class="exercise-option" data-correct="false">Alignés normalement comme en Izhar</div>
+                            <div class="exercise-option" data-correct="true">Légèrement décalés pour indiquer la fusion</div>
+                            <div class="exercise-option" data-correct="false">Remplacés par un seul trait</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <div class="exercise-question" id="exercise2-q3">Quelle lettre parmi celles-ci ne fait PAS partie de Al-Idgham Ma'al Ghunna?</div>
+                        <div class="exercise-options" id="exercise2-options3">
+                            <div class="exercise-option" data-correct="false">ي</div>
+                            <div class="exercise-option" data-correct="false">ن</div>
+                            <div class="exercise-option" data-correct="true">ل</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <button class="check-answers" id="exercise2-check">Vérifier les réponses</button>
+                    </div>
+                </div>
+                
+                <div class="rule-item">
+                    <h3 id="rule3-title">3. Al-Idgham Bila Ghunna (الإدغام بلا غنة)</h3>
+                    <p id="rule3-desc">Lorsque après le tanwin ou le nun sakinah vient l'une des lettres (ل، ر), on assimile sans nasalisation. "Bila Ghunna" signifie "sans nasalisation". Ces deux lettres sont appelées "les lettres lumineuses" (حروف مضيئة). Contrairement à Al-Idgham Ma'al Ghunna, ici l'assimilation est complète sans trace de nasalisation.</p>
+                    
+                    <div class="tanwin-visualization" id="rule3-visual-fr">
+                        <p><strong>Représentation du tanwin :</strong> Dans Al-Idgham Bila Ghunna, le tanwin n'est pas écrit du tout car il y a assimilation complète sans nasalisation. Le nun sakinah (نْ) est également complètement assimilé et ne laisse aucune trace dans l'écriture ou la prononciation.</p>
+                        <p>Exemple avec tanwin : غفورٌ رحيم (le tanwin disparaît complètement avant le ر)</p>
+                        <p>Exemple avec nun sakinah : مِنْ لَدُنْ (le ن est complètement assimilé dans le ل suivant)</p>
+                    </div>
+                    
+                    <div class="tanwin-visualization" id="rule3-visual-ar" style="display: none;">
+                        <p><strong>تمثيل التنوين:</strong> في الإدغام بلا غنة، لا يتم كتابة التنوين على الإطلاق لأن هناك دمجًا كاملاً بدون غنة. النون الساكنة (نْ) يتم دمجها بالكامل ولا تترك أي أثر في الكتابة أو النطق.</p>
+                        <p>مثال مع التنوين: غفورٌ رحيم (يختفي التنوين تمامًا قبل الراء)</p>
+                        <p>مثال مع النون الساكنة: مِنْ لَدُنْ (النون تندمج تمامًا في اللام التالية)</p>
+                    </div>
+                    
+                    <div class="exercise">
+                        <h4 id="exercise3-title">Exercice 3: Al-Idgham Bila Ghunna</h4>
+                        <div class="exercise-question" id="exercise3-q1">Quelle règle s'applique dans "مِنْ رَبِّهِمْ"?</div>
+                        <div class="exercise-options" id="exercise3-options1">
+                            <div class="exercise-option" data-correct="false">Al-Ikhfa'</div>
+                            <div class="exercise-option" data-correct="true">Al-Idgham Bila Ghunna</div>
+                            <div class="exercise-option" data-correct="false">Al-Izhar</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <div class="exercise-question" id="exercise3-q2">Comment est représenté le tanwin dans Al-Idgham Bila Ghunna?</div>
+                        <div class="exercise-options" id="exercise3-options2">
+                            <div class="exercise-option" data-correct="false">Avec deux traits alignés</div>
+                            <div class="exercise-option" data-correct="false">Avec deux traits légèrement décalés</div>
+                            <div class="exercise-option" data-correct="true">Il n'apparaît pas du tout</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <div class="exercise-question" id="exercise3-q3">Quelles sont les lettres de Al-Idgham Bila Ghunna?</div>
+                        <div class="exercise-options" id="exercise3-options3">
+                            <div class="exercise-option" data-correct="false">ي، و</div>
+                            <div class="exercise-option" data-correct="true">ل، ر</div>
+                            <div class="exercise-option" data-correct="false">م، ن</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <button class="check-answers" id="exercise3-check">Vérifier les réponses</button>
+                    </div>
+                </div>
+                
+                <div class="rule-item">
+                    <h3 id="rule4-title">4. Al-Iqlab (الإقلاب)</h3>
+                    <p id="rule4-desc">Lorsque après le tanwin ou le nun sakinah vient la lettre (ب), on transforme le "n" en "m" avec nasalisation. Iqlab signifie "transformation" ou "renversement". La nasalisation (ghunna) doit durer environ 2 temps. C'est la seule règle où le son du nun sakinah ou tanwin est complètement transformé en un autre son.</p>
+                    
+                    <div class="tanwin-visualization" id="rule4-visual-fr">
+                        <p><strong>Représentation du tanwin :</strong> Dans Al-Iqlab, le tanwin est remplacé par une petite م écrite au-dessus de la ligne (ـًۢ). Pour le nun sakinah, le نْ est transformé en مْ mais cette transformation n'est pas visible dans l'écriture ordinaire du Coran, seulement dans la prononciation.</p>
+                        <p>Exemple avec tanwin : سَمِيعٌۢ بَصِيرٌ (le tanwin est remplacé par une petite م avant le ب)</p>
+                        <p>Exemple avec nun sakinah : مِنْ بَعْدِ (le ن est prononcé comme م mais écrit normalement)</p>
+                    </div>
+                    
+                    <div class="tanwin-visualization" id="rule4-visual-ar" style="display: none;">
+                        <p><strong>تمثيل التنوين:</strong> في الإقلاب، يتم استبدال التنوين بميم صغيرة مكتوبة فوق السطر (ـًۢ). بالنسبة للنون الساكنة، يتم تحويل النون إلى ميم ولكن هذا التحويل غير مرئي في الكتابة العادية للقرآن، فقط في النطق.</p>
+                        <p>مثال مع التنوين: سَمِيعٌۢ بَصِيرٌ (يتم استبدال التنوين بميم صغيرة قبل الباء)</p>
+                        <p>مثال مع النون الساكنة: مِنْ بَعْدِ (النون تنطق كميم ولكن تكتب بشكل طبيعي)</p>
+                    </div>
+                    
+                    <div class="exercise">
+                        <h4 id="exercise4-title">Exercice 4: Al-Iqlab</h4>
+                        <div class="exercise-question" id="exercise4-q1">Quelle règle s'applique dans "مِنْ بَعْدِ"?</div>
+                        <div class="exercise-options" id="exercise4-options1">
+                            <div class="exercise-option" data-correct="false">Al-Ikhfa'</div>
+                            <div class="exercise-option" data-correct="true">Al-Iqlab</div>
+                            <div class="exercise-option" data-correct="false">Al-Idgham</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <div class="exercise-question" id="exercise4-q2">Comment est représenté le tanwin dans Al-Iqlab?</div>
+                        <div class="exercise-options" id="exercise4-options2">
+                            <div class="exercise-option" data-correct="false">Avec deux traits alignés</div>
+                            <div class="exercise-option" data-correct="true">Remplacé par une petite م au-dessus</div>
+                            <div class="exercise-option" data-correct="false">Avec deux traits décalés</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <div class="exercise-question" id="exercise4-q3">Quelle lettre déclenche Al-Iqlab?</div>
+                        <div class="exercise-options" id="exercise4-options3">
+                            <div class="exercise-option" data-correct="false">ت</div>
+                            <div class="exercise-option" data-correct="true">ب</div>
+                            <div class="exercise-option" data-correct="false">ج</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <button class="check-answers" id="exercise4-check">Vérifier les réponses</button>
+                    </div>
+                </div>
+                
+                <div class="rule-item">
+                    <h3 id="rule5-title">5. Al-Ikhfa' Al-Haqiqi (الإخفاء الحقيقي)</h3>
+                    <p id="rule5-desc">Lorsque après le tanwin ou le nun sakinah vient l'une des 15 lettres restantes, on prononce avec un son intermédiaire entre l'assimilation et la clarté, avec nasalisation. Ikhfa' signifie "dissimulation". Les 15 lettres sont: ت، ث، ج، د، ذ، ز، س، ش، ص، ض، ط، ظ، ف، ق، ك. La nasalisation doit durer environ 2 temps et le son doit être produit avec le bout de la langue près des dents supérieures sans toucher.</p>
+                    
+                    <div class="tanwin-visualization" id="rule5-visual-fr">
+                        <p><strong>Représentation du tanwin :</strong> Dans Al-Ikhfa', le tanwin est écrit avec ses deux traits mais ils peuvent apparaître légèrement estompés ou moins marqués pour indiquer la prononciation cachée. Le nun sakinah (نْ) conserve son soukoun mais la prononciation est nasalisée et cachée.</p>
+                        <p>Exemple avec tanwin : عَلِيمٌ ذُو (les traits du tanwin sont présents mais la prononciation est cachée)</p>
+                        <p>Exemple avec nun sakinah : مِنْ تَحْتِهَا (le ن conserve son soukoun mais la prononciation est nasalisée)</p>
+                    </div>
+                    
+                    <div class="tanwin-visualization" id="rule5-visual-ar" style="display: none;">
+                        <p><strong>تمثيل التنوين:</strong> في الإخفاء، يتم كتابة التنوين بخطيه ولكن قد يظهران باهتين أو أقل وضوحًا للإشارة إلى النطق المخفي. النون الساكنة (نْ) تحتفظ بسكونها ولكن النطق يكون أنفيًا ومخفيًا.</p>
+                        <p>مثال مع التنوين: عَلِيمٌ ذُو (خطا التنوين موجودان ولكن النطق مخفي)</p>
+                        <p>مثال مع النون الساكنة: مِنْ تَحْتِهَا (النون تحتفظ بسكونها ولكن النطق أنفي)</p>
+                    </div>
+                    
+                    <div class="exercise">
+                        <h4 id="exercise5-title">Exercice 5: Al-Ikhfa' Al-Haqiqi</h4>
+                        <div class="exercise-question" id="exercise5-q1">Quelle règle s'applique dans "مِنْ تَحْتِهَا"?</div>
+                        <div class="exercise-options" id="exercise5-options1">
+                            <div class="exercise-option" data-correct="false">Al-Izhar</div>
+                            <div class="exercise-option" data-correct="true">Al-Ikhfa'</div>
+                            <div class="exercise-option" data-correct="false">Al-Iqlab</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <div class="exercise-question" id="exercise5-q2">Comment est représenté le tanwin dans Al-Ikhfa'?</div>
+                        <div class="exercise-options" id="exercise5-options2">
+                            <div class="exercise-option" data-correct="false">Il disparaît complètement</div>
+                            <div class="exercise-option" data-correct="true">Les deux traits sont présents mais moins marqués</div>
+                            <div class="exercise-option" data-correct="false">Remplacé par une petite م</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <div class="exercise-question" id="exercise5-q3">Quelle caractéristique est présente dans Al-Ikhfa' mais absente dans Al-Izhar?</div>
+                        <div class="exercise-options" id="exercise5-options3">
+                            <div class="exercise-option" data-correct="false">Prononciation claire</div>
+                            <div class="exercise-option" data-correct="true">Nasalisation (ghunna)</div>
+                            <div class="exercise-option" data-correct="false">Transformation du son</div>
+                        </div>
+                        <div class="exercise-feedback"></div>
+                        
+                        <button class="check-answers" id="exercise5-check">Vérifier les réponses</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <h3 id="izhar-details">Explication détaillée</h3>
-        <p id="izhar-details-text">Ces lettres sont appelées "halqi" (gutturales) car elles sont prononcées depuis la gorge. Lorsqu'elles suivent une nun sakinah ou un tanwin, on prononce le nun clairement et distinctement, sans aucune nasalisation.</p>
-        
-        <p id="izhar-reason">La raison de cette règle est que ces lettres sont assez éloignées du point d'articulation du nun (qui est la pointe de la langue contre les alvéoles), ce qui permet une prononciation claire sans assimilation.</p>
-        
-        <h3 id="izhar-examples">Exemples</h3>
-        <div class="example">
-            <p class="arabic">مِنْ أَهْلِ</p>
-            <p class="translation" id="ex1-trans">(Parmi les gens) - Sourate Hud, 11:48</p>
-            <p id="ex1-desc">Prononciation: "min ahli" (nun clair avant le hamza)</p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">عَلِيمٌ حَكِيمٌ</p>
-            <p class="translation" id="ex2-trans">(Savant et Sage) - Sourate At-Tawbah, 9:15</p>
-            <p id="ex2-desc">Prononciation: "'alīmun hakīm" (tanwin clair avant le ha)</p>
-        </div>
-        
-        <h3 id="izhar-points">Points importants</h3>
-        <ul id="izhar-points-list">
-            <li>Prononcer le nun ou tanwin clairement et distinctement</li>
-            <li>Pas de nasalisation (ghunnah)</li>
-            <li>Faire une légère pause avant la lettre gutturale</li>
-            <li>Bien articuler la lettre gutturale qui suit</li>
-        </ul>
-    </div>
-    
-    <div class="exercise">
-        <h3 id="ex1-title">Exercice 1: Pratique de l'Izhar Halqi</h3>
-        <p id="ex1-text">Lisez les phrases suivantes en appliquant correctement la règle de l'Izhar Halqi:</p>
-        
-        <div class="example">
-            <p class="arabic">مِنْ عِبَادِنَا</p>
-            <p class="translation" id="ex3-trans">(Parmi Nos serviteurs) - Sourate Ad-Dukhan, 44:17</p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">كِتَابٌ هُدًى</p>
-            <p class="translation" id="ex4-trans">(Un livre de guidée) - Sourate Al-Baqarah, 2:2</p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">نَارٌ حَامِيَةٌ</p>
-            <p class="translation" id="ex5-trans">(Un feu brûlant) - Sourate Al-Qari'ah, 101:11</p>
-        </div>
-        
-        <p id="ex1-tip">Conseil: Exagérez d'abord la séparation entre le nun/tanwin et la lettre gutturale pour bien sentir l'absence de nasalisation.</p>
-    </div>
-    
-    <h2 id="section2">2. Idgham (الإدغام)</h2>
-    
-    <div class="rule-box">
-        <h3 id="idgham-def">Définition</h3>
-        <p id="idgham-def-text">L'Idgham (assimilation) se produit lorsque la nun sakinah ou le tanwin est suivi d'une des lettres suivantes: ي ر م ل و ن. Dans ce cas, le nun s'assimile à la lettre suivante avec nasalisation (sauf pour ل et ر).</p>
-        
-        <h3 id="idgham-types">Types d'Idgham</h3>
-        <p id="idgham-types-text">Il existe deux types d'Idgham:</p>
-        
-        <h4 id="idgham-with">A. Idgham avec Ghunnah (ي ن م و)</h4>
-        <div class="letters-box">
-            <div class="letter-card">ي</div>
-            <div class="letter-card">ن</div>
-            <div class="letter-card">م</div>
-            <div class="letter-card">و</div>
-        </div>
-        <p id="idgham-with-text">Le nun s'assimile à la lettre suivante avec une nasalisation de 2 temps.</p>
-        
-        <h4 id="idgham-without">B. Idgham sans Ghunnah (ل ر)</h4>
-        <div class="letters-box">
-            <div class="letter-card">ل</div>
-            <div class="letter-card">ر</div>
-        </div>
-        <p id="idgham-without-text">Le nun s'assimile à la lettre suivante sans nasalisation.</p>
-        
-        <h3 id="idgham-details">Explication détaillée</h3>
-        <p id="idgham-details-text">L'Idgham se produit parce que le point d'articulation du nun est proche de ces lettres, permettant une assimilation naturelle. Pour les lettres avec ghunnah, la nasalisation est maintenue car elles ont des caractéristiques de résonance nasale.</p>
-        
-        <h3 id="idgham-examples">Exemples</h3>
-        <div class="example">
-            <p class="arabic">مِنْ وَرَائِهِمْ</p>
-            <p class="translation" id="ex6-trans">(Derrière eux) - Sourate Yasin, 36:9</p>
-            <p id="ex6-desc">Prononciation: "miw warā'ihim" (assimilation avec ghunnah)</p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">هُدًى لِّلْمُتَّقِينَ</p>
-            <p class="translation" id="ex7-trans">(Guidée pour les pieux) - Sourate Al-Baqarah, 2:2</p>
-            <p id="ex7-desc">Prononciation: "hudal lil-muttaqīn" (assimilation sans ghunnah)</p>
-        </div>
-        
-        <h3 id="idgham-points">Points importants</h3>
-        <ul id="idgham-points-list">
-            <li>Pour ي ن م و: assimilation avec nasalisation de 2 temps</li>
-            <li>Pour ل ر: assimilation complète sans nasalisation</li>
-            <li>Ne pas prononcer le nun séparément</li>
-            <li>La lettre suivante doit être accentuée légèrement</li>
-        </ul>
-    </div>
-    
-    <div class="exercise">
-        <h3 id="ex2-title">Exercice 2: Pratique de l'Idgham</h3>
-        <p id="ex2-text">Lisez les phrases suivantes en identifiant le type d'Idgham:</p>
-        
-        <div class="example">
-            <p class="arabic">مِنْ نُّورٍ</p>
-            <p class="translation" id="ex8-trans">(D'une lumière) - Sourate At-Taghabun, 64:8</p>
-            <p id="ex8-type">Type: <span class="hidden-answer">Idgham avec Ghunnah (nun suivi de nun)</span></p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">غَفُورٌ رَّحِيمٌ</p>
-            <p class="translation" id="ex9-trans">(Pardonneur et Miséricordieux) - Sourate Al-Baqarah, 2:173</p>
-            <p id="ex9-type">Type: <span class="hidden-answer">Idgham sans Ghunnah (tanwin suivi de ra)</span></p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">قَوْلٌ مَّعْرُوفٌ</p>
-            <p class="translation" id="ex10-trans">(Une parole convenable) - Sourate An-Nisa, 4:5</p>
-            <p id="ex10-type">Type: <span class="hidden-answer">Idgham avec Ghunnah (tanwin suivi de mim)</span></p>
-        </div>
-        
-        <p id="ex2-tip">Conseil: Pour l'Idgham avec ghunnah, placez un doigt sur votre nez pour sentir les vibrations nasales.</p>
-    </div>
-    
-    <h2 id="section3">3. Iqlab (إقلاب)</h2>
-    
-    <div class="rule-box">
-        <h3 id="iqlab-def">Définition</h3>
-        <p id="iqlab-def-text">L'Iqlab (transformation) se produit lorsque la nun sakinah ou le tanwin est suivi de la lettre ba (ب). Dans ce cas, le son du nun se transforme en mim avec nasalisation.</p>
-        
-        <h3 id="iqlab-letter">Lettre concernée</h3>
-        <div class="letters-box">
-            <div class="letter-card">ب</div>
-        </div>
-        
-        <h3 id="iqlab-details">Explication détaillée</h3>
-        <p id="iqlab-details-text">La transformation se fait parce que le point d'articulation du mim (lèvres) est le même que celui du ba, ce qui rend la transition naturelle. La nasalisation est maintenue pendant environ 2 temps.</p>
-        
-        <p id="iqlab-visual">Visuellement, on peut voir un petit mim (م) écrit au-dessus du ba dans les copies du Coran pour indiquer cette règle.</p>
-        
-        <h3 id="iqlab-examples">Exemples</h3>
-        <div class="example">
-            <p class="arabic">مِنْ بَعْدِ</p>
-            <p class="translation" id="ex11-trans">(Après) - Sourate Al-Baqarah, 2:20</p>
-            <p id="ex11-desc">Prononciation: "mim ba'di" (avec nasalisation sur le mim)</p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">سَمِيعٌ بَصِيرٌ</p>
-            <p class="translation" id="ex12-trans">(Audient et Voyant) - Sourate Ash-Shura, 42:11</p>
-            <p id="ex12-desc">Prononciation: "samī'ummm baṣīr" (le tanwin devient mim avec ghunnah)</p>
-        </div>
-        
-        <h3 id="iqlab-points">Points importants</h3>
-        <ul id="iqlab-points-list">
-            <li>Transformation du nun en mim devant ba</li>
-            <li>Nasalisation (ghunnah) d'environ 2 temps</li>
-            <li>Ne pas prononcer le nun original</li>
-            <li>Le ba doit être prononcé clairement après la nasalisation</li>
-        </ul>
-    </div>
-    
-    <div class="exercise">
-        <h3 id="ex3-title">Exercice 3: Pratique de l'Iqlab</h3>
-        <p id="ex3-text">Lisez les phrases suivantes en appliquant correctement la règle de l'Iqlab:</p>
-        
-        <div class="example">
-            <p class="arabic">لَيُنْبَذَنَّ</p>
-            <p class="translation" id="ex13-trans">(Il sera certes rejeté) - Sourate Al-Hijr, 15:18</p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">مِنْ بَنِي</p>
-            <p class="translation" id="ex14-trans">(Parmi les fils de) - Sourate Yusuf, 12:8</p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">رَحِيمٌ بِالْمُؤْمِنِينَ</p>
-            <p class="translation" id="ex15-trans">(Miséricordieux envers les croyants) - Sourate Al-Ahzab, 33:43</p>
-        </div>
-        
-        <p id="ex3-tip">Conseil: Visualisez mentalement la transformation du nun en mim avant de prononcer.</p>
-    </div>
-    
-    <h2 id="section4">4. Ikhfa (إخفاء)</h2>
-    
-    <div class="rule-box">
-        <h3 id="ikhfa-def">Définition</h3>
-        <p id="ikhfa-def-text">L'Ikhfa (dissimulation) se produit lorsque la nun sakinah ou le tanwin est suivi d'une des 15 lettres restantes qui ne font pas partie des autres règles. Le nun est alors prononcé de manière cachée avec nasalisation.</p>
-        
-        <h3 id="ikhfa-letters">Lettres concernées</h3>
-        <div class="letters-box">
-            <div class="letter-card">ت</div>
-            <div class="letter-card">ث</div>
-            <div class="letter-card">ج</div>
-            <div class="letter-card">د</div>
-            <div class="letter-card">ذ</div>
-            <div class="letter-card">ز</div>
-            <div class="letter-card">س</div>
-            <div class="letter-card">ش</div>
-            <div class="letter-card">ص</div>
-            <div class="letter-card">ض</div>
-            <div class="letter-card">ط</div>
-            <div class="letter-card">ظ</div>
-            <div class="letter-card">ف</div>
-            <div class="letter-card">ق</div>
-            <div class="letter-card">ك</div>
-        </div>
-        
-        <h3 id="ikhfa-details">Explication détaillée</h3>
-        <p id="ikhfa-details-text">L'Ikhfa est un état intermédiaire entre l'Izhar (prononciation claire) et l'Idgham (assimilation complète). Le son du nun est caché avec une nasalisation d'environ 2 temps.</p>
-        
-        <p id="ikhfa-technique">La technique consiste à préparer l'articulation de la lettre suivante tout en maintenant une légère nasalisation du nun.</p>
-        
-        <h3 id="ikhfa-examples">Exemples</h3>
-        <div class="example">
-            <p class="arabic">مِنْ تَحْتِهَا</p>
-            <p class="translation" id="ex16-trans">(De dessous elle) - Sourate An-Nahl, 16:68</p>
-            <p id="ex16-desc">Prononciation: "minn tachtihā" (nun caché avec ghunnah avant le ta)</p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">عَذَابٌ قَدِيرٌ</p>
-            <p class="translation" id="ex17-trans">(Châtiment Puissant) - Sourate Ar-Ra'd, 13:13</p>
-            <p id="ex17-desc">Prononciation: "'adhābunn qadīr" (tanwin caché avec ghunnah avant le qaf)</p>
-        </div>
-        
-        <h3 id="ikhfa-points">Points importants</h3>
-        <ul id="ikhfa-points-list">
-            <li>Nasalisation (ghunnah) d'environ 2 temps</li>
-            <li>Ne pas prononcer le nun clairement</li>
-            <li>Ne pas assimiler complètement comme dans l'Idgham</li>
-            <li>Préparer l'articulation de la lettre suivante pendant la nasalisation</li>
-        </ul>
-    </div>
-    
-    <div class="exercise">
-        <h3 id="ex4-title">Exercice 4: Pratique de l'Ikhfa</h3>
-        <p id="ex4-text">Lisez les phrases suivantes en appliquant correctement la règle de l'Ikhfa:</p>
-        
-        <div class="example">
-            <p class="arabic">مِنْ صَدَقَةٍ</p>
-            <p class="translation" id="ex18-trans">(D'une aumône) - Sourate At-Tawbah, 9:103</p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">يَوْمَئِذٍ ذُوقُوا</p>
-            <p class="translation" id="ex19-trans">(Ce jour-là, goûtez) - Sourate Ad-Dukhan, 44:49</p>
-        </div>
-        
-        <div class="example">
-            <p class="arabic">كِتَابٌ كَرِيمٌ</p>
-            <p class="translation" id="ex20-trans">(Un livre noble) - Sourate Al-Waqi'ah, 56:77</p>
-        </div>
-        
-        <p id="ex4-tip">Conseil: Entraînez-vous d'abord à prononcer seulement la nasalisation (hummm) avant la lettre suivante.</p>
-    </div>
-    
-    <h2 id="section5">Résumé des Règles de Nun Sakinah et Tanwin</h2>
-    
-    <table>
-        <tr>
-            <th id="table-rule">Règle</th>
-            <th id="table-letters">Lettres</th>
-            <th id="table-pronunciation">Prononciation</th>
-            <th id="table-ghunnah">Ghunnah</th>
-            <th id="table-example">Exemple</th>
-        </tr>
-        <tr>
-            <td>Izhar Halqi</td>
-            <td>ء ه ع ح غ خ</td>
-            <td id="table-izhar-pron">Claire et distincte</td>
-            <td id="table-izhar-ghunnah">Non</td>
-            <td class="arabic">مِنْ عِلْمٍ</td>
-        </tr>
-        <tr>
-            <td>Idgham avec Ghunnah</td>
-            <td>ي ن م و</td>
-            <td id="table-idgham-pron">Assimilation</td>
-            <td id="table-idgham-ghunnah">Oui (2 temps)</td>
-            <td class="arabic">مِنْ وَرَاءِ</td>
-        </tr>
-        <tr>
-            <td>Idgham sans Ghunnah</td>
-            <td>ل ر</td>
-            <td id="table-idgham2-pron">Assimilation</td>
-            <td id="table-idgham2-ghunnah">Non</td>
-            <td class="arabic">هُدًى لِّلنَّاسِ</td>
-        </tr>
-        <tr>
-            <td>Iqlab</td>
-            <td>ب</td>
-            <td id="table-iqlab-pron">Transformation en mim</td>
-            <td id="table-iqlab-ghunnah">Oui (2 temps)</td>
-            <td class="arabic">مِنْ بَعْدِ</td>
-        </tr>
-        <tr>
-            <td>Ikhfa</td>
-            <td>15 autres lettres</td>
-            <td id="table-ikhfa-pron">Dissimulation</td>
-            <td id="table-ikhfa-ghunnah">Oui (2 temps)</td>
-            <td class="arabic">مِنْ ثَمَرَةٍ</td>
-        </tr>
-    </table>
-    
-    <div class="note">
-        <h3 id="note-title">Note importante</h3>
-        <p id="note-text">Pour maîtriser ces règles, il est essentiel de:</p>
-        <ol id="note-list">
-            <li>Mémoriser les lettres pour chaque règle</li>
-            <li>Écouter des récitations de qurra' expérimentés</li>
-            <li>Pratiquer quotidiennement avec des exercices</li>
-            <li>Se faire corriger par un professeur qualifié</li>
-            <li>Commencer lentement puis accélérer progressivement</li>
-        </ol>
-    </div>
-    
-    <h2 id="section6">Quiz sur les Règles de Nun Sakinah et Tanwin</h2>
-    
-    <div class="quiz-section">
-        <div id="quiz-container">
-            <div id="quiz-progress">Question 1 sur 10</div>
+
+        <button id="start-quiz-btn" class="primary">Commencer le Quiz</button>
+
+        <div class="quiz-container" id="quiz-container">
+            <div class="score" id="score">Score: 0/0</div>
             <div class="quiz-question">
-                <p class="arabic" id="quiz-verse">وَأَنْزَلْنَا مِنَ السَّمَاءِ مَاءً طَهُورًا</p>
-                <p id="quiz-question">Quelle règle s'applique au mot souligné?</p>
-                <div class="quiz-options" id="quiz-options">
-                    <!-- Options will be filled by JavaScript -->
-                </div>
-                <div class="quiz-feedback" id="quiz-feedback">
-                    <!-- Feedback will be shown here -->
-                </div>
-                <button class="control-btn quiz-next" id="quiz-next">Question Suivante</button>
+                <div class="verse" id="verse"></div>
+                <div class="options" id="options"></div>
+                <div class="feedback" id="feedback"></div>
+            </div>
+            <div class="quiz-nav">
+                <button id="prev-btn" disabled>Précédent</button>
+                <button id="next-btn">Suivant</button>
             </div>
         </div>
-    </div>
-    
-    <h2 id="section7">Ressources Complémentaires</h2>
-    
-    <div class="resource-card">
-        <div class="resource-icon">📺</div>
-        <div class="resource-content">
-            <div class="resource-title" id="res1-title">Cours Vidéo Complet sur Nun Sakinah</div>
-            <div class="resource-desc" id="res1-desc">Explication détaillée des 4 règles avec démonstrations</div>
-            <a href="https://www.youtube.com/watch?v=wS7SbTQOOHU" class="resource-link" target="_blank" id="res1-link">Voir la vidéo Arabic101</a>
-        </div>
-    </div>
-    
-    <div class="resource-card">
-        <div class="resource-icon">🎧</div>
-        <div class="resource-content">
-            <div class="resource-title" id="res2-title">Récitation avec Application des Règles</div>
-            <div class="resource-desc" id="res2-desc">Sourate Al-Fatiha et Al-Baqarah avec application claire des règles</div>
-            <a href="https://www.youtube.com/watch?v=0_1gN6mQJXw" class="resource-link" target="_blank" id="res2-link">Voir la vidéo Arabic101</a>
-        </div>
-    </div>
-    
-    <div class="resource-card">
-        <div class="resource-icon">📖</div>
-        <div class="resource-content">
-            <div class="resource-title" id="res3-title">Manuel de Tajwid Illustré</div>
-            <div class="resource-desc" id="res3-desc">"At-Tuhfatul Atfal" - Classique sur les règles de tajwid</div>
-            <a href="https://archive.org/details/tuhfatul-atfal" class="resource-link" target="_blank" id="res3-link">Lire en ligne</a>
-        </div>
-    </div>
-    
-    <div class="resource-card">
-        <div class="resource-icon">📱</div>
-        <div class="resource-content">
-            <div class="resource-title" id="res4-title">Application "Tajwid Nun Sakinah"</div>
-            <div class="resource-desc" id="res4-desc">Exercices interactifs et tests sur les règles de nun sakinah</div>
-            <a href="https://play.google.com/store/apps/details?id=com.tajwid.nun" class="resource-link" target="_blank" id="res4-link">Télécharger</a>
-        </div>
-    </div>
-    
-    <div class="resource-card">
-        <div class="resource-icon">🖥️</div>
-        <div class="resource-content">
-            <div class="resource-title" id="res5-title">Cours en Ligne avec Professeur</div>
-            <div class="resource-desc" id="res5-desc">Plateforme avec cours particuliers de tajwid</div>
-            <a href="https://www.tajwidonline.com/nun-sakinah" class="resource-link" target="_blank" id="res5-link">Visiter le site</a>
+
+        <!-- Nouvelle section pour l'analyseur de tanwin -->
+        <div class="card">
+            <h2 id="analyzer-title">Analyseur de Tanwin & Nun Sakinah</h2>
+            <div class="rule-item">
+                <p id="analyzer-desc">Entrez une phrase en arabe contenant un tanwin (ـًـٍـٌ) ou un nun sakinah (نْ) et nous analyserons les règles qui s'appliquent:</p>
+                <textarea id="arabic-input" rows="3" placeholder="اكتب جملة تحتوي على تنوين أو نون ساكنة..."></textarea>
+                <button id="analyze-btn">Analyser</button>
+                <div id="analysis-results" style="display: none;">
+                    <h3 id="results-title">Résultats d'analyse</h3>
+                    <div id="results-content"></div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Nouvelle ressource ajoutée - Quiz des sourates -->
-    <div class="resource-card">
-        <div class="resource-icon">📝</div>
-        <div class="resource-content">
-            <div class="resource-title" id="res6-title">Quiz des Sourates Récentes</div>
-            <div class="resource-desc" id="res6-desc">Testez vos connaissances sur les sourates que nous avons étudiées récemment</div>
-            <a href="index.html" class="resource-link" id="res6-link">Accéder aux quiz</a>
+    <!-- Bulle de quiz -->
+    <div class="quiz-bubble" id="quiz-bubble">
+        <div class="quiz-bubble-icon">?</div>
+    </div>
+
+    <!-- Popup de quiz -->
+    <div class="quiz-popup" id="quiz-popup">
+        <div class="quiz-popup-header">
+            <h3 id="popup-title">Quiz Rapide</h3>
+            <button class="close-popup" id="close-popup">×</button>
         </div>
-    </div>
-    
-    <div class="rule-box">
-        <h3 id="conclusion-title">Conclusion</h3>
-        <p id="conclusion-text">Les règles de nun sakinah et tanwin sont essentielles pour une récitation correcte du Coran. En résumé:</p>
-        <ul id="conclusion-list">
-            <li><strong>Izhar Halqi</strong>: devant ء ه ع ح غ خ → prononciation claire</li>
-            <li><strong>Idgham avec Ghunnah</strong>: devant ي ن م و → assimilation avec nasalisation</li>
-            <li><strong>Idgham sans Ghunnah</strong>: devant ل ر → assimilation sans nasalisation</li>
-            <li><strong>Iqlab</strong>: devant ب → transformation en mim avec nasalisation</li>
-            <li><strong>Ikhfa</strong>: devant les 15 autres lettres → dissimulation avec nasalisation</li>
-        </ul>
-        <p id="conclusion-end">La maîtrise de ces règles demande une pratique régulière. Utilisez les exercices fournis et les ressources complémentaires pour progresser. N'hésitez pas à consulter un professeur de tajwid pour corriger votre prononciation.</p>
-    </div>
-
-    <!-- Feedback Button -->
-    <button class="feedback-btn" id="feedback-btn">✉️</button>
-
-    <!-- Feedback Modal -->
-    <div class="feedback-modal" id="feedback-modal">
-        <div class="feedback-content">
-            <div class="feedback-header">
-                <h3 class="feedback-title" id="feedback-title">Donnez votre avis</h3>
-                <span class="close-btn" id="close-feedback">&times;</span>
+        <div id="popup-content">
+            <p id="popup-question"></p>
+            <div id="popup-options"></div>
+            <div id="popup-feedback" class="exercise-feedback"></div>
+            <div class="quiz-nav">
+                <button id="popup-prev" disabled>Précédent</button>
+                <button id="popup-next">Suivant</button>
             </div>
-            <div id="feedback-form">
-                <p id="feedback-prompt">Merci d'utiliser cette application. Veuillez noter votre expérience et laisser un commentaire.</p>
-                <div class="rating-stars">
-                    <span class="star" data-rating="1">★</span>
-                    <span class="star" data-rating="2">★</span>
-                    <span class="star" data-rating="3">★</span>
-                    <span class="star" data-rating="4">★</span>
-                    <span class="star" data-rating="5">★</span>
-                </div>
-                <form class="feedback-form">
-                    <input type="email" id="feedback-email" placeholder="Votre email" required>
-                    <input type="text" id="feedback-subject" placeholder="Objet de votre message">
-                    <textarea id="feedback-message" placeholder="Votre message..." required></textarea>
-                    <button type="button" id="submit-feedback">Envoyer</button>
-                </form>
-            </div>
-            <div class="thank-you-message" id="thank-you-message">
-                <h3>Merci pour votre feedback!</h3>
-                <p>Votre avis est précieux pour nous aider à améliorer cette application.</p>
-                <p class="arabic-dua">جَزَاكَ اللهُ خَيْرًا</p>
-                <p>Barakallahou fikoum (Que Dieu vous bénisse)</p>
-                <p class="arabic-dua">بَارَكَ اللهُ فِيكُمْ</p>
-                <p>Jazakallahou khairan (Que Dieu vous récompense en bien)</p>
-            </div>
+            <div id="popup-score" class="score"></div>
         </div>
     </div>
 
     <script>
-        // Dark Mode Toggle
-        const darkModeBtn = document.getElementById('darkModeBtn');
-        darkModeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            document.documentElement.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-            updateDarkModeText();
-        });
-
-        function updateDarkModeText() {
-            const isDark = document.body.classList.contains('dark-mode');
-            darkModeBtn.textContent = isDark ? 'Mode Clair' : 'Mode Sombre';
-        }
-
-        // Check for saved dark mode preference
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-            document.documentElement.classList.add('dark-mode');
-        }
-        updateDarkModeText();
-
-        // Language Toggle (French/Arabic)
-        const languageBtn = document.getElementById('languageBtn');
-        let currentLanguage = 'fr';
-        
+        // Données bilingues
         const translations = {
-            'fr': {
-                'title': 'Les Règles de Nun Sakinah et Tanwin en Tajwid',
-                'intro-text': 'La "Nun Sakinah" (نون ساكنة) est un nun (ن) sans voyelle (soukoune), tandis que le "Tanwin" est le nun implicite qui apparaît sous forme de double voyelle (ـًـٍـٌ) en fin de mot. En tajwid, il existe quatre règles principales qui s\'appliquent lorsqu\'une nun sakinah ou un tanwin rencontre certaines lettres.',
-                'section1': '1. Izhar Halqi (الإظهار الحلقي)',
-                'izhar-def': 'Définition',
-                'izhar-def-text': 'L\'Izhar Halqi (manifestation gutturale) se produit lorsque la nun sakinah ou le tanwin est suivi d\'une des six lettres gutturales: ء ه ع ح غ خ. Dans ce cas, le nun est prononcé clairement sans nasalisation (ghunnah).',
-                'izhar-letters': 'Lettres concernées',
-                'izhar-details': 'Explication détaillée',
-                'izhar-details-text': 'Ces lettres sont appelées "halqi" (gutturales) car elles sont prononcées depuis la gorge. Lorsqu\'elles suivent une nun sakinah ou un tanwin, on prononce le nun clairement et distinctement, sans aucune nasalisation.',
-                'izhar-reason': 'La raison de cette règle est que ces lettres sont assez éloignées du point d\'articulation du nun (qui est la pointe de la langue contre les alvéoles), ce qui permet une prononciation claire sans assimilation.',
-                'izhar-examples': 'Exemples',
-                'ex1-trans': '(Parmi les gens) - Sourate Hud, 11:48',
-                'ex1-desc': 'Prononciation: "min ahli" (nun clair avant le hamza)',
-                'ex2-trans': '(Savant et Sage) - Sourate At-Tawbah, 9:15',
-                'ex2-desc': 'Prononciation: "\'alīmun hakīm" (tanwin clair avant le ha)',
-                'izhar-points': 'Points importants',
-                'ex1-title': 'Exercice 1: Pratique de l\'Izhar Halqi',
-                'ex1-text': 'Lisez les phrases suivantes en appliquant correctement la règle de l\'Izhar Halqi:',
-                'ex3-trans': '(Parmi Nos serviteurs) - Sourate Ad-Dukhan, 44:17',
-                'ex4-trans': '(Un livre de guidée) - Sourate Al-Baqarah, 2:2',
-                'ex5-trans': '(Un feu brûlant) - Sourate Al-Qari\'ah, 101:11',
-                'ex1-tip': 'Conseil: Exagérez d\'abord la séparation entre le nun/tanwin et la lettre gutturale pour bien sentir l\'absence de nasalisation.',
-                'section2': '2. Idgham (الإدغام)',
-                'idgham-def': 'Définition',
-                'idgham-def-text': 'L\'Idgham (assimilation) se produit lorsque la nun sakinah ou le tanwin est suivi d\'une des lettres suivantes: ي ر م ل و ن. Dans ce cas, le nun s\'assimile à la lettre suivante avec nasalisation (sauf pour ل et ر).',
-                'idgham-types': 'Types d\'Idgham',
-                'idgham-types-text': 'Il existe deux types d\'Idgham:',
-                'idgham-with': 'A. Idgham avec Ghunnah (ي ن م و)',
-                'idgham-with-text': 'Le nun s\'assimile à la lettre suivante avec une nasalisation de 2 temps.',
-                'idgham-without': 'B. Idgham sans Ghunnah (ل ر)',
-                'idgham-without-text': 'Le nun s\'assimile à la lettre suivante sans nasalisation.',
-                'idgham-details': 'Explication détaillée',
-                'idgham-details-text': 'L\'Idgham se produit parce que le point d\'articulation du nun est proche de ces lettres, permettant une assimilation naturelle. Pour les lettres avec ghunnah, la nasalisation est maintenue car elles ont des caractéristiques de résonance nasale.',
-                'idgham-examples': 'Exemples',
-                'ex6-trans': '(Derrière eux) - Sourate Yasin, 36:9',
-                'ex6-desc': 'Prononciation: "miw warā\'ihim" (assimilation avec ghunnah)',
-                'ex7-trans': '(Guidée pour les pieux) - Sourate Al-Baqarah, 2:2',
-                'ex7-desc': 'Prononciation: "hudal lil-muttaqīn" (assimilation sans ghunnah)',
-                'idgham-points': 'Points importants',
-                'ex2-title': 'Exercice 2: Pratique de l\'Idgham',
-                'ex2-text': 'Lisez les phrases suivantes en identifiant le type d\'Idgham:',
-                'ex8-trans': '(D\'une lumière) - Sourate At-Taghabun, 64:8',
-                'ex8-type': 'Type: <span class="hidden-answer">Idgham avec Ghunnah (nun suivi de nun)</span>',
-                'ex9-trans': '(Pardonneur et Miséricordieux) - Sourate Al-Baqarah, 2:173',
-                'ex9-type': 'Type: <span class="hidden-answer">Idgham sans Ghunnah (tanwin suivi de ra)</span>',
-                'ex10-trans': '(Une parole convenable) - Sourate An-Nisa, 4:5',
-                'ex10-type': 'Type: <span class="hidden-answer">Idgham avec Ghunnah (tanwin suivi de mim)</span>',
-                'ex2-tip': 'Conseil: Pour l\'Idgham avec ghunnah, placez un doigt sur votre nez pour sentir les vibrations nasales.',
-                'section3': '3. Iqlab (إقلاب)',
-                'iqlab-def': 'Définition',
-                'iqlab-def-text': 'L\'Iqlab (transformation) se produit lorsque la nun sakinah ou le tanwin est suivi de la lettre ba (ب). Dans ce cas, le son du nun se transforme en mim avec nasalisation.',
-                'iqlab-letter': 'Lettre concernée',
-                'iqlab-details': 'Explication détaillée',
-                'iqlab-details-text': 'La transformation se fait parce que le point d\'articulation du mim (lèvres) est le même que celui du ba, ce qui rend la transition naturelle. La nasalisation est maintenue pendant environ 2 temps.',
-                'iqlab-visual': 'Visuellement, on peut voir un petit mim (م) écrit au-dessus du ba dans les copies du Coran pour indiquer cette règle.',
-                'iqlab-examples': 'Exemples',
-                'ex11-trans': '(Après) - Sourate Al-Baqarah, 2:20',
-                'ex11-desc': 'Prononciation: "mim ba\'di" (avec nasalisation sur le mim)',
-                'ex12-trans': '(Audient et Voyant) - Sourate Ash-Shura, 42:11',
-                'ex12-desc': 'Prononciation: "samī\'ummm baṣīr" (le tanwin devient mim avec ghunnah)',
-                'iqlab-points': 'Points importants',
-                'ex3-title': 'Exercice 3: Pratique de l\'Iqlab',
-                'ex3-text': 'Lisez les phrases suivantes en appliquant correctement la règle de l\'Iqlab:',
-                'ex13-trans': '(Il sera certes rejeté) - Sourate Al-Hijr, 15:18',
-                'ex14-trans': '(Parmi les fils de) - Sourate Yusuf, 12:8',
-                'ex15-trans': '(Miséricordieux envers les croyants) - Sourate Al-Ahzab, 33:43',
-                'ex3-tip': 'Conseil: Visualisez mentalement la transformation du nun en mim avant de prononcer.',
-                'section4': '4. Ikhfa (إخفاء)',
-                'ikhfa-def': 'Définition',
-                'ikhfa-def-text': 'L\'Ikhfa (dissimulation) se produit lorsque la nun sakinah ou le tanwin est suivi d\'une des 15 lettres restantes qui ne font pas partie des autres règles. Le nun est alors prononcé de manière cachée avec nasalisation.',
-                'ikhfa-letters': 'Lettres concernées',
-                'ikhfa-details': 'Explication détaillée',
-                'ikhfa-details-text': 'L\'Ikhfa est un état intermédiaire entre l\'Izhar (prononciation claire) et l\'Idgham (assimilation complète). Le son du nun est caché avec une nasalisation d\'environ 2 temps.',
-                'ikhfa-technique': 'La technique consiste à préparer l\'articulation de la lettre suivante tout en maintenant une légère nasalisation du nun.',
-                'ikhfa-examples': 'Exemples',
-                'ex16-trans': '(De dessous elle) - Sourate An-Nahl, 16:68',
-                'ex16-desc': 'Prononciation: "minn tachtihā" (nun caché avec ghunnah avant le ta)',
-                'ex17-trans': '(Châtiment Puissant) - Sourate Ar-Ra\'d, 13:13',
-                'ex17-desc': 'Prononciation: "\'adhābunn qadīr" (tanwin caché avec ghunnah avant le qaf)',
-                'ikhfa-points': 'Points importants',
-                'ex4-title': 'Exercice 4: Pratique de l\'Ikhfa',
-                'ex4-text': 'Lisez les phrases suivantes en appliquant correctement la règle de l\'Ikhfa:',
-                'ex18-trans': '(D\'une aumône) - Sourate At-Tawbah, 9:103',
-                'ex19-trans': '(Ce jour-là, goûtez) - Sourate Ad-Dukhan, 44:49',
-                'ex20-trans': '(Un livre noble) - Sourate Al-Waqi\'ah, 56:77',
-                'ex4-tip': 'Conseil: Entraînez-vous d\'abord à prononcer seulement la nasalisation (hummm) avant la lettre suivante.',
-                'section5': 'Résumé des Règles de Nun Sakinah et Tanwin',
-                'table-rule': 'Règle',
-                'table-letters': 'Lettres',
-                'table-pronunciation': 'Prononciation',
-                'table-ghunnah': 'Ghunnah',
-                'table-example': 'Exemple',
-                'table-izhar-pron': 'Claire et distincte',
-                'table-izhar-ghunnah': 'Non',
-                'table-idgham-pron': 'Assimilation',
-                'table-idgham-ghunnah': 'Oui (2 temps)',
-                'table-idgham2-pron': 'Assimilation',
-                'table-idgham2-ghunnah': 'Non',
-                'table-iqlab-pron': 'Transformation en mim',
-                'table-iqlab-ghunnah': 'Oui (2 temps)',
-                'table-ikhfa-pron': 'Dissimulation',
-                'table-ikhfa-ghunnah': 'Oui (2 temps)',
-                'note-title': 'Note importante',
-                'note-text': 'Pour maîtriser ces règles, il est essentiel de:',
-                'section6': 'Quiz sur les Règles de Nun Sakinah et Tanwin',
-                'section7': 'Ressources Complémentaires',
-                'res1-title': 'Cours Vidéo Complet sur Nun Sakinah',
-                'res1-desc': 'Explication détaillée des 4 règles avec démonstrations',
-                'res1-link': 'Voir la vidéo Arabic101',
-                'res2-title': 'Récitation avec Application des Règles',
-                'res2-desc': 'Sourate Al-Fatiha et Al-Baqarah avec application claire des règles',
-                'res2-link': 'Voir la vidéo Arabic101',
-                'res3-title': 'Manuel de Tajwid Illustré',
-                'res3-desc': '"At-Tuhfatul Atfal" - Classique sur les règles de tajwid',
-                'res3-link': 'Lire en ligne',
-                'res4-title': 'Application "Tajwid Nun Sakinah"',
-                'res4-desc': 'Exercices interactifs et tests sur les règles de nun sakinah',
-                'res4-link': 'Télécharger',
-                'res5-title': 'Cours en Ligne avec Professeur',
-                'res5-desc': 'Plateforme avec cours particuliers de tajwid',
-                'res5-link': 'Visiter le site',
-                'res6-title': 'Quiz des Sourates Récentes',
-                'res6-desc': 'Testez vos connaissances sur les sourates que nous avons étudiées récemment',
-                'res6-link': 'Accéder aux quiz',
-                'conclusion-title': 'Conclusion',
-                'conclusion-text': 'Les règles de nun sakinah et tanwin sont essentielles pour une récitation correcte du Coran. En résumé:',
-                'conclusion-end': 'La maîtrise de ces règles demande une pratique régulière. Utilisez les exercices fournis et les ressources complémentaires pour progresser. N\'hésitez pas à consulter un professeur de tajwid pour corriger votre prononciation.',
-                'darkModeBtn': 'Mode Sombre',
-                'languageBtn': 'Français / العربية',
-                'checkRulesBtn': 'Vérifier les Règles',
-                'feedback-title': 'Donnez votre avis',
-                'feedback-prompt': 'Merci d\'utiliser cette application. Veuillez noter votre expérience et laisser un commentaire.'
+            fr: {
+                title: "Règles de Tajweed - Tanwin & Nun Sakinah",
+                lessonsTitle: "Leçons sur les Règles",
+                rule1Title: "1. Al-Izhar Al-Halqi (الإظهار الحلقي)",
+                rule1Desc: "Lorsque après le tanwin ou le nun sakinah vient l'une des lettres de la gorge (ء، ه، ع، ح، غ، خ), on prononce clairement le 'n' sans assimilation. Cette règle s'appelle 'Izhar' qui signifie 'montrer clairement'. Les lettres concernées sont appelées 'lettres de la gorge' car elles sont prononcées depuis différentes parties de la gorge.",
+                rule2Title: "2. Al-Idgham Ma'al Ghunna (الإدغام بغنة)",
+                rule2Desc: "Lorsque après le tanwin ou le nun sakinah vient l'une des lettres (ي، ن، م، و), on assimile en prononçant avec une nasalisation (ghunna). La ghunna est un son nasal qui dure environ 2 temps. L'idgham signifie 'fusion' ou 'assimilation'. Les lettres concernées peuvent être mémorisées avec le mot 'يَنْمُو' (il grandit).",
+                rule3Title: "3. Al-Idgham Bila Ghunna (الإدغام بلا غنة)",
+                rule3Desc: "Lorsque après le tanwin ou le nun sakinah vient l'une des lettres (ل، ر), on assimile sans nasalisation. 'Bila Ghunna' signifie 'sans nasalisation'. Ces deux lettres sont appelées 'les lettres lumineuses' (حروف مضيئة). Contrairement à Al-Idgham Ma'al Ghunna, ici l'assimilation est complète sans trace de nasalisation.",
+                rule4Title: "4. Al-Iqlab (الإقلاب)",
+                rule4Desc: "Lorsque après le tanwin ou le nun sakinah vient la lettre (ب), on transforme le 'n' en 'm' avec nasalisation. Iqlab signifie 'transformation' ou 'renversement'. La nasalisation (ghunna) doit durer environ 2 temps. C'est la seule règle où le son du nun sakinah ou tanwin est complètement transformé en un autre son.",
+                rule5Title: "5. Al-Ikhfa' Al-Haqiqi (الإخفاء الحقيقي)",
+                rule5Desc: "Lorsque après le tanwin ou le nun sakinah vient l'une des 15 lettres restantes, on prononce avec un son intermédiaire entre l'assimilation et la clarté, avec nasalisation. Ikhfa' signifie 'dissimulation'. Les 15 lettres sont: ت، ث، ج، د، ذ، ز، س، ش، ص، ض، ط، ظ، ف، ق، ك. La nasalisation doit durer environ 2 temps et le son doit être produit avec le bout de la langue près des dents supérieures sans toucher.",
+                startQuizBtn: "Commencer le Quiz",
+                prevBtn: "Précédent",
+                nextBtn: "Suivant",
+                scoreText: "Score: ",
+                popupTitle: "Quiz Rapide",
+                exerciseCheck: "Vérifier les réponses",
+                correct: "Correct!",
+                incorrect: "Incorrect!",
+                popupEnd: "Fin du quiz! Votre score: ",
+                exercise1Title: "Exercice 1: Al-Izhar Al-Halqi",
+                exercise1Q1: "Quelle lettre suit le tanwin dans \"مِنْ خَيْرٍ\" et quelle règle s'applique?",
+                exercise1Q2: "Dans \"عَلِيٌّ حَكِيمٌ\", comment sont représentés les deux traits du tanwin avant le ح?",
+                exercise1Q3: "Quelles sont les lettres de Al-Izhar Al-Halqi?",
+                exercise1Opt1: "ب - Al-Iqlab",
+                exercise1Opt2: "خ - Al-Izhar Al-Halqi",
+                exercise1Opt3: "ي - Al-Idgham Ma'al Ghunna",
+                exercise1Opt4: "Ils sont fusionnés en un seul trait",
+                exercise1Opt5: "Ils sont alignés normalement",
+                exercise1Opt6: "Un trait est plus haut que l'autre",
+                exercise1Opt7: "ي، ن، م، و",
+                exercise1Opt8: "ء، ه، ع، ح، غ، خ",
+                exercise1Opt9: "ت، ث، ج، د، ذ",
+                exercise2Title: "Exercice 2: Al-Idgham Ma'al Ghunna",
+                exercise2Q1: "Quelle règle s'applique dans \"مِنْ نِعْمَةٍ\"?",
+                exercise2Q2: "Comment sont représentés les traits du tanwin dans Al-Idgham Ma'al Ghunna?",
+                exercise2Q3: "Quelle lettre parmi celles-ci ne fait PAS partie de Al-Idgham Ma'al Ghunna?",
+                exercise2Opt1: "Al-Izhar",
+                exercise2Opt2: "Al-Idgham Ma'al Ghunna",
+                exercise2Opt3: "Al-Iqlab",
+                exercise2Opt4: "Alignés normalement comme en Izhar",
+                exercise2Opt5: "Légèrement décalés pour indiquer la fusion",
+                exercise2Opt6: "Remplacés par un seul trait",
+                exercise2Opt7: "ي",
+                exercise2Opt8: "ن",
+                exercise2Opt9: "ل",
+                exercise3Title: "Exercice 3: Al-Idgham Bila Ghunna",
+                exercise3Q1: "Quelle règle s'applique dans \"مِنْ رَبِّهِمْ\"?",
+                exercise3Q2: "Comment est représenté le tanwin dans Al-Idgham Bila Ghunna?",
+                exercise3Q3: "Quelles sont les lettres de Al-Idgham Bila Ghunna?",
+                exercise3Opt1: "Al-Ikhfa'",
+                exercise3Opt2: "Al-Idgham Bila Ghunna",
+                exercise3Opt3: "Al-Izhar",
+                exercise3Opt4: "Avec deux traits alignés",
+                exercise3Opt5: "Avec deux traits légèrement décalés",
+                exercise3Opt6: "Il n'apparaît pas du tout",
+                exercise3Opt7: "ي، و",
+                exercise3Opt8: "ل، ر",
+                exercise3Opt9: "م، ن",
+                exercise4Title: "Exercice 4: Al-Iqlab",
+                exercise4Q1: "Quelle règle s'applique dans \"مِنْ بَعْدِ\"?",
+                exercise4Q2: "Comment est représenté le tanwin dans Al-Iqlab?",
+                exercise4Q3: "Quelle lettre déclenche Al-Iqlab?",
+                exercise4Opt1: "Al-Ikhfa'",
+                exercise4Opt2: "Al-Iqlab",
+                exercise4Opt3: "Al-Idgham",
+                exercise4Opt4: "Avec deux traits alignés",
+                exercise4Opt5: "Remplacé par une petite م au-dessus",
+                exercise4Opt6: "Avec deux traits décalés",
+                exercise4Opt7: "ت",
+                exercise4Opt8: "ب",
+                exercise4Opt9: "ج",
+                exercise5Title: "Exercice 5: Al-Ikhfa' Al-Haqiqi",
+                exercise5Q1: "Quelle règle s'applique dans \"مِنْ تَحْتِهَا\"?",
+                exercise5Q2: "Comment est représenté le tanwin dans Al-Ikhfa'?",
+                exercise5Q3: "Quelle caractéristique est présente dans Al-Ikhfa' mais absente dans Al-Izhar?",
+                exercise5Opt1: "Al-Izhar",
+                exercise5Opt2: "Al-Ikhfa'",
+                exercise5Opt3: "Al-Iqlab",
+                exercise5Opt4: "Il disparaît complètement",
+                exercise5Opt5: "Les deux traits sont présents mais moins marqués",
+                exercise5Opt6: "Remplacé par une petite م",
+                exercise5Opt7: "Prononciation claire",
+                exercise5Opt8: "Nasalisation (ghunna)",
+                exercise5Opt9: "Transformation du son",
+                analyzerTitle: "Analyseur de Tanwin & Nun Sakinah",
+                analyzerDesc: "Entrez une phrase en arabe contenant un tanwin (ـًـٍـٌ) ou un nun sakinah (نْ) et nous analyserons les règles qui s'appliquent:",
+                resultsTitle: "Résultats d'analyse",
+                noTanwinFound: "Aucun tanwin ou nun sakinah détecté dans la phrase.",
+                tanwinAtPosition: "Tanwin à la position",
+                nunAtPosition: "Nun sakinah à la position",
+                followingLetter: "Lettre suivante",
+                ruleApplied: "Règle appliquée",
+                noFollowingLetter: "aucun caractère suivant (fin de mot)",
+                analyzeBtn: "Analyser",
+                tanwinFathah: "Tanwin Fathah (ـً)",
+                tanwinKasrah: "Tanwin Kasrah (ـٍ)",
+                tanwinDammah: "Tanwin Dammah (ـٌ)",
+                nunSakinah: "Nun sakinah (نْ)",
+                izharExplanation: "Prononciation claire du 'n' sans assimilation car la lettre suivante est une lettre de la gorge.",
+                idghamWithGhunnaExplanation: "Assimilation avec nasalisation (ghunna) car la lettre suivante est l'une des lettres ي، ن، م، و.",
+                idghamWithoutGhunnaExplanation: "Assimilation sans nasalisation car la lettre suivante est l'une des lettres ل، ر.",
+                iqlabExplanation: "Transformation du 'n' en 'm' avec nasalisation car la lettre suivante est ب.",
+                ikhfaExplanation: "Prononciation intermédiaire avec nasalisation car la lettre suivante est l'une des 15 lettres d'Ikhfa'."
             },
-            'ar': {
-                'title': 'أحكام النون الساكنة والتنوين في التجويد',
-                'intro-text': 'النون الساكنة هي النون الخالية من الحركة (السكون)، أما التنوين فهو نون زائدة تلحق آخر الكلمة وتظهر على شكل حركتين (ـًـٍـٌ). في علم التجويد، هناك أربع قواعد رئيسية تطبق عندما تلتقي النون الساكنة أو التنوين بحروف معينة.',
-                'section1': '١. الإظهار الحلقي',
-                'izhar-def': 'التعريف',
-                'izhar-def-text': 'يحدث الإظهار الحلقي عندما تتبع النون الساكنة أو التنوين أحد الحروف الستة الحلقية: ء ه ع ح غ خ. في هذه الحالة، تظهر النون بوضوح دون غنة.',
-                'izhar-letters': 'الحروف المعنية',
-                'izhar-details': 'شرح مفصل',
-                'izhar-details-text': 'تسمى هذه الحروف بالحلقية لأنها تخرج من الحلق. عندما تتبع النون الساكنة أو التنوين، يتم نطق النون بوضوح وتمييز دون أي غنة.',
-                'izhar-reason': 'سبب هذه القاعدة هو أن هذه الحروف بعيدة نسبياً عن مخرج النون (طرف اللسان مع ما يحاذيه من اللثة)، مما يسمح بنطق واضح دون استعلاء.',
-                'izhar-examples': 'أمثلة',
-                'ex1-trans': '(من أهل) - سورة هود، الآية ٤٨',
-                'ex1-desc': 'النطق: "من أهل" (نون واضحة قبل الهمزة)',
-                'ex2-trans': '(عليم حكيم) - سورة التوبة، الآية ١٥',
-                'ex2-desc': 'النطق: "عليمٌ حكيم" (تنوين واضح قبل الهاء)',
-                'izhar-points': 'نقاط مهمة',
-                'ex1-title': 'التمرين ١: تطبيق الإظهار الحلقي',
-                'ex1-text': 'اقرأ العبارات التالية مع تطبيق قاعدة الإظهار الحلقي:',
-                'ex3-trans': '(من عبادنا) - سورة الدخان، الآية ١٧',
-                'ex4-trans': '(كتاب هدى) - سورة البقرة، الآية ٢',
-                'ex5-trans': '(نار حامية) - سورة القارعة، الآية ١١',
-                'ex1-tip': 'نصيحة: بالغ أولاً في الفصل بين النون/التنوين والحرف الحلقي لشعور أفضل بغياب الغنة.',
-                'section2': '٢. الإدغام',
-                'idgham-def': 'التعريف',
-                'idgham-def-text': 'يحدث الإدغام (الدمج) عندما تتبع النون الساكنة أو التنوين أحد الحروف التالية: ي ر م ل و ن. في هذه الحالة، تدغم النون في الحرف التالي مع غنة (إلا في ل و ر).',
-                'idgham-types': 'أنواع الإدغام',
-                'idgham-types-text': 'هناك نوعان من الإدغام:',
-                'idgham-with': 'أ. الإدغام بغنة (ي ن م و)',
-                'idgham-with-text': 'تدغم النون في الحرف التالي مع غنة مقدارها حركتان.',
-                'idgham-without': 'ب. الإدغام بلا غنة (ل ر)',
-                'idgham-without-text': 'تدغم النون في الحرف التالي دون غنة.',
-                'idgham-details': 'شرح مفصل',
-                'idgham-details-text': 'يحدث الإدغام لأن مخرج النون قريب من هذه الحروف، مما يسمح بالدمج الطبيعي. بالنسبة للحروف مع غنة، يتم الحفاظ على الغنة لأن لها خصائص الرنين الأنفي.',
-                'idgham-examples': 'أمثلة',
-                'ex6-trans': '(من ورائهم) - سورة يس، الآية ٩',
-                'ex6-desc': 'النطق: "مِو ورائهم" (إدغام مع غنة)',
-                'ex7-trans': '(هدى للمتقين) - سورة البقرة، الآية ٢',
-                'ex7-desc': 'النطق: "هدى لِّلمتقين" (إدغام بدون غنة)',
-                'idgham-points': 'نقاط مهمة',
-                'ex2-title': 'التمرين ٢: تطبيق الإدغام',
-                'ex2-text': 'اقرأ العبارات التالية مع تحديد نوع الإدغام:',
-                'ex8-trans': '(من نور) - سورة التغابن، الآية ٨',
-                'ex8-type': 'النوع: <span class="hidden-answer">إدغام بغنة (نون متبوعة بنون)</span>',
-                'ex9-trans': '(غفور رحيم) - سورة البقرة، الآية ١٧٣',
-                'ex9-type': 'النوع: <span class="hidden-answer">إدغام بلا غنة (تنوين متبوع براء)</span>',
-                'ex10-trans': '(قول معروف) - سورة النساء، الآية ٥',
-                'ex10-type': 'النوع: <span class="hidden-answer">إدغام بغنة (تنوين متبوع بميم)</span>',
-                'ex2-tip': 'نصيحة: ضع إصبعك على أنفك لشعور باهتزازات الغنة في الإدغام بغنة.',
-                'section3': '٣. الإقلاب',
-                'iqlab-def': 'التعريف',
-                'iqlab-def-text': 'يحدث الإقلاب (التحويل) عندما تتبع النون الساكنة أو التنوين حرف الباء (ب). في هذه الحالة، يتحول صوت النون إلى ميم مع غنة.',
-                'iqlab-letter': 'الحرف المعني',
-                'iqlab-details': 'شرح مفصل',
-                'iqlab-details-text': 'يحدث التحويل لأن مخرج الميم (الشفتان) هو نفسه مخرج الباء، مما يجعل الانتقال طبيعياً. يتم الحفاظ على الغنة لمدة حركتين تقريباً.',
-                'iqlab-visual': 'بصرياً، يمكن رؤية ميم صغيرة (م) مكتوبة فوق الباء في مصاحف القرآن للإشارة إلى هذه القاعدة.',
-                'iqlab-examples': 'أمثلة',
-                'ex11-trans': '(من بعد) - سورة البقرة، الآية ٢٠',
-                'ex11-desc': 'النطق: "ميم بعد" (مع غنة على الميم)',
-                'ex12-trans': '(سميع بصير) - سورة الشورى، الآية ١١',
-                'ex12-desc': 'النطق: "سميعُم بصير" (التنوين يتحول إلى ميم مع غنة)',
-                'iqlab-points': 'نقاط مهمة',
-                'ex3-title': 'التمرين ٣: تطبيق الإقلاب',
-                'ex3-text': 'اقرأ العبارات التالية مع تطبيق قاعدة الإقلاب:',
-                'ex13-trans': '(ليُنْبَذَنَّ) - سورة الحجر، الآية ١٨',
-                'ex14-trans': '(من بني) - سورة يوسف، الآية ٨',
-                'ex15-trans': '(رحيم بالمؤمنين) - سورة الأحزاب، الآية ٤٣',
-                'ex3-tip': 'نصيحة: تصور ذهنياً تحول النون إلى ميم قبل النطق.',
-                'section4': '٤. الإخفاء',
-                'ikhfa-def': 'التعريف',
-                'ikhfa-def-text': 'يحدث الإخفاء (الإخفاء) عندما تتبع النون الساكنة أو التنوين أحد الحروف الخمسة عشر المتبقية التي لا تنتمي إلى القواعد الأخرى. في هذه الحالة، يتم نطق النون بشكل مخفي مع غنة.',
-                'ikhfa-letters': 'الحروف المعنية',
-                'ikhfa-details': 'شرح مفصل',
-                'ikhfa-details-text': 'الإخفاء هو حالة متوسطة بين الإظهار (النطق الواضح) والإدغام (الدمج الكامل). يتم إخفاء صوت النون مع غنة مقدارها حركتان تقريباً.',
-                'ikhfa-technique': 'تتمثل التقنية في إعداد نطق الحرف التالي مع الحفاظ على غنة خفيفة للنون.',
-                'ikhfa-examples': 'أمثلة',
-                'ex16-trans': '(من تحت) - سورة النحل، الآية ٦٨',
-                'ex16-desc': 'النطق: "منّ تحت" (نون مخفية مع غنة قبل التاء)',
-                'ex17-trans': '(عذاب قدير) - سورة الرعد، الآية ١٣',
-                'ex17-desc': 'النطق: "عذابُن قدير" (تنوين مخفي مع غنة قبل القاف)',
-                'ikhfa-points': 'نقاط مهمة',
-                'ex4-title': 'التمرين ٤: تطبيق الإخفاء',
-                'ex4-text': 'اقرأ العبارات التالية مع تطبيق قاعدة الإخفاء:',
-                'ex18-trans': '(من صدقة) - سورة التوبة، الآية ١٠٣',
-                'ex19-trans': '(يومئذ ذوقوا) - سورة الدخان، الآية ٤٩',
-                'ex20-trans': '(كتاب كريم) - سورة الواقعة، الآية ٧٧',
-                'ex4-tip': 'نصيحة: تدرب أولاً على نطق الغنة فقط (هممم) قبل الحرف التالي.',
-                'section5': 'ملخص أحكام النون الساكنة والتنوين',
-                'table-rule': 'القاعدة',
-                'table-letters': 'الحروف',
-                'table-pronunciation': 'النطق',
-                'table-ghunnah': 'غنة',
-                'table-example': 'مثال',
-                'table-izhar-pron': 'واضح ومميز',
-                'table-izhar-ghunnah': 'لا',
-                'table-idgham-pron': 'دمج',
-                'table-idgham-ghunnah': 'نعم (حركتان)',
-                'table-idgham2-pron': 'دمج',
-                'table-idgham2-ghunnah': 'لا',
-                'table-iqlab-pron': 'تحويل إلى ميم',
-                'table-iqlab-ghunnah': 'نعم (حركتان)',
-                'table-ikhfa-pron': 'إخفاء',
-                'table-ikhfa-ghunnah': 'نعم (حركتان)',
-                'note-title': 'ملاحظة مهمة',
-                'note-text': 'لإتقان هذه القواعد، من الضروري:',
-                'section6': 'اختبار على أحكام النون الساكنة والتنوين',
-                'section7': 'موارد إضافية',
-                'res1-title': 'دورة فيديو كاملة عن النون الساكنة',
-                'res1-desc': 'شرح مفصل للقواعد الأربع مع عروض توضيحية',
-                'res1-link': 'شاهد فيديو Arabic101',
-                'res2-title': 'تلاوة مع تطبيق القواعد',
-                'res2-desc': 'سورة الفاتحة والبقرة مع تطبيق واضح للقواعد',
-                'res2-link': 'شاهد فيديو Arabic101',
-                'res3-title': 'كتاب التجويد المصور',
-                'res3-desc': '"تحفة الأطفال" - كلاسيكي في قواعد التجويد',
-                'res3-link': 'قراءة على الإنترنت',
-                'res4-title': 'تطبيق "تجويد النون الساكنة"',
-                'res4-desc': 'تمارين تفاعلية واختبارات عن قواعد النون الساكنة',
-                'res4-link': 'تحميل',
-                'res5-title': 'دروس عبر الإنترنت مع معلم',
-                'res5-desc': 'منصة مع دروس خصوصية في التجويد',
-                'res5-link': 'زيارة الموقع',
-                'res6-title': 'اختبارات السور الحديثة',
-                'res6-desc': 'اختبر معلوماتك عن السور التي درسناها مؤخراً',
-                'res6-link': 'الوصول إلى الاختبارات',
-                'conclusion-title': 'خاتمة',
-                'conclusion-text': 'قواعد النون الساكنة والتنوين أساسية للتلاوة الصحيحة للقرآن. باختصار:',
-                'conclusion-end': 'إتقان هذه القواعد يتطلب ممارسة منتظمة. استخدم التمارين المقدمة والموارد الإضافية للتقدم. لا تتردد في استشارة معلم تجويد لتصحيح نطقك.',
-                'darkModeBtn': 'الوضع المظلم',
-                'languageBtn': 'Français / العربية',
-                'checkRulesBtn': 'تحقق من القواعد',
-                'feedback-title': 'أعطنا رأيك',
-                'feedback-prompt': 'شكراً لاستخدامك هذا التطبيق. يرجى تقييم تجربتك وترك تعليق.'
+            ar: {
+                title: "قواعد التجويد - التنوين والنون الساكنة",
+                lessonsTitle: "دروس في القواعد",
+                rule1Title: "١. الإظهار الحلقي",
+                rule1Desc: "إذا جاء بعد التنوين أو النون الساكنة أحد حروف الحلق (ء، ه، ع، ح، غ، خ)، ينطق النون بوضوح دون إدغام. هذه القاعدة تسمى 'الإظهار' والتي تعني 'إظهار واضح'. الحروف المعنية تسمى 'حروف الحلق' لأنها تنطق من أجزاء مختلفة من الحلق.",
+                rule2Title: "٢. الإدغام بغنة",
+                rule2Desc: "إذا جاء بعد التنوين أو النون الساكنة أحد حروف (ي، ن، م، و)، يدغم مع الغنة. الغنة هي صوت أنفي يستمر لمدة حركتين. الإدغام يعني 'الدمج' أو 'الاستيعاب'. يمكن حفظ الحروف المعنية بكلمة 'يَنْمُو'.",
+                rule3Title: "٣. الإدغام بلا غنة",
+                rule3Desc: "إذا جاء بعد التنوين أو النون الساكنة أحد حرفي (ل، ر)، يدغم بدون غنة. 'بلا غنة' تعني 'بدون غنة'. هذان الحرفان يسميان 'الحروف المضيئة'. على عكس الإدغام بغنة، هنا يكون الاستيعاب كاملاً بدون أي أثر للغنة.",
+                rule4Title: "٤. الإقلاب",
+                rule4Desc: "إذا جاء بعد التنوين أو النون الساكنة حرف (ب)، يحول النون إلى ميم مع الغنة. الإقلاب يعني 'التحويل' أو 'القلب'. يجب أن تستمر الغنة لمدة حركتين. هذه هي القاعدة الوحيدة التي يتحول فيها صوت النون الساكنة أو التنوين تمامًا إلى صوت آخر.",
+                rule5Title: "٥. الإخفاء الحقيقي",
+                rule5Desc: "إذا جاء بعد التنوين أو النون الساكنة أحد الحروف الخمسة عشر الباقية، ينطق بصوت بين الإدغام والإظهار مع الغنة. الإخفاء يعني 'الإخفاء'. الحروف الخمسة عشر هي: ت، ث، ج، د، ذ، ز، س، ش، ص، ض، ط، ظ، ف، ق، ك. يجب أن تستمر الغنة لمدة حركتين ويجب إنتاج الصوت بطرف اللسان بالقرب من الأسنان العلوية دون لمسها.",
+                startQuizBtn: "ابدأ الاختبار",
+                prevBtn: "السابق",
+                nextBtn: "التالي",
+                scoreText: "النتيجة: ",
+                popupTitle: "اختبار سريع",
+                exerciseCheck: "تحقق من الإجابات",
+                correct: "صحيح!",
+                incorrect: "خطأ!",
+                popupEnd: "نهاية الاختبار! نتيجتك: ",
+                exercise1Title: "تمرين 1: الإظهار الحلقي",
+                exercise1Q1: "ما الحرف الذي يلي التنوين في \"مِنْ خَيْرٍ\" وما هي القاعدة المطبقة?",
+                exercise1Q2: "في \"عَلِيٌّ حَكِيمٌ\"، كيف يتم تمثيل شرطتي التنوين قبل الحاء?",
+                exercise1Q3: "ما هي حروف الإظهار الحلقي?",
+                exercise1Opt1: "ب - الإقلاب",
+                exercise1Opt2: "خ - الإظهار الحلقي",
+                exercise1Opt3: "ي - الإدغام بغنة",
+                exercise1Opt4: "يتم دمجها في سطر واحد",
+                exercise1Opt5: "يتم محاذاتها بشكل طبيعي",
+                exercise1Opt6: "أحد الخطين أعلى من الآخر",
+                exercise1Opt7: "ي، ن، م، و",
+                exercise1Opt8: "ء، ه، ع، ح، غ، خ",
+                exercise1Opt9: "ت، ث، ج، د، ذ",
+                exercise2Title: "تمرين 2: الإدغام بغنة",
+                exercise2Q1: "ما هي القاعدة المطبقة في \"مِنْ نِعْمَةٍ\"?",
+                exercise2Q2: "كيف يتم تمثيل شرطتي التنوين في الإدغام بغنة?",
+                exercise2Q3: "أي من هذه الحروف ليس جزءًا من الإدغام بغنة?",
+                exercise2Opt1: "الإظهار",
+                exercise2Opt2: "الإدغام بغنة",
+                exercise2Opt3: "الإقلاب",
+                exercise2Opt4: "محاذاة بشكل طبيعي كما في الإظهار",
+                exercise2Opt5: "متباعدة قليلاً للإشارة إلى الدمج",
+                exercise2Opt6: "يتم استبدالها بخط واحد",
+                exercise2Opt7: "ي",
+                exercise2Opt8: "ن",
+                exercise2Opt9: "ل",
+                exercise3Title: "تمرين 3: الإدغام بلا غنة",
+                exercise3Q1: "ما هي القاعدة المطبقة في \"مِنْ رَبِّهِمْ\"?",
+                exercise3Q2: "كيف يتم تمثيل التنوين في الإدغام بلا غنة?",
+                exercise3Q3: "ما هي حروف الإدغام بلا غنة?",
+                exercise3Opt1: "الإخفاء",
+                exercise3Opt2: "الإدغام بلا غنة",
+                exercise3Opt3: "الإظهار",
+                exercise3Opt4: "بخطين متوازيين",
+                exercise3Opt5: "بخطين متباعدين قليلاً",
+                exercise3Opt6: "لا يظهر على الإطلاق",
+                exercise3Opt7: "ي، و",
+                exercise3Opt8: "ل، ر",
+                exercise3Opt9: "م، ن",
+                exercise4Title: "تمرين 4: الإقلاب",
+                exercise4Q1: "ما هي القاعدة المطبقة في \"مِنْ بَعْدِ\"?",
+                exercise4Q2: "كيف يتم تمثيل التنوين في الإقلاب?",
+                exercise4Q3: "ما هو الحرف الذي يسبب الإقلاب?",
+                exercise4Opt1: "الإخفاء",
+                exercise4Opt2: "الإقلاب",
+                exercise4Opt3: "الإدغام",
+                exercise4Opt4: "بخطين متوازيين",
+                exercise4Opt5: "يتم استبداله بميم صغيرة فوق السطر",
+                exercise4Opt6: "بخطين متباعدين",
+                exercise4Opt7: "ت",
+                exercise4Opt8: "ب",
+                exercise4Opt9: "ج",
+                exercise5Title: "تمرين 5: الإخفاء الحقيقي",
+                exercise5Q1: "ما هي القاعدة المطبقة في \"مِنْ تَحْتِهَا\"?",
+                exercise5Q2: "كيف يتم تمثيل التنوين في الإخفاء?",
+                exercise5Q3: "ما هي الخاصية الموجودة في الإخفاء ولكن غير موجودة في الإظهار?",
+                exercise5Opt1: "الإظهار",
+                exercise5Opt2: "الإخفاء",
+                exercise5Opt3: "الإقلاب",
+                exercise5Opt4: "يختفي تمامًا",
+                exercise5Opt5: "يظهر الخطان ولكن بشكل أقل وضوحًا",
+                exercise5Opt6: "يتم استبداله بميم صغيرة",
+                exercise5Opt7: "النطق الواضح",
+                exercise5Opt8: "الغنة",
+                exercise5Opt9: "تحويل الصوت",
+                analyzerTitle: "محلل التنوين والنون الساكنة",
+                analyzerDesc: "أدخل جملة باللغة العربية تحتوي على تنوين (ـًـٍـٌ) أو نون ساكنة (نْ) وسنقوم بتحليل القواعد المطبقة:",
+                resultsTitle: "نتائج التحليل",
+                noTanwinFound: "لم يتم العثور على تنوين أو نون ساكنة في الجملة.",
+                tanwinAtPosition: "التنوين في الموضع",
+                nunAtPosition: "النون الساكنة في الموضع",
+                followingLetter: "الحرف التالي",
+                ruleApplied: "القاعدة المطبقة",
+                noFollowingLetter: "لا يوجد حرف تالي (نهاية الكلمة)",
+                analyzeBtn: "تحليل",
+                tanwinFathah: "تنوين فتحة (ـً)",
+                tanwinKasrah: "تنوين كسرة (ـٍ)",
+                tanwinDammah: "تنوين ضمة (ـٌ)",
+                nunSakinah: "نون ساكنة (نْ)",
+                izharExplanation: "النطق الواضح للنون دون إدغام لأن الحرف التالي من حروف الحلق.",
+                idghamWithGhunnaExplanation: "إدغام مع غنة لأن الحرف التالي أحد حروف ي، ن، م، و.",
+                idghamWithoutGhunnaExplanation: "إدغام بدون غنة لأن الحرف التالي أحد حرفي ل، ر.",
+                iqlabExplanation: "تحويل النون إلى ميم مع غنة لأن الحرف التالي ب.",
+                ikhfaExplanation: "نطق متوسط مع غنة لأن الحرف التالي أحد حروف الإخفاء الخمسة عشر."
             }
         };
 
-        languageBtn.addEventListener('click', () => {
-            currentLanguage = currentLanguage === 'fr' ? 'ar' : 'fr';
-            translatePage();
-            localStorage.setItem('language', currentLanguage);
-        });
-
-        function translatePage() {
-            const elements = document.querySelectorAll('[id]');
-            elements.forEach(element => {
-                const id = element.id;
-                if (translations[currentLanguage][id]) {
-                    if (id.includes('-trans') || id.includes('-desc') || id.includes('-text') || 
-                        id.includes('-title') || id.includes('-tip') || id.includes('-def') || 
-                        id.includes('-details') || id.includes('-points') || id === 'intro-text' || 
-                        id === 'conclusion-text' || id === 'conclusion-end' || id === 'note-text') {
-                        element.innerHTML = translations[currentLanguage][id];
-                    } else {
-                        element.textContent = translations[currentLanguage][id];
-                    }
+        // Règles de tanwin et nun sakinah
+        const tajweedRules = {
+            "ء": {
+                rule: "Al-Izhar Al-Halqi (الإظهار الحلقي)",
+                explanation: {
+                    fr: "Prononciation claire du 'n' sans assimilation car la lettre suivante est une lettre de la gorge.",
+                    ar: "النطق الواضح للنون دون إدغام لأن الحرف التالي من حروف الحلق."
+                },
+                visual: {
+                    fr: "Le tanwin est écrit normalement avec deux traits alignés. Le nun sakinah a un soukoun clair.",
+                    ar: "يتم كتابة التنوين بشكل طبيعي بخطين متوازيين. النون الساكنة لها سكون واضح."
                 }
-            });
-
-            // Update button texts
-            darkModeBtn.textContent = translations[currentLanguage]['darkModeBtn'];
-            languageBtn.textContent = translations[currentLanguage]['languageBtn'];
-            document.getElementById('checkRulesBtn').textContent = translations[currentLanguage]['checkRulesBtn'];
-
-            // Update RTL direction for Arabic
-            if (currentLanguage === 'ar') {
-                document.body.style.direction = 'rtl';
-                document.body.style.textAlign = 'right';
-            } else {
-                document.body.style.direction = 'ltr';
-                document.body.style.textAlign = 'left';
-            }
-            
-            // Update quiz if it exists
-            if (currentQuestion) {
-                updateQuizDisplay();
-            }
-
-            // Update feedback modal
-            if (document.getElementById('feedback-title')) {
-                document.getElementById('feedback-title').textContent = translations[currentLanguage]['feedback-title'];
-                document.getElementById('feedback-prompt').textContent = translations[currentLanguage]['feedback-prompt'];
-            }
-        }
-
-        // Check for saved language preference
-        if (localStorage.getItem('language') === 'ar') {
-            currentLanguage = 'ar';
-            translatePage();
-        }
-
-        // Check Rules Button
-        document.getElementById('checkRulesBtn').addEventListener('click', () => {
-            const word = prompt(currentLanguage === 'fr' ? 
-                "Entrez un mot avec nun sakinah ou tanwin suivi d'une lettre:" : 
-                "أدخل كلمة تحتوي على نون ساكنة أو تنوين متبوع بحرف:");
-            
-            if (word) {
-                let result = "";
-                
-                // Check Iqlab first (most specific)
-                if (/ن[ًٌٍ]?ب/.test(word)) {
-                    result = currentLanguage === 'fr' ? 
-                        "La règle Iqlab s'applique (transformation en mim avec ghunnah)" :
-                        "تنطبق قاعدة الإقلاب (تحويل إلى ميم مع غنة)";
-                } 
-                // Check Idgham with Ghunnah
-                else if (/ن[ًٌٍ]?[ينمو]/.test(word)) {
-                    result = currentLanguage === 'fr' ? 
-                        "La règle Idgham avec Ghunnah s'applique (assimilation avec nasalisation)" :
-                        "تنطبق قاعدة الإدغام بغنة (دمج مع غنة)";
-                } 
-                // Check Idgham without Ghunnah
-                else if (/ن[ًٌٍ]?[لر]/.test(word)) {
-                    result = currentLanguage === 'fr' ? 
-                        "La règle Idgham sans Ghunnah s'applique (assimilation sans nasalisation)" :
-                        "تنطبق قاعدة الإدغام بلا غنة (دمج بدون غنة)";
-                } 
-                // Check Izhar
-                else if (/ن[ًٌٍ]?[ءهعحغخ]/.test(word)) {
-                    result = currentLanguage === 'fr' ? 
-                        "La règle Izhar Halqi s'applique (prononciation claire)" :
-                        "تنطبق قاعدة الإظهار الحلقي (نطق واضح)";
-                } 
-                // Check Ikhfa
-                else if (/ن[ًٌٍ]?[تثجذرزسشصضطظفقك]/.test(word)) {
-                    result = currentLanguage === 'fr' ? 
-                        "La règle Ikhfa s'applique (dissimulation avec ghunnah)" :
-                        "تنطبق قاعدة الإخفاء (إخفاء مع غنة)";
-                } else {
-                    result = currentLanguage === 'fr' ? 
-                        "Aucune règle de nun sakinah/tanwin ne s'applique" :
-                        "لا تنطبق أي قاعدة من قواعد النون الساكنة/التنوين";
+            },
+            "ه": {
+                rule: "Al-Izhar Al-Halqi (الإظهار الحلقي)",
+                explanation: {
+                    fr: "Prononciation claire du 'n' sans assimilation car la lettre suivante est une lettre de la gorge.",
+                    ar: "النطق الواضح للنون دون إدغام لأن الحرف التالي من حروف الحلق."
+                },
+                visual: {
+                    fr: "Le tanwin est écrit normalement avec deux traits alignés. Le nun sakinah a un soukoun clair.",
+                    ar: "يتم كتابة التنوين بشكل طبيعي بخطين متوازيين. النون الساكنة لها سكون واضح."
                 }
-                
-                alert(result);
+            },
+            "ع": {
+                rule: "Al-Izhar Al-Halqi (الإظهار الحلقي)",
+                explanation: {
+                    fr: "Prononciation claire du 'n' sans assimilation car la lettre suivante est une lettre de la gorge.",
+                    ar: "النطق الواضح للنون دون إدغام لأن الحرف التالي من حروف الحلق."
+                },
+                visual: {
+                    fr: "Le tanwin est écrit normalement avec deux traits alignés. Le nun sakinah a un soukoun clair.",
+                    ar: "يتم كتابة التنوين بشكل طبيعي بخطين متوازيين. النون الساكنة لها سكون واضح."
+                }
+            },
+            "ح": {
+                rule: "Al-Izhar Al-Halqi (الإظهار الحلقي)",
+                explanation: {
+                    fr: "Prononciation claire du 'n' sans assimilation car la lettre suivante est une lettre de la gorge.",
+                    ar: "النطق الواضح للنون دون إدغام لأن الحرف التالي من حروف الحلق."
+                },
+                visual: {
+                    fr: "Le tanwin est écrit normalement avec deux traits alignés. Le nun sakinah a un soukoun clair.",
+                    ar: "يتم كتابة التنوين بشكل طبيعي بخطين متوازيين. النون الساكنة لها سكون واضح."
+                }
+            },
+            "غ": {
+                rule: "Al-Izhar Al-Halqi (الإظهار الحلقي)",
+                explanation: {
+                    fr: "Prononciation claire du 'n' sans assimilation car la lettre suivante est une lettre de la gorge.",
+                    ar: "النطق الواضح للنون دون إدغام لأن الحرف التالي من حروف الحلق."
+                },
+                visual: {
+                    fr: "Le tanwin est écrit normalement avec deux traits alignés. Le nun sakinah a un soukoun clair.",
+                    ar: "يتم كتابة التنوين بشكل طبيعي بخطين متوازيين. النون الساكنة لها سكون واضح."
+                }
+            },
+            "خ": {
+                rule: "Al-Izhar Al-Halqi (الإظهار الحلقي)",
+                explanation: {
+                    fr: "Prononciation claire du 'n' sans assimilation car la lettre suivante est une lettre de la gorge.",
+                    ar: "النطق الواضح للنون دون إدغام لأن الحرف التالي من حروف الحلق."
+                },
+                visual: {
+                    fr: "Le tanwin est écrit normalement avec deux traits alignés. Le nun sakinah a un soukoun clair.",
+                    ar: "يتم كتابة التنوين بشكل طبيعي بخطين متوازيين. النون الساكنة لها سكون واضح."
+                }
+            },
+            "ي": {
+                rule: "Al-Idgham Ma'al Ghunna (الإدغام بغنة)",
+                explanation: {
+                    fr: "Assimilation avec nasalisation (ghunna) car la lettre suivante est l'une des lettres ي، ن، م، و.",
+                    ar: "إدغام مع غنة لأن الحرف التالي أحد حروف ي، ن، م، و."
+                },
+                visual: {
+                    fr: "Les deux traits du tanwin sont légèrement décalés pour indiquer la fusion avec nasalisation. Le nun sakinah est complètement assimilé.",
+                    ar: "يتم كتابة خطي التنوين بشكل متباعد قليلاً للإشارة إلى الدمج مع الغنة. النون الساكنة يتم دمجها بالكامل."
+                }
+            },
+            "ن": {
+                rule: "Al-Idgham Ma'al Ghunna (الإدغام بغنة)",
+                explanation: {
+                    fr: "Assimilation avec nasalisation (ghunna) car la lettre suivante est l'une des lettres ي، ن، م، و.",
+                    ar: "إدغام مع غنة لأن الحرف التالي أحد حروف ي، ن، م، و."
+                },
+                visual: {
+                    fr: "Les deux traits du tanwin sont légèrement décalés pour indiquer la fusion avec nasalisation. Le nun sakinah est complètement assimilé.",
+                    ar: "يتم كتابة خطي التنوين بشكل متباعد قليلاً للإشارة إلى الدمج مع الغنة. النون الساكنة يتم دمجها بالكامل."
+                }
+            },
+            "م": {
+                rule: "Al-Idgham Ma'al Ghunna (الإدغام بغنة)",
+                explanation: {
+                    fr: "Assimilation avec nasalisation (ghunna) car la lettre suivante est l'une des lettres ي، ن، م، و.",
+                    ar: "إدغام مع غنة لأن الحرف التالي أحد حروف ي، ن، م، و."
+                },
+                visual: {
+                    fr: "Les deux traits du tanwin sont légèrement décalés pour indiquer la fusion avec nasalisation. Le nun sakinah est complètement assimilé.",
+                    ar: "يتم كتابة خطي التنوين بشكل متباعد قليلاً للإشارة إلى الدمج مع الغنة. النون الساكنة يتم دمجها بالكامل."
+                }
+            },
+            "و": {
+                rule: "Al-Idgham Ma'al Ghunna (الإدغام بغنة)",
+                explanation: {
+                    fr: "Assimilation avec nasalisation (ghunna) car la lettre suivante est l'une des lettres ي، ن، م، و.",
+                    ar: "إدغام مع غنة لأن الحرف التالي أحد حروف ي، ن، م، و."
+                },
+                visual: {
+                    fr: "Les deux traits du tanwin sont légèrement décalés pour indiquer la fusion avec nasalisation. Le nun sakinah est complètement assimilé.",
+                    ar: "يتم كتابة خطي التنوين بشكل متباعد قليلاً للإشارة إلى الدمج مع الغنة. النون الساكنة يتم دمجها بالكامل."
+                }
+            },
+            "ل": {
+                rule: "Al-Idgham Bila Ghunna (الإدغام بلا غنة)",
+                explanation: {
+                    fr: "Assimilation sans nasalisation car la lettre suivante est l'une des lettres ل، ر.",
+                    ar: "إدغام بدون غنة لأن الحرف التالي أحد حرفي ل، ر."
+                },
+                visual: {
+                    fr: "Le tanwin disparaît complètement car il y a assimilation totale sans nasalisation. Le nun sakinah est complètement assimilé.",
+                    ar: "يختفي التنوين تمامًا بسبب الدمج الكامل بدون غنة. النون الساكنة يتم دمجها بالكامل."
+                }
+            },
+            "ر": {
+                rule: "Al-Idgham Bila Ghunna (الإدغام بلا غنة)",
+                explanation: {
+                    fr: "Assimilation sans nasalisation car la lettre suivante est l'une des lettres ل، ر.",
+                    ar: "إدغام بدون غنة لأن الحرف التالي أحد حرفي ل، ر."
+                },
+                visual: {
+                    fr: "Le tanwin disparaît complètement car il y a assimilation totale sans nasalisation. Le nun sakinah est complètement assimilé.",
+                    ar: "يختفي التنوين تمامًا بسبب الدمج الكامل بدون غنة. النون الساكنة يتم دمجها بالكامل."
+                }
+            },
+            "ب": {
+                rule: "Al-Iqlab (الإقلاب)",
+                explanation: {
+                    fr: "Transformation du 'n' en 'm' avec nasalisation car la lettre suivante est ب.",
+                    ar: "تحويل النون إلى ميم مع غنة لأن الحرف التالي ب."
+                },
+                visual: {
+                    fr: "Le tanwin est remplacé par une petite م écrite au-dessus de la ligne. Le nun sakinah est transformé en م mais cette transformation n'est pas visible dans l'écriture.",
+                    ar: "يتم استبدال التنوين بميم صغيرة مكتوبة فوق السطر. النون الساكنة تتحول إلى ميم ولكن هذا التحول غير مرئي في الكتابة."
+                }
+            },
+            "default": {
+                rule: "Al-Ikhfa' Al-Haqiqi (الإخفاء الحقيقي)",
+                explanation: {
+                    fr: "Prononciation intermédiaire avec nasalisation car la lettre suivante est l'une des 15 lettres d'Ikhfa'.",
+                    ar: "نطق متوسط مع غنة لأن الحرف التالي أحد حروف الإخفاء الخمسة عشر."
+                },
+                visual: {
+                    fr: "Le tanwin est écrit avec ses deux traits mais ils peuvent apparaître légèrement estompés. Le nun sakinah conserve son soukoun mais la prononciation est nasalisée et cachée.",
+                    ar: "يتم كتابة التنوين بخطيه ولكن قد يظهران باهتين قليلاً. النون الساكنة تحتفظ بسكونها ولكن النطق يكون أنفيًا ومخفيًا."
+                }
             }
-        });
-        
-        // Quiz System
-        const quizData = [
+        };
+
+        // Types de tanwin
+        const tanwinTypes = {
+            "\u064B": {
+                name: {
+                    fr: "Tanwin Fathah (ـً)",
+                    ar: "تنوين فتحة (ـً)"
+                }
+            },
+            "\u064D": {
+                name: {
+                    fr: "Tanwin Kasrah (ـٍ)",
+                    ar: "تنوين كسرة (ـٍ)"
+                }
+            },
+            "\u064C": {
+                name: {
+                    fr: "Tanwin Dammah (ـٌ)",
+                    ar: "تنوين ضمة (ـٌ)"
+                }
+            }
+        };
+
+        // Questions du quiz principal (augmenté à 20 questions)
+        const quizQuestions = [
             {
-                verse: "وَأَنْزَلْنَا مِنَ السَّمَاءِ مَاءً طَهُورًا",
-                question: "Quelle règle s'applique au mot souligné?",
-                options: [
-                    { text: "Izhar Halqi", correct: false },
-                    { text: "Idgham avec Ghunnah", correct: false },
-                    { text: "Ikhfa", correct: true },
-                    { text: "Iqlab", correct: false }
-                ],
-                explanation: "Le mot 'مَاءً' se termine par un tanwin suivi du ta (ط) dans 'طَهُورًا'. Cela correspond à la règle de l'Ikhfa car le ta fait partie des lettres de l'Ikhfa.",
-                reference: "Sourate Al-Furqan, 25:48",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=120"
+                verse: "مِنْ رَبِّهِمْ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإدغام بغنة"
             },
             {
-                verse: "مِنْ بَعْدِ مَا جَاءَتْهُمُ الْبَيِّنَاتُ",
-                question: "Quelle règle s'applique au mot souligné?",
-                options: [
-                    { text: "Izhar Halqi", correct: false },
-                    { text: "Idgham avec Ghunnah", correct: false },
-                    { text: "Ikhfa", correct: false },
-                    { text: "Iqlab", correct: true }
-                ],
-                explanation: "Le mot 'مِنْ' contient une nun sakinah suivie du ba (ب) dans 'بَعْدِ'. Cela correspond à la règle de l'Iqlab qui transforme le son du nun en mim avec ghunnah.",
-                reference: "Sourate Al-Baqarah, 2:209",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=240"
+                verse: "مِنْ بَعْدِ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإقلاب"
             },
             {
-                verse: "إِنَّ اللَّهَ مَعَ الَّذِينَ اتَّقَوْا وَالَّذِينَ هُمْ مُحْسِنُونَ",
-                question: "Quelle règle s'applique au mot souligné?",
-                options: [
-                    { text: "Izhar Halqi", correct: true },
-                    { text: "Idgham avec Ghunnah", correct: false },
-                    { text: "Ikhfa", correct: false },
-                    { text: "Iqlab", correct: false }
-                ],
-                explanation: "Le mot 'مَعَ' contient une nun sakinah suivie du hamza (ا) dans 'الَّذِينَ'. Cela correspond à la règle de l'Izhar Halqi car le hamza fait partie des lettres gutturales.",
-                reference: "Sourate An-Nahl, 16:128",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=180"
+                verse: "مِنْ غِلٍّ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإظهار الحلقي"
             },
             {
-                verse: "هُدًى لِّلْمُتَّقِينَ",
-                question: "Quelle règle s'applique au mot souligné?",
-                options: [
-                    { text: "Izhar Halqi", correct: false },
-                    { text: "Idgham sans Ghunnah", correct: true },
-                    { text: "Ikhfa", correct: false },
-                    { text: "Iqlab", correct: false }
-                ],
-                explanation: "Le mot 'هُدًى' se termine par un tanwin suivi du lam (ل) dans 'لِّلْمُتَّقِينَ'. Cela correspond à la règle de l'Idgham sans Ghunnah car le lam fait partie des lettres concernées.",
-                reference: "Sourate Al-Baqarah, 2:2",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=300"
+                verse: "مِنْ تَحْتِهَا",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإخفاء الحقيقي"
+            },
+            {
+                verse: "عَلِيٌّ حَكِيمٌ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإظهار الحلقي"
+            },
+            {
+                verse: "مِنْ نِعْمَةٍ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإدغام بغنة"
             },
             {
                 verse: "مِنْ وَرَائِهِمْ",
-                question: "Quelle règle s'applique au mot souligné?",
-                options: [
-                    { text: "Izhar Halqi", correct: false },
-                    { text: "Idgham avec Ghunnah", correct: true },
-                    { text: "Ikhfa", correct: false },
-                    { text: "Iqlab", correct: false }
-                ],
-                explanation: "Le mot 'مِنْ' contient une nun sakinah suivie du waw (و) dans 'وَرَائِهِمْ'. Cela correspond à la règle de l'Idgham avec Ghunnah car le waw fait partie des lettres concernées.",
-                reference: "Sourate Yasin, 36:9",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=360"
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإدغام بغنة"
             },
             {
-                verse: "مِنْ عِلْمٍ إِلَّا مَا عَلَّمْتَ",
-                question: "Quelle règle s'applique au mot souligné?",
-                options: [
-                    { text: "Izhar Halqi", correct: true },
-                    { text: "Idgham avec Ghunnah", correct: false },
-                    { text: "Ikhfa", correct: false },
-                    { text: "Iqlab", correct: false }
-                ],
-                explanation: "Le mot 'عِلْمٍ' se termine par un tanwin suivi du hamza (ا) dans 'إِلَّا'. Cela correspond à la règle de l'Izhar Halqi car le hamza fait partie des lettres gutturales.",
-                reference: "Sourate Al-Baqarah, 2:32",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=420"
+                verse: "مِنْ قَبْلِ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإخفاء الحقيقي"
             },
             {
-                verse: "رَحْمَةً وَعِلْمًا",
-                question: "Quelle règle s'applique au mot souligné?",
-                options: [
-                    { text: "Izhar Halqi", correct: false },
-                    { text: "Idgham avec Ghunnah", correct: true },
-                    { text: "Ikhfa", correct: false },
-                    { text: "Iqlab", correct: false }
-                ],
-                explanation: "Le mot 'رَحْمَةً' se termine par un tanwin suivi du waw (و) dans 'وَعِلْمًا'. Cela correspond à la règle de l'Idgham avec Ghunnah car le waw fait partie des lettres concernées.",
-                reference: "Sourate Al-Qasas, 28:14",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=480"
+                verse: "مِنْ لَدُنْ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بلا غنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بلا غنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإدغام بلا غنة"
             },
             {
-                verse: "مِنْ فَضْلِ اللَّهِ",
-                question: "Quelle règle s'applique au mot souligné?",
-                options: [
-                    { text: "Izhar Halqi", correct: false },
-                    { text: "Idgham avec Ghunnah", correct: false },
-                    { text: "Ikhfa", correct: true },
-                    { text: "Iqlab", correct: false }
-                ],
-                explanation: "Le mot 'مِنْ' contient une nun sakinah suivie du fa (ف) dans 'فَضْلِ'. Cela correspond à la règle de l'Ikhfa car le fa fait partie des lettres de l'Ikhfa.",
-                reference: "Sourate An-Nisa, 4:73",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=540"
+                verse: "مِنْ صِرَاطٍ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإخفاء الحقيقي"
             },
             {
-                verse: "إِنَّا أَنْزَلْنَاهُ قُرْآنًا عَرَبِيًّا",
-                question: "Quelle règle s'applique au mot souligné?",
-                options: [
-                    { text: "Izhar Halqi", correct: false },
-                    { text: "Idgham avec Ghunnah", correct: false },
-                    { text: "Ikhfa", correct: false },
-                    { text: "Iqlab", correct: true }
-                ],
-                explanation: "Le mot 'عَرَبِيًّا' se termine par un tanwin suivi du qaf (ق) dans 'قُرْآنًا'. Cependant, dans ce cas spécifique, il y a un arrêt après le tanwin, donc la règle ne s'applique pas. Si on continue la lecture sans s'arrêter, ce serait Ikhfa.",
-                reference: "Sourate Yusuf, 12:2",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=600"
+                verse: "مِنْ جَنَّةٍ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإخفاء الحقيقي"
             },
             {
-                verse: "مِنْ دُونِ اللَّهِ",
-                question: "Quelle règle s'applique au mot souligné?",
-                options: [
-                    { text: "Izhar Halqi", correct: false },
-                    { text: "Idgham avec Ghunnah", correct: false },
-                    { text: "Ikhfa", correct: true },
-                    { text: "Iqlab", correct: false }
-                ],
-                explanation: "Le mot 'مِنْ' contient une nun sakinah suivie du dal (د) dans 'دُونِ'. Cela correspond à la règle de l'Ikhfa car le dal fait partie des lettres de l'Ikhfa.",
-                reference: "Sourate Al-Baqarah, 2:165",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=660"
+                verse: "مِنْ دُونِهِمْ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإخفاء الحقيقي"
+            },
+            {
+                verse: "مِنْ فِيهِ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإخفاء الحقيقي"
+            },
+            {
+                verse: "مِنْ كِتَابٍ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإخفاء الحقيقي"
+            },
+            {
+                verse: "مِنْ مَالٍ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإدغام بغنة"
+            },
+            {
+                verse: "مِنْ يَدٍ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإدغام بغنة"
+            },
+            {
+                verse: "مِنْ عِلْمٍ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإظهار الحلقي"
+            },
+            {
+                verse: "مِنْ حَيْثُ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإظهار الحلقي"
+            },
+            {
+                verse: "مِنْ خَوْفٍ",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإظهار الحلقي"
+            },
+            {
+                verse: "مِنْ هُدًى",
+                options: {
+                    fr: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"],
+                    ar: ["الإظهار الحلقي", "الإدغام بغنة", "الإقلاب", "الإخفاء الحقيقي"]
+                },
+                correctAnswer: "الإظهار الحلقي"
             }
         ];
 
-        const arabicQuizData = [
+        // Questions pour le quiz popup
+        const popupQuizQuestions = [
             {
-                verse: "وَأَنْزَلْنَا مِنَ السَّمَاءِ مَاءً طَهُورًا",
-                question: "ما الحكم الذي ينطبق على الكلمة المخطوطة؟",
-                options: [
-                    { text: "الإظهار الحلقي", correct: false },
-                    { text: "الإدغام بغنة", correct: false },
-                    { text: "الإخفاء", correct: true },
-                    { text: "الإقلاب", correct: false }
-                ],
-                explanation: "الكلمة 'مَاءً' تنتهي بتنوين يليه الطاء في 'طَهُورًا'. هذا ينطبق مع قاعدة الإخفاء لأن الطاء من حروف الإخفاء.",
-                reference: "سورة الفرقان، الآية ٤٨",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=120"
+                question: {
+                    fr: "Quelle règle s'applique lorsque نْ est suivi de ي?",
+                    ar: "ما القاعدة التي تطبق عندما يتبع نْ ي?"
+                },
+                options: {
+                    fr: ["Al-Izhar", "Al-Idgham Ma'al Ghunna", "Al-Iqlab", "Al-Ikhfa'"],
+                    ar: ["الإظهار", "الإدغام بغنة", "الإقلاب", "الإخفاء"]
+                },
+                correctAnswer: "Al-Idgham Ma'al Ghunna"
             },
             {
-                verse: "مِنْ بَعْدِ مَا جَاءَتْهُمُ الْبَيِّنَاتُ",
-                question: "ما الحكم الذي ينطبق على الكلمة المخطوطة؟",
-                options: [
-                    { text: "الإظهار الحلقي", correct: false },
-                    { text: "الإدغام بغنة", correct: false },
-                    { text: "الإخفاء", correct: false },
-                    { text: "الإقلاب", correct: true }
-                ],
-                explanation: "الكلمة 'مِنْ' تحتوي على نون ساكنة يليها الباء في 'بَعْدِ'. هذا ينطبق مع قاعدة الإقلاب التي تحول صوت النون إلى ميم مع غنة.",
-                reference: "سورة البقرة، الآية ٢٠٩",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=240"
+                question: {
+                    fr: "Combien de lettres provoquent Al-Izhar Al-Halqi?",
+                    ar: "كم حرفًا يسبب الإظهار الحلقي?"
+                },
+                options: {
+                    fr: ["4", "6", "15", "2"],
+                    ar: ["٤", "٦", "١٥", "٢"]
+                },
+                correctAnswer: "6"
             },
             {
-                verse: "إِنَّ اللَّهَ مَعَ الَّذِينَ اتَّقَوْا وَالَّذِينَ هُمْ مُحْسِنُونَ",
-                question: "ما الحكم الذي ينطبق على الكلمة المخطوطة؟",
-                options: [
-                    { text: "الإظهار الحلقي", correct: true },
-                    { text: "الإدغام بغنة", correct: false },
-                    { text: "الإخفاء", correct: false },
-                    { text: "الإقلاب", correct: false }
-                ],
-                explanation: "الكلمة 'مَعَ' تحتوي على نون ساكنة يليها الهمزة في 'الَّذِينَ'. هذا ينطبق مع قاعدة الإظهار الحلقي لأن الهمزة من الحروف الحلقية.",
-                reference: "سورة النحل، الآية ١٢٨",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=180"
+                question: {
+                    fr: "Quelle lettre transforme le ن en م dans Al-Iqlab?",
+                    ar: "أي حرف يحول النون إلى ميم في الإقلاب?"
+                },
+                options: {
+                    fr: ["ت", "ب", "ي", "ر"],
+                    ar: ["ت", "ب", "ي", "ر"]
+                },
+                correctAnswer: "ب"
             },
             {
-                verse: "هُدًى لِّلْمُتَّقِينَ",
-                question: "ما الحكم الذي ينطبق على الكلمة المخطوطة؟",
-                options: [
-                    { text: "الإظهار الحلقي", correct: false },
-                    { text: "الإدغام بلا غنة", correct: true },
-                    { text: "الإخفاء", correct: false },
-                    { text: "الإقلاب", correct: false }
-                ],
-                explanation: "الكلمة 'هُدًى' تنتهي بتنوين يليه اللام في 'لِّلْمُتَّقِينَ'. هذا ينطبق مع قاعدة الإدغام بلا غنة لأن اللام من الحروف المعنية.",
-                reference: "سورة البقرة، الآية ٢",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=300"
+                question: {
+                    fr: "Quelle est la durée de la ghunna dans Al-Ikhfa'?",
+                    ar: "ما هي مدة الغنة في الإخفاء?"
+                },
+                options: {
+                    fr: ["1 temps", "2 temps", "3 temps", "Pas de ghunna"],
+                    ar: ["حركة واحدة", "حركتين", "ثلاث حركات", "لا غنة"]
+                },
+                correctAnswer: "2 temps"
             },
             {
-                verse: "مِنْ وَرَائِهِمْ",
-                question: "ما الحكم الذي ينطبق على الكلمة المخطوطة؟",
-                options: [
-                    { text: "الإظهار الحلقي", correct: false },
-                    { text: "الإدغام بغنة", correct: true },
-                    { text: "الإخفاء", correct: false },
-                    { text: "الإقلاب", correct: false }
-                ],
-                explanation: "الكلمة 'مِنْ' تحتوي على نون ساكنة يليها الواو في 'وَرَائِهِمْ'. هذا ينطبق مع قاعدة الإدغام بغنة لأن الواو من الحروف المعنية.",
-                reference: "سورة يس، الآية ٩",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=360"
+                question: {
+                    fr: "Quelles lettres provoquent Al-Idgham Bila Ghunna?",
+                    ar: "ما هي الحروف التي تسبب الإدغام بلا غنة?"
+                },
+                options: {
+                    fr: ["ي و", "ل ر", "م ن", "ب ت"],
+                    ar: ["ي و", "ل ر", "م ن", "ب ت"]
+                },
+                correctAnswer: "ل ر"
             },
             {
-                verse: "مِنْ عِلْمٍ إِلَّا مَا عَلَّمْتَ",
-                question: "ما الحكم الذي ينطبق على الكلمة المخطوطة؟",
-                options: [
-                    { text: "الإظهار الحلقي", correct: true },
-                    { text: "الإدغام بغنة", correct: false },
-                    { text: "الإخفاء", correct: false },
-                    { text: "الإقلاب", correct: false }
-                ],
-                explanation: "الكلمة 'عِلْمٍ' تنتهي بتنوين يليه الهمزة في 'إِلَّا'. هذا ينطبق مع قاعدة الإظهار الحلقي لأن الهمزة من الحروف الحلقية.",
-                reference: "سورة البقرة، الآية ٣٢",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=420"
+                question: {
+                    fr: "Dans 'مِنْ ثَمَرَةٍ', quelle règle s'applique?",
+                    ar: "في 'مِنْ ثَمَرَةٍ'، ما هي القاعدة المطبقة?"
+                },
+                options: {
+                    fr: ["Al-Izhar", "Al-Ikhfa'", "Al-Idgham", "Al-Iqlab"],
+                    ar: ["الإظهار", "الإخفاء", "الإدغام", "الإقلاب"]
+                },
+                correctAnswer: "Al-Ikhfa'"
             },
             {
-                verse: "رَحْمَةً وَعِلْمًا",
-                question: "ما الحكم الذي ينطبق على الكلمة المخطوطة؟",
-                options: [
-                    { text: "الإظهار الحلقي", correct: false },
-                    { text: "الإدغام بغنة", correct: true },
-                    { text: "الإخفاء", correct: false },
-                    { text: "الإقلاب", correct: false }
-                ],
-                explanation: "الكلمة 'رَحْمَةً' تنتهي بتنوين يليه الواو في 'وَعِلْمًا'. هذا ينطبق مع قاعدة الإدغام بغنة لأن الواو من الحروف المعنية.",
-                reference: "سورة القصص، الآية ١٤",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=480"
+                question: {
+                    fr: "Quelle règle a le plus grand nombre de lettres?",
+                    ar: "أي قاعدة لها أكبر عدد من الحروف?"
+                },
+                options: {
+                    fr: ["Al-Izhar", "Al-Idgham", "Al-Ikhfa'", "Al-Iqlab"],
+                    ar: ["الإظهار", "الإدغام", "الإخفاء", "الإقلاب"]
+                },
+                correctAnswer: "Al-Ikhfa'"
             },
             {
-                verse: "مِنْ فَضْلِ اللَّهِ",
-                question: "ما الحكم الذي ينطبق على الكلمة المخطوطة؟",
-                options: [
-                    { text: "الإظهار الحلقي", correct: false },
-                    { text: "الإدغام بغنة", correct: false },
-                    { text: "الإخفاء", correct: true },
-                    { text: "الإقلاب", correct: false }
-                ],
-                explanation: "الكلمة 'مِنْ' تحتوي على نون ساكنة يليها الفاء في 'فَضْلِ'. هذا ينطبق مع قاعدة الإخفاء لأن الفاء من حروف الإخفاء.",
-                reference: "سورة النساء، الآية ٧٣",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=540"
+                question: {
+                    fr: "Comment prononce-t-on نْ suivi de م?",
+                    ar: "كيف تنطق نْ متبوعة بم?"
+                },
+                options: {
+                    fr: ["N clair", "M avec ghunna", "N nasal", "L clair"],
+                    ar: ["نون واضحة", "ميم مع غنة", "نون أنفية", "لام واضحة"]
+                },
+                correctAnswer: "M avec ghunna"
             },
             {
-                verse: "إِنَّا أَنْزَلْنَاهُ قُرْآنًا عَرَبِيًّا",
-                question: "ما الحكم الذي ينطبق على الكلمة المخطوطة؟",
-                options: [
-                    { text: "الإظهار الحلقي", correct: false },
-                    { text: "الإدغام بغنة", correct: false },
-                    { text: "الإخفاء", correct: false },
-                    { text: "الإقلاب", correct: true }
-                ],
-                explanation: "الكلمة 'عَرَبِيًّا' تنتهي بتنوين يليه القاف في 'قُرْآنًا'. في هذه الحالة الخاصة، هناك وقف بعد التنوين، لذلك لا تنطبق القاعدة. إذا استمرت القراءة دون توقف، فسيكون إخفاء.",
-                reference: "سورة يوسف، الآية ٢",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=600"
+                question: {
+                    fr: "Quelle règle ne comporte pas de ghunna?",
+                    ar: "أي قاعدة لا تحتوي على غنة?"
+                },
+                options: {
+                    fr: ["Al-Idgham Ma'al Ghunna", "Al-Ikhfa'", "Al-Idgham Bila Ghunna", "Al-Iqlab"],
+                    ar: ["الإدغام بغنة", "الإخفاء", "الإدغام بلا غنة", "الإقلاب"]
+                },
+                correctAnswer: "Al-Idgham Bila Ghunna"
             },
             {
-                verse: "مِنْ دُونِ اللَّهِ",
-                question: "ما الحكم الذي ينطبق على الكلمة المخطوطة؟",
-                options: [
-                    { text: "الإظهار الحلقي", correct: false },
-                    { text: "الإدغام بغنة", correct: false },
-                    { text: "الإخفاء", correct: true },
-                    { text: "الإقلاب", correct: false }
-                ],
-                explanation: "الكلمة 'مِنْ' تحتوي على نون ساكنة يليها الدال في 'دُونِ'. هذا ينطبق مع قاعدة الإخفاء لأن الدال من حروف الإخفاء.",
-                reference: "سورة البقرة، الآية ١٦٥",
-                videoLink: "https://www.youtube.com/watch?v=wS7SbTQOOHU&t=660"
+                question: {
+                    fr: "Quelle est la signification de 'Iqlab'?",
+                    ar: "ما معنى 'الإقلاب'?"
+                },
+                options: {
+                    fr: ["Montrer", "Cacher", "Transformer", "Nasaliser"],
+                    ar: ["إظهار", "إخفاء", "تحويل", "غنة"]
+                },
+                correctAnswer: "Transformer"
             }
         ];
 
+        // État de l'application
+        let currentLanguage = 'fr';
+        let darkMode = false;
         let currentQuestion = 0;
         let score = 0;
-        let quizCompleted = false;
+        let selectedOption = null;
+        let popupCurrentQuestion = 0;
+        let popupScore = 0;
+        let popupSelectedOption = null;
 
-        function initializeQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            quizCompleted = false;
-            updateQuizDisplay();
+        // Éléments DOM
+        const languageBtn = document.getElementById('language-btn');
+        const darkModeBtn = document.getElementById('dark-mode-btn');
+        const startQuizBtn = document.getElementById('start-quiz-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        const verseElement = document.getElementById('verse');
+        const optionsContainer = document.getElementById('options');
+        const feedbackElement = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const scoreElement = document.getElementById('score');
+        const quizBubble = document.getElementById('quiz-bubble');
+        const quizPopup = document.getElementById('quiz-popup');
+        const closePopupBtn = document.getElementById('close-popup');
+        const popupTitle = document.getElementById('popup-title');
+        const popupQuestion = document.getElementById('popup-question');
+        const popupOptions = document.getElementById('popup-options');
+        const popupFeedback = document.getElementById('popup-feedback');
+        const popupPrevBtn = document.getElementById('popup-prev');
+        const popupNextBtn = document.getElementById('popup-next');
+        const popupScoreElement = document.getElementById('popup-score');
+        const arabicInput = document.getElementById('arabic-input');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const analysisResults = document.getElementById('analysis-results');
+        const resultsContent = document.getElementById('results-content');
+
+        // Initialisation
+        function init() {
+            translatePage();
+            setupEventListeners();
+            setupExercises();
         }
 
-        function updateQuizDisplay() {
-            const quizDataToUse = currentLanguage === 'fr' ? quizData : arabicQuizData;
+        // Traduction de la page
+        function translatePage() {
+            const lang = translations[currentLanguage];
             
-            if (currentQuestion < quizDataToUse.length) {
-                const question = quizDataToUse[currentQuestion];
-                document.getElementById('quiz-progress').textContent = 
-                    currentLanguage === 'fr' ? 
-                    `Question ${currentQuestion + 1} sur ${quizDataToUse.length}` :
-                    `السؤال ${currentQuestion + 1} من ${quizDataToUse.length}`;
+            // Titres et textes
+            document.getElementById('title').textContent = lang.title;
+            document.getElementById('lessons-title').textContent = lang.lessonsTitle;
+            document.getElementById('rule1-title').textContent = lang.rule1Title;
+            document.getElementById('rule1-desc').textContent = lang.rule1Desc;
+            document.getElementById('rule2-title').textContent = lang.rule2Title;
+            document.getElementById('rule2-desc').textContent = lang.rule2Desc;
+            document.getElementById('rule3-title').textContent = lang.rule3Title;
+            document.getElementById('rule3-desc').textContent = lang.rule3Desc;
+            document.getElementById('rule4-title').textContent = lang.rule4Title;
+            document.getElementById('rule4-desc').textContent = lang.rule4Desc;
+            document.getElementById('rule5-title').textContent = lang.rule5Title;
+            document.getElementById('rule5-desc').textContent = lang.rule5Desc;
+            startQuizBtn.textContent = lang.startQuizBtn;
+            prevBtn.textContent = lang.prevBtn;
+            nextBtn.textContent = lang.nextBtn;
+            popupTitle.textContent = lang.popupTitle;
+            
+            // Mettre à jour les visualisations du tanwin
+            document.querySelectorAll('.tanwin-visualization').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            if (currentLanguage === 'fr') {
+                document.getElementById('rule1-visual-fr').style.display = 'block';
+                document.getElementById('rule2-visual-fr').style.display = 'block';
+                document.getElementById('rule3-visual-fr').style.display = 'block';
+                document.getElementById('rule4-visual-fr').style.display = 'block';
+                document.getElementById('rule5-visual-fr').style.display = 'block';
+            } else {
+                document.getElementById('rule1-visual-ar').style.display = 'block';
+                document.getElementById('rule2-visual-ar').style.display = 'block';
+                document.getElementById('rule3-visual-ar').style.display = 'block';
+                document.getElementById('rule4-visual-ar').style.display = 'block';
+                document.getElementById('rule5-visual-ar').style.display = 'block';
+            }
+            
+            // Exercices
+            document.getElementById('exercise1-title').textContent = lang.exercise1Title;
+            document.getElementById('exercise1-q1').textContent = lang.exercise1Q1;
+            document.getElementById('exercise1-q2').textContent = lang.exercise1Q2;
+            document.getElementById('exercise1-q3').textContent = lang.exercise1Q3;
+            
+            // Mettre à jour les options des exercices
+            const exercise1Options1 = document.getElementById('exercise1-options1');
+            exercise1Options1.innerHTML = '';
+            [lang.exercise1Opt1, lang.exercise1Opt2, lang.exercise1Opt3].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise1Options1.appendChild(option);
+            });
+            
+            const exercise1Options2 = document.getElementById('exercise1-options2');
+            exercise1Options2.innerHTML = '';
+            [lang.exercise1Opt4, lang.exercise1Opt5, lang.exercise1Opt6].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise1Options2.appendChild(option);
+            });
+            
+            const exercise1Options3 = document.getElementById('exercise1-options3');
+            exercise1Options3.innerHTML = '';
+            [lang.exercise1Opt7, lang.exercise1Opt8, lang.exercise1Opt9].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise1Options3.appendChild(option);
+            });
+            
+            document.getElementById('exercise2-title').textContent = lang.exercise2Title;
+            document.getElementById('exercise2-q1').textContent = lang.exercise2Q1;
+            document.getElementById('exercise2-q2').textContent = lang.exercise2Q2;
+            document.getElementById('exercise2-q3').textContent = lang.exercise2Q3;
+            
+            const exercise2Options1 = document.getElementById('exercise2-options1');
+            exercise2Options1.innerHTML = '';
+            [lang.exercise2Opt1, lang.exercise2Opt2, lang.exercise2Opt3].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise2Options1.appendChild(option);
+            });
+            
+            const exercise2Options2 = document.getElementById('exercise2-options2');
+            exercise2Options2.innerHTML = '';
+            [lang.exercise2Opt4, lang.exercise2Opt5, lang.exercise2Opt6].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise2Options2.appendChild(option);
+            });
+            
+            const exercise2Options3 = document.getElementById('exercise2-options3');
+            exercise2Options3.innerHTML = '';
+            [lang.exercise2Opt7, lang.exercise2Opt8, lang.exercise2Opt9].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 2 ? 'true' : 'false';
+                exercise2Options3.appendChild(option);
+            });
+            
+            document.getElementById('exercise3-title').textContent = lang.exercise3Title;
+            document.getElementById('exercise3-q1').textContent = lang.exercise3Q1;
+            document.getElementById('exercise3-q2').textContent = lang.exercise3Q2;
+            document.getElementById('exercise3-q3').textContent = lang.exercise3Q3;
+            
+            const exercise3Options1 = document.getElementById('exercise3-options1');
+            exercise3Options1.innerHTML = '';
+            [lang.exercise3Opt1, lang.exercise3Opt2, lang.exercise3Opt3].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise3Options1.appendChild(option);
+            });
+            
+            const exercise3Options2 = document.getElementById('exercise3-options2');
+            exercise3Options2.innerHTML = '';
+            [lang.exercise3Opt4, lang.exercise3Opt5, lang.exercise3Opt6].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise3Options2.appendChild(option);
+            });
+            
+            const exercise3Options3 = document.getElementById('exercise3-options3');
+            exercise3Options3.innerHTML = '';
+            [lang.exercise3Opt7, lang.exercise3Opt8, lang.exercise3Opt9].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise3Options3.appendChild(option);
+            });
+            
+            document.getElementById('exercise4-title').textContent = lang.exercise4Title;
+            document.getElementById('exercise4-q1').textContent = lang.exercise4Q1;
+            document.getElementById('exercise4-q2').textContent = lang.exercise4Q2;
+            document.getElementById('exercise4-q3').textContent = lang.exercise4Q3;
+            
+            const exercise4Options1 = document.getElementById('exercise4-options1');
+            exercise4Options1.innerHTML = '';
+            [lang.exercise4Opt1, lang.exercise4Opt2, lang.exercise4Opt3].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise4Options1.appendChild(option);
+            });
+            
+            const exercise4Options2 = document.getElementById('exercise4-options2');
+            exercise4Options2.innerHTML = '';
+            [lang.exercise4Opt4, lang.exercise4Opt5, lang.exercise4Opt6].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise4Options2.appendChild(option);
+            });
+            
+            const exercise4Options3 = document.getElementById('exercise4-options3');
+            exercise4Options3.innerHTML = '';
+            [lang.exercise4Opt7, lang.exercise4Opt8, lang.exercise4Opt9].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise4Options3.appendChild(option);
+            });
+            
+            document.getElementById('exercise5-title').textContent = lang.exercise5Title;
+            document.getElementById('exercise5-q1').textContent = lang.exercise5Q1;
+            document.getElementById('exercise5-q2').textContent = lang.exercise5Q2;
+            document.getElementById('exercise5-q3').textContent = lang.exercise5Q3;
+            
+            const exercise5Options1 = document.getElementById('exercise5-options1');
+            exercise5Options1.innerHTML = '';
+            [lang.exercise5Opt1, lang.exercise5Opt2, lang.exercise5Opt3].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise5Options1.appendChild(option);
+            });
+            
+            const exercise5Options2 = document.getElementById('exercise5-options2');
+            exercise5Options2.innerHTML = '';
+            [lang.exercise5Opt4, lang.exercise5Opt5, lang.exercise5Opt6].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise5Options2.appendChild(option);
+            });
+            
+            const exercise5Options3 = document.getElementById('exercise5-options3');
+            exercise5Options3.innerHTML = '';
+            [lang.exercise5Opt7, lang.exercise5Opt8, lang.exercise5Opt9].forEach((opt, index) => {
+                const option = document.createElement('div');
+                option.className = 'exercise-option';
+                option.textContent = opt;
+                option.dataset.correct = index === 1 ? 'true' : 'false';
+                exercise5Options3.appendChild(option);
+            });
+            
+            // Mettre à jour tous les boutons "Vérifier les réponses"
+            document.querySelectorAll('.check-answers').forEach(btn => {
+                btn.textContent = lang.exerciseCheck;
+            });
+            
+            // Mettre à jour le texte du bouton de langue
+            languageBtn.textContent = currentLanguage === 'fr' ? 'العربية' : 'Français';
+            
+            // Mettre à jour le texte du bouton mode sombre
+            darkModeBtn.textContent = darkMode ? 
+                (currentLanguage === 'fr' ? 'Mode Clair' : 'الوضع الفاتح') : 
+                (currentLanguage === 'fr' ? 'Mode Sombre' : 'الوضع المظلم');
+            
+            // Mettre à jour le quiz si actif
+            if (!quizContainer.classList.contains('hidden')) {
+                updateQuiz();
+            }
+            
+            // Mettre à jour le quiz popup si actif
+            if (quizPopup.classList.contains('active')) {
+                updatePopupQuiz();
+            }
+            
+            // Mettre à jour l'analyseur de tanwin
+            document.getElementById('analyzer-title').textContent = lang.analyzerTitle;
+            document.getElementById('analyzer-desc').textContent = lang.analyzerDesc;
+            document.getElementById('results-title').textContent = lang.resultsTitle;
+            analyzeBtn.textContent = lang.analyzeBtn;
+            arabicInput.placeholder = currentLanguage === 'fr' ? "اكتب جملة تحتوي على تنوين أو نون ساكنة..." : "Enter a phrase containing tanwin or nun sakinah...";
+            
+            // Réinitialiser les écouteurs d'événements pour les options
+            setupExercises();
+        }
+
+        // Configuration des écouteurs d'événements
+        function setupEventListeners() {
+            languageBtn.addEventListener('click', toggleLanguage);
+            darkModeBtn.addEventListener('click', toggleDarkMode);
+            startQuizBtn.addEventListener('click', startQuiz);
+            prevBtn.addEventListener('click', prevQuestion);
+            nextBtn.addEventListener('click', nextQuestion);
+            quizBubble.addEventListener('click', toggleQuizPopup);
+            closePopupBtn.addEventListener('click', toggleQuizPopup);
+            popupPrevBtn.addEventListener('click', popupPrevQuestion);
+            popupNextBtn.addEventListener('click', popupNextQuestion);
+            analyzeBtn.addEventListener('click', analyzeTanwin);
+        }
+
+        // Configurer les exercices interactifs
+        function setupExercises() {
+            document.querySelectorAll('.exercise').forEach(exercise => {
+                const checkBtn = exercise.querySelector('.check-answers');
+                const options = exercise.querySelectorAll('.exercise-option');
+                const feedbacks = exercise.querySelectorAll('.exercise-feedback');
                 
-                document.getElementById('quiz-verse').textContent = question.verse;
-                document.getElementById('quiz-question').textContent = question.question;
-                
-                const optionsContainer = document.getElementById('quiz-options');
-                optionsContainer.innerHTML = '';
-                
-                question.options.forEach((option, index) => {
-                    const optionElement = document.createElement('div');
-                    optionElement.classList.add('quiz-option');
-                    optionElement.textContent = option.text;
-                    optionElement.addEventListener('click', () => selectOption(index));
-                    optionsContainer.appendChild(optionElement);
+                options.forEach(option => {
+                    option.addEventListener('click', function() {
+                        // Désélectionner toutes les options de cette question
+                        const questionOptions = this.closest('.exercise-options').querySelectorAll('.exercise-option');
+                        questionOptions.forEach(opt => opt.classList.remove('selected'));
+                        
+                        // Sélectionner cette option
+                        this.classList.add('selected');
+                        
+                        // Masquer le feedback précédent
+                        const feedback = this.closest('.exercise-options').nextElementSibling;
+                        if (feedback && feedback.classList.contains('exercise-feedback')) {
+                            feedback.style.display = 'none';
+                        }
+                    });
                 });
                 
-                document.getElementById('quiz-feedback').className = 'quiz-feedback';
-                document.getElementById('quiz-feedback').innerHTML = '';
-                document.getElementById('quiz-next').style.display = 'none';
-            } else {
-                // Quiz completed
-                quizCompleted = true;
-                const quizContainer = document.getElementById('quiz-container');
-                quizContainer.innerHTML = `
-                    <h3>${currentLanguage === 'fr' ? 'Résultats du Quiz' : 'نتيجة الاختبار'}</h3>
-                    <p>${currentLanguage === 'fr' ? 
-                        `Vous avez obtenu ${score} bonnes réponses sur ${quizDataToUse.length}!` : 
-                        `لقد حصلت على ${score} إجابات صحيحة من ${quizDataToUse.length}!`}</p>
-                    <p>${currentLanguage === 'fr' ? 
-                        'Merci d\'avoir complété ce quiz. Continuez à pratiquer!' : 
-                        'شكراً لإكمال هذا الاختبار. استمر في الممارسة!'}</p>
-                    <button class="control-btn" id="restart-quiz">${currentLanguage === 'fr' ? 'Recommencer le Quiz' : 'إعادة الاختبار'}</button>
-                `;
-                
-                document.getElementById('restart-quiz').addEventListener('click', initializeQuiz);
-                
-                // Open feedback modal automatically after quiz completion
-                setTimeout(() => {
-                    document.getElementById('feedback-btn').click();
-                }, 1000);
-            }
+                checkBtn.addEventListener('click', function() {
+                    const exercise = this.parentElement;
+                    const questions = exercise.querySelectorAll('.exercise-question');
+                    let allAnswered = true;
+                    
+                    questions.forEach(question => {
+                        const optionsContainer = question.nextElementSibling;
+                        const selectedOption = optionsContainer.querySelector('.exercise-option.selected');
+                        const feedback = optionsContainer.nextElementSibling;
+                        
+                        if (!selectedOption) {
+                            allAnswered = false;
+                            return;
+                        }
+                        
+                        const isCorrect = selectedOption.dataset.correct === "true";
+                        
+                        feedback.textContent = isCorrect ? 
+                            (currentLanguage === 'fr' ? translations.fr.correct : translations.ar.correct) : 
+                            (currentLanguage === 'fr' ? translations.fr.incorrect : translations.ar.incorrect);
+                        
+                        feedback.className = 'exercise-feedback ' + (isCorrect ? 'exercise-correct' : 'exercise-incorrect');
+                        feedback.style.display = 'block';
+                    });
+                    
+                    if (!allAnswered) {
+                        alert(currentLanguage === 'fr' ? "Veuillez répondre à toutes les questions avant de vérifier." : "الرجاء الإجابة على جميع الأسئلة قبل التحقق.");
+                    }
+                });
+            });
         }
 
-        function selectOption(optionIndex) {
-            const quizDataToUse = currentLanguage === 'fr' ? quizData : arabicQuizData;
-            const question = quizDataToUse[currentQuestion];
-            const options = document.querySelectorAll('.quiz-option');
+        // Basculer entre les langues
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'fr' ? 'ar' : 'fr';
+            translatePage();
             
-            options.forEach((option, index) => {
-                if (index === optionIndex) {
-                    option.classList.add('selected');
-                } else {
-                    option.classList.remove('selected');
-                }
-                
-                if (question.options[index].correct) {
-                    option.classList.add('correct');
-                } else {
-                    option.classList.add('incorrect');
-                }
-                
-                option.style.pointerEvents = 'none';
+            // Changer la direction du texte
+            document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+        }
+
+        // Basculer le mode sombre
+        function toggleDarkMode() {
+            darkMode = !darkMode;
+            document.body.classList.toggle('dark-mode');
+            translatePage(); // Mettre à jour le texte du bouton
+        }
+
+        // Démarrer le quiz
+        function startQuiz() {
+            quizContainer.classList.remove('hidden');
+            startQuizBtn.classList.add('hidden');
+            currentQuestion = 0;
+            score = 0;
+            updateQuiz();
+        }
+
+        // Mettre à jour l'affichage du quiz
+        function updateQuiz() {
+            const question = quizQuestions[currentQuestion];
+            verseElement.textContent = question.verse;
+            
+            optionsContainer.innerHTML = '';
+            question.options[currentLanguage].forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.textContent = option;
+                optionElement.addEventListener('click', () => selectOption(index, option));
+                optionsContainer.appendChild(optionElement);
             });
             
-            const isCorrect = question.options[optionIndex].correct;
-            const feedback = document.getElementById('quiz-feedback');
+            scoreElement.textContent = translations[currentLanguage].scoreText + score + '/' + quizQuestions.length;
+            feedbackElement.style.display = 'none';
+            selectedOption = null;
             
-            if (isCorrect) {
+            // Gérer les boutons de navigation
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.textContent = currentQuestion === quizQuestions.length - 1 ? 
+                (currentLanguage === 'fr' ? 'Terminer' : 'إنهاء') : 
+                translations[currentLanguage].nextBtn;
+        }
+
+        // Sélectionner une option
+        function selectOption(index, option) {
+            // Réinitialiser toutes les options sélectionnées
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Sélectionner la nouvelle option
+            document.querySelectorAll('.option')[index].classList.add('selected');
+            selectedOption = option;
+            
+            // Vérifier la réponse
+            const question = quizQuestions[currentQuestion];
+            const isCorrect = selectedOption === question.correctAnswer;
+            
+            feedbackElement.textContent = isCorrect ? 
+                (currentLanguage === 'fr' ? translations.fr.correct : translations.ar.correct) : 
+                (currentLanguage === 'fr' ? `Incorrect. La réponse est: ${question.correctAnswer}` : `خطأ. الإجابة الصحيحة هي: ${question.correctAnswer}`);
+            
+            feedbackElement.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+            feedbackElement.style.display = 'block';
+            
+            if (isCorrect && !question.answered) {
                 score++;
-                feedback.classList.add('correct');
+                question.answered = true;
+                scoreElement.textContent = translations[currentLanguage].scoreText + score + '/' + quizQuestions.length;
+            }
+        }
+
+        // Question précédente
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                updateQuiz();
+            }
+        }
+
+        // Question suivante
+        function nextQuestion() {
+            if (currentQuestion < quizQuestions.length - 1) {
+                currentQuestion++;
+                updateQuiz();
             } else {
-                feedback.classList.add('incorrect');
+                // Terminer le quiz
+                quizContainer.classList.add('hidden');
+                startQuizBtn.classList.remove('hidden');
+                startQuizBtn.textContent = currentLanguage === 'fr' ? 'Refaire le Quiz' : 'إعادة الاختبار';
+                
+                // Réinitialiser les questions répondues
+                quizQuestions.forEach(q => q.answered = false);
             }
-            
-            feedback.innerHTML = `
-                <p><strong>${currentLanguage === 'fr' ? 'Explication' : 'شرح'}:</strong> ${question.explanation}</p>
-                <p><strong>${currentLanguage === 'fr' ? 'Référence' : 'المرجع'}:</strong> ${question.reference}</p>
-                <p><a href="${question.videoLink}" target="_blank" class="resource-link">
-                    ${currentLanguage === 'fr' ? 'Voir la vidéo explicative' : 'شاهد الفيديو التوضيحي'}
-                </a></p>
-            `;
-            
-            feedback.style.display = 'block';
-            document.getElementById('quiz-next').style.display = 'inline-block';
         }
 
-        document.getElementById('quiz-next').addEventListener('click', () => {
-            currentQuestion++;
-            updateQuizDisplay();
-        });
-
-        // Initialize the quiz when the page loads
-        initializeQuiz();
-
-        // Feedback Modal System
-        const feedbackBtn = document.getElementById('feedback-btn');
-        const feedbackModal = document.getElementById('feedback-modal');
-        const closeFeedback = document.getElementById('close-feedback');
-        const stars = document.querySelectorAll('.star');
-        const submitFeedback = document.getElementById('submit-feedback');
-        const feedbackForm = document.getElementById('feedback-form');
-        const thankYouMessage = document.getElementById('thank-you-message');
-
-        let selectedRating = 0;
-
-        // Open feedback modal
-        feedbackBtn.addEventListener('click', () => {
-            feedbackModal.style.display = 'block';
-            feedbackForm.style.display = 'block';
-            thankYouMessage.style.display = 'none';
-            selectedRating = 0;
-            resetStars();
-        });
-
-        // Close feedback modal
-        closeFeedback.addEventListener('click', () => {
-            feedbackModal.style.display = 'none';
-        });
-
-        // Click outside modal to close
-        window.addEventListener('click', (e) => {
-            if (e.target === feedbackModal) {
-                feedbackModal.style.display = 'none';
+        // Basculer le popup de quiz
+        function toggleQuizPopup() {
+            quizPopup.classList.toggle('active');
+            
+            if (quizPopup.classList.contains('active')) {
+                popupCurrentQuestion = 0;
+                popupScore = 0;
+                updatePopupQuiz();
             }
-        });
-
-        // Star rating selection
-        stars.forEach(star => {
-            star.addEventListener('click', () => {
-                selectedRating = parseInt(star.getAttribute('data-rating'));
-                highlightStars(selectedRating);
-            });
-
-            star.addEventListener('mouseover', () => {
-                const rating = parseInt(star.getAttribute('data-rating'));
-                highlightStars(rating);
-            });
-
-            star.addEventListener('mouseout', () => {
-                highlightStars(selectedRating);
-            });
-        });
-
-        function highlightStars(rating) {
-            stars.forEach(star => {
-                const starRating = parseInt(star.getAttribute('data-rating'));
-                if (starRating <= rating) {
-                    star.classList.add('active');
-                } else {
-                    star.classList.remove('active');
-                }
-            });
         }
 
-        function resetStars() {
-            stars.forEach(star => {
-                star.classList.remove('active');
-            });
-        }
-
-        // Submit feedback
-        submitFeedback.addEventListener('click', () => {
-            const email = document.getElementById('feedback-email').value;
-            const subject = document.getElementById('feedback-subject').value;
-            const message = document.getElementById('feedback-message').value;
+        // Mettre à jour le quiz popup
+        function updatePopupQuiz() {
+            const question = popupQuizQuestions[popupCurrentQuestion];
+            popupQuestion.textContent = question.question[currentLanguage];
             
-            if (!email || !message) {
-                alert(currentLanguage === 'fr' ? 
-                    "Veuillez remplir au moins votre email et votre message" : 
-                    "يرجى ملء البريد الإلكتروني والرسالة على الأقل");
+            popupOptions.innerHTML = '';
+            question.options[currentLanguage].forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('exercise-option');
+                optionElement.textContent = option;
+                optionElement.addEventListener('click', () => selectPopupOption(index, option));
+                popupOptions.appendChild(optionElement);
+            });
+            
+            popupScoreElement.textContent = translations[currentLanguage].scoreText + popupScore + '/' + popupQuizQuestions.length;
+            popupFeedback.style.display = 'none';
+            popupSelectedOption = null;
+            
+            // Gérer les boutons de navigation
+            popupPrevBtn.disabled = popupCurrentQuestion === 0;
+            popupNextBtn.textContent = popupCurrentQuestion === popupQuizQuestions.length - 1 ? 
+                (currentLanguage === 'fr' ? 'Terminer' : 'إنهاء') : 
+                translations[currentLanguage].nextBtn;
+        }
+
+        // Sélectionner une option dans le popup
+        function selectPopupOption(index, option) {
+            // Réinitialiser toutes les options sélectionnées
+            document.querySelectorAll('#popup-options .exercise-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Sélectionner la nouvelle option
+            document.querySelectorAll('#popup-options .exercise-option')[index].classList.add('selected');
+            popupSelectedOption = option;
+            
+            // Vérifier la réponse
+            const question = popupQuizQuestions[popupCurrentQuestion];
+            const isCorrect = popupSelectedOption === question.correctAnswer;
+            
+            popupFeedback.textContent = isCorrect ? 
+                (currentLanguage === 'fr' ? translations.fr.correct : translations.ar.correct) : 
+                (currentLanguage === 'fr' ? `Incorrect. La réponse est: ${question.correctAnswer}` : `خطأ. الإجابة الصحيحة هي: ${question.correctAnswer}`);
+            
+            popupFeedback.className = 'exercise-feedback ' + (isCorrect ? 'exercise-correct' : 'exercise-incorrect');
+            popupFeedback.style.display = 'block';
+            
+            if (isCorrect && !question.answered) {
+                popupScore++;
+                question.answered = true;
+                popupScoreElement.textContent = translations[currentLanguage].scoreText + popupScore + '/' + popupQuizQuestions.length;
+            }
+        }
+
+        // Question précédente dans le popup
+        function popupPrevQuestion() {
+            if (popupCurrentQuestion > 0) {
+                popupCurrentQuestion--;
+                updatePopupQuiz();
+            }
+        }
+
+        // Question suivante dans le popup
+        function popupNextQuestion() {
+            if (popupCurrentQuestion < popupQuizQuestions.length - 1) {
+                popupCurrentQuestion++;
+                updatePopupQuiz();
+            } else {
+                // Terminer le quiz
+                const lang = translations[currentLanguage];
+                popupQuestion.textContent = lang.popupEnd + popupScore + '/' + popupQuizQuestions.length;
+                popupOptions.innerHTML = '';
+                popupFeedback.style.display = 'none';
+                popupNextBtn.textContent = lang.startQuizBtn;
+                
+                // Créer un nouvel écouteur qui ne s'exécutera qu'une fois
+                const handler = function() {
+                    popupQuizQuestions.forEach(q => q.answered = false);
+                    popupCurrentQuestion = 0;
+                    popupScore = 0;
+                    updatePopupQuiz();
+                    popupNextBtn.removeEventListener('click', handler);
+                };
+                
+                popupNextBtn.addEventListener('click', handler, { once: true });
+            }
+        }
+
+        // Analyser le tanwin et nun sakinah dans la phrase
+        function analyzeTanwin() {
+            const input = arabicInput.value.trim();
+            resultsContent.innerHTML = '';
+            analysisResults.style.display = 'none';
+            
+            if (!input) {
+                alert(currentLanguage === 'fr' ? "Veuillez entrer une phrase en arabe." : "الرجاء إدخال جملة باللغة العربية.");
                 return;
             }
             
-            // Here you would normally send the feedback to your server
-            // For this example, we'll just show a thank you message
-            console.log('Feedback submitted:', { 
-                email: email, 
-                subject: subject, 
-                message: message, 
-                rating: selectedRating 
-            });
+            const lang = translations[currentLanguage];
+            let resultsHTML = '';
+            let foundElements = 0;
             
-            // Show thank you message
-            feedbackForm.style.display = 'none';
-            thankYouMessage.style.display = 'block';
+            // Détecter les tanwins (ـًـٍـٌ) et nun sakinah (نْ)
+            for (let i = 0; i < input.length; i++) {
+                const currentChar = input[i];
+                let elementType = null;
+                let elementName = '';
+                
+                // Vérifier si c'est un tanwin
+                if (currentChar in tanwinTypes) {
+                    elementType = 'tanwin';
+                    elementName = tanwinTypes[currentChar].name[currentLanguage];
+                }
+                // Vérifier si c'est un nun sakinah (ن suivi de sukun)
+                else if (currentChar === 'ن' && i < input.length - 1 && input[i+1] === '\u0652') {
+                    elementType = 'nun';
+                    elementName = lang.nunSakinah;
+                    i++; // Sauter le sukun
+                }
+                
+                if (elementType) {
+                    foundElements++;
+                    const position = i + 1; // Position basée sur 1 pour l'utilisateur
+                    
+                    // Trouver la lettre suivante (ignorer les espaces et signes diacritiques)
+                    let nextCharIndex = i + 1;
+                    while (nextCharIndex < input.length) {
+                        const char = input[nextCharIndex];
+                        // Ignorer les espaces, signes diacritiques et autres caractères non pertinents
+                        if (char.trim() === '' || 
+                            char === '\u0652' || // Sukun
+                            char === '\u064E' || // Fatha
+                            char === '\u064F' || // Damma
+                            char === '\u0650' || // Kasra
+                            char === '\u0651' || // Shadda
+                            char === '\u0670') { // Alif khanjariya
+                            nextCharIndex++;
+                            continue;
+                        }
+                        break;
+                    }
+                    
+                    let nextChar = input[nextCharIndex];
+                    
+                    // Si nous sommes à la fin de la chaîne ou si le caractère suivant est un espace/signe de ponctuation
+                    if (!nextChar || nextCharIndex >= input.length) {
+                        resultsHTML += `
+                            <div class="tanwin-result">
+                                <p><strong>${elementName} ${lang[elementType === 'tanwin' ? 'tanwinAtPosition' : 'nunAtPosition']} ${position}</strong></p>
+                                <p>${lang.noFollowingLetter}</p>
+                            </div>
+                        `;
+                        continue;
+                    }
+                    
+                    // Trouver la règle qui s'applique
+                    const ruleData = tajweedRules[nextChar] || tajweedRules["default"];
+                    const rule = ruleData.rule;
+                    const explanation = ruleData.explanation[currentLanguage];
+                    const visual = ruleData.visual[currentLanguage];
+                    
+                    resultsHTML += `
+                        <div class="tanwin-result">
+                            <p><strong>${elementName} ${lang[elementType === 'tanwin' ? 'tanwinAtPosition' : 'nunAtPosition']} ${position}</strong></p>
+                            <p>${lang.followingLetter}: ${nextChar}</p>
+                            <p>${lang.ruleApplied}: ${rule}</p>
+                            <p class="rule-explanation">${explanation}</p>
+                            <p><strong>${currentLanguage === 'fr' ? 'Représentation visuelle' : 'التمثيل المرئي'}:</strong> ${visual}</p>
+                        </div>
+                    `;
+                }
+            }
             
-            // Reset form
-            document.getElementById('feedback-email').value = '';
-            document.getElementById('feedback-subject').value = '';
-            document.getElementById('feedback-message').value = '';
-            selectedRating = 0;
-            resetStars();
+            if (foundElements === 0) {
+                resultsHTML = `<p>${lang.noTanwinFound}</p>`;
+            } else {
+                resultsHTML = `<p>${foundElements} ${currentLanguage === 'fr' ? 'éléments détectés' : 'عنصر تم اكتشافه'}:</p>` + resultsHTML;
+            }
             
-            // Close modal after 5 seconds
-            setTimeout(() => {
-                feedbackModal.style.display = 'none';
-            }, 5000);
+            resultsContent.innerHTML = resultsHTML;
+            analysisResults.style.display = 'block';
+        }
+
+        // Initialiser l'application
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
         });
     </script>
 </body>
