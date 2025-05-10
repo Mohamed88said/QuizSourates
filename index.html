@@ -34,10 +34,10 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 10px;
+            padding: 20px;
             background-color: var(--bg);
             color: var(--text);
-            line-height: 1.5;
+            line-height: 1.6;
             transition: all 0.3s ease;
             min-height: 100vh;
             display: flex;
@@ -94,15 +94,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 1rem;
         }
 
         h1 {
             color: var(--primary);
             margin: 0;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
 
         .dark-mode h1 {
@@ -111,8 +111,8 @@
 
         h2 {
             color: var(--text);
-            margin: 0.3rem 0 1rem;
-            font-size: 1.1rem;
+            margin: 0.5rem 0 1.5rem;
+            font-size: 1.3rem;
             font-weight: 500;
         }
 
@@ -122,21 +122,20 @@
 
         .language-switcher {
             display: flex;
-            gap: 0.3rem;
+            gap: 0.5rem;
             background: #e2e8f0;
-            padding: 0.2rem;
+            padding: 0.3rem;
             border-radius: 50px;
         }
 
         .lang-btn {
-            padding: 0.4rem 0.8rem;
+            padding: 0.5rem 1rem;
             border: none;
             background: transparent;
             color: var(--text);
             border-radius: 50px;
             cursor: pointer;
             font-weight: 500;
-            font-size: 0.9rem;
             transition: all 0.2s;
         }
 
@@ -151,20 +150,20 @@
 
         .quiz-container {
             background-color: var(--card);
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
             display: none;
             flex-grow: 1;
         }
 
         .sourate-display {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
             text-align: center;
-            margin: 1rem 0;
-            padding: 1rem;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
             background-color: #e9f5e9;
             border-radius: 8px;
             color: var(--primary);
@@ -179,14 +178,14 @@
 
         .sourate-arabic {
             font-family: var(--arabic-font);
-            font-size: 2rem;
-            margin-bottom: 0.3rem;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
             line-height: 1.3;
             font-weight: bold;
         }
 
         .sourate-latin {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: #64748b;
             font-weight: bold;
         }
@@ -196,15 +195,14 @@
         }
 
         .question {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
         label {
             display: block;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
             font-weight: 600;
             color: var(--text);
-            font-size: 0.95rem;
         }
 
         .dark-mode label {
@@ -213,34 +211,34 @@
 
         input[type="text"] {
             width: 100%;
-            padding: 0.7rem;
-            margin: 0.2rem 0 0.8rem;
+            padding: 0.8rem;
+            margin: 0.3rem 0 1rem;
             border: 1px solid #cbd5e1;
-            border-radius: 6px;
+            border-radius: 8px;
             box-sizing: border-box;
-            font-size: 0.95rem;
+            font-size: 1rem;
             transition: border 0.2s;
         }
 
         input[type="text"]:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(43, 88, 12, 0.1);
+            box-shadow: 0 0 0 3px rgba(43, 88, 12, 0.1);
         }
 
         .dark-mode input[type="text"]:focus {
             border-color: var(--dark-primary);
-            box-shadow: 0 0 0 2px rgba(99, 154, 103, 0.3);
+            box-shadow: 0 0 0 3px rgba(99, 154, 103, 0.3);
         }
 
         button {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 0.7rem 1.2rem;
-            border-radius: 6px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 500;
             transition: background-color 0.2s;
         }
@@ -259,16 +257,16 @@
         }
 
         .result {
-            margin-top: 0.6rem;
-            padding: 0.6rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-size: 1rem;
         }
 
         .correct {
             background-color: #dcfce7;
             color: var(--correct);
-            border-left: 3px solid var(--correct);
+            border-left: 4px solid var(--correct);
         }
 
         .dark-mode .correct {
@@ -279,7 +277,7 @@
         .incorrect {
             background-color: #fee2e2;
             color: var(--incorrect);
-            border-left: 3px solid var(--incorrect);
+            border-left: 4px solid var(--incorrect);
         }
 
         .dark-mode .incorrect {
@@ -288,13 +286,13 @@
         }
 
         .score {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 600;
             text-align: center;
-            margin: 1rem 0;
-            padding: 0.8rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
             background-color: #e0f2fe;
-            border-radius: 6px;
+            border-radius: 8px;
             color: var(--primary);
             display: none;
         }
@@ -307,29 +305,28 @@
         .controls {
             display: flex;
             justify-content: center;
-            gap: 0.8rem;
-            margin: 1rem 0;
+            gap: 1rem;
+            margin: 1.5rem 0;
             flex-wrap: wrap;
             position: sticky;
-            bottom: 15px;
+            bottom: 20px;
             background-color: var(--bg);
-            padding: 8px;
-            border-radius: 8px;
-            box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
             z-index: 10;
         }
 
         .dark-mode .controls {
             background-color: var(--dark-bg);
-            box-shadow: 0 -1px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
         }
 
         .instructions {
             background-color: #e0f2fe;
-            padding: 1rem;
-            border-radius: 6px;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
         }
 
         .dark-mode .instructions {
@@ -338,10 +335,10 @@
 
         .progress-container {
             width: 100%;
-            height: 6px;
+            height: 8px;
             background-color: #e2e8f0;
-            border-radius: 3px;
-            margin-bottom: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
             overflow: hidden;
             display: none;
         }
@@ -353,7 +350,7 @@
         .progress-bar {
             height: 100%;
             background-color: var(--primary);
-            border-radius: 3px;
+            border-radius: 4px;
             width: 0%;
             transition: width 0.4s ease;
         }
@@ -364,11 +361,11 @@
 
         .sourate-info {
             background-color: #f1f5f9;
-            padding: 0.8rem;
-            border-radius: 6px;
-            margin: 0.8rem 0;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         .dark-mode .sourate-info {
@@ -377,9 +374,8 @@
 
         .sourate-info-title {
             font-weight: bold;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
             color: var(--primary);
-            font-size: 1rem;
         }
 
         .dark-mode .sourate-info-title {
@@ -388,12 +384,11 @@
 
         .hadith-box {
             background-color: #ecfdf5;
-            padding: 0.8rem;
-            border-radius: 6px;
-            margin: 0.8rem 0;
-            border-left: 3px solid var(--correct);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--correct);
             font-style: italic;
-            font-size: 0.9rem;
         }
 
         .dark-mode .hadith-box {
@@ -403,16 +398,16 @@
 
         .hadith-arabic {
             font-family: var(--arabic-font);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             text-align: right;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
         }
 
         .hadith-source {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             text-align: right;
             color: #64748b;
-            margin-top: 0.4rem;
+            margin-top: 0.5rem;
             font-style: normal;
         }
 
@@ -422,11 +417,10 @@
 
         .verse-box {
             background-color: #eff6ff;
-            padding: 0.8rem;
-            border-radius: 6px;
-            margin: 0.8rem 0;
-            border-left: 3px solid var(--primary);
-            font-size: 0.9rem;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
         }
 
         .dark-mode .verse-box {
@@ -436,18 +430,18 @@
 
         .verse-arabic {
             font-family: var(--arabic-font);
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             text-align: right;
-            margin-bottom: 0.4rem;
-            line-height: 1.6;
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
         }
 
         .verse-translation {
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
         }
 
         .verse-reference {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #64748b;
             text-align: right;
             font-style: normal;
@@ -459,21 +453,20 @@
 
         .theme-toggle {
             position: fixed;
-            bottom: 15px;
-            right: 15px;
+            bottom: 20px;
+            right: 20px;
             background: var(--primary);
             color: white;
             border: none;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             z-index: 100;
-            font-size: 1.1rem;
         }
 
         .dark-mode .theme-toggle {
@@ -482,21 +475,21 @@
 
         .wisdom-icon {
             position: fixed;
-            bottom: 65px;
-            right: 15px;
+            bottom: 80px;
+            right: 20px;
             background: var(--primary);
             color: white;
             border: none;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             z-index: 100;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
 
         .dark-mode .wisdom-icon {
@@ -505,16 +498,15 @@
 
         .wisdom-tooltip {
             position: fixed;
-            bottom: 120px;
-            right: 15px;
-            width: 280px;
-            padding: 0.8rem;
+            bottom: 140px;
+            right: 20px;
+            width: 300px;
+            padding: 1rem;
             background-color: var(--card);
-            border-radius: 6px;
-            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             display: none;
             z-index: 100;
-            font-size: 0.9rem;
         }
 
         .dark-mode .wisdom-tooltip {
@@ -522,8 +514,8 @@
         }
 
         .wisdom-content {
-            font-size: 0.85rem;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         /* Barre fixe pour le nom de la sourate */
@@ -531,11 +523,11 @@
             position: sticky;
             top: 0;
             background-color: var(--card);
-            padding: 0.6rem 0.8rem;
+            padding: 0.8rem 1rem;
             border-bottom: 1px solid #e2e8f0;
             z-index: 50;
             display: none;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             text-align: center;
         }
 
@@ -546,9 +538,9 @@
 
         .sourate-header-arabic {
             font-family: var(--arabic-font);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--primary);
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.3rem;
             font-weight: bold;
         }
 
@@ -557,7 +549,7 @@
         }
 
         .sourate-header-latin {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #64748b;
             font-weight: bold;
         }
@@ -568,28 +560,26 @@
 
         .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
         .quiz-section {
-            order: 1;
+            flex: 2;
         }
 
         .info-section {
-            order: 2;
+            flex: 1;
         }
 
         .youtube-link {
             display: inline-block;
-            margin-top: 8px;
+            margin-top: 10px;
             color: #ffffff;
             background-color: #ff0000;
-            padding: 7px 12px;
-            border-radius: 4px;
+            padding: 8px 15px;
+            border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
             transition: background-color 0.3s;
         }
 
@@ -599,14 +589,13 @@
 
         .rules-link {
             display: inline-block;
-            margin-top: 12px;
+            margin-top: 15px;
             color: #ffffff;
             background-color: var(--primary);
-            padding: 7px 12px;
-            border-radius: 4px;
+            padding: 8px 15px;
+            border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
             transition: background-color 0.3s;
         }
 
@@ -624,10 +613,10 @@
 
         .footer {
             text-align: center;
-            margin-top: 15px;
-            padding-top: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
             border-top: 1px solid #e2e8f0;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #64748b;
         }
 
@@ -652,8 +641,8 @@
 
         .feedback-container {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             overflow: hidden;
             width: 90%;
             max-width: 800px;
@@ -668,12 +657,12 @@
         .feedback-header {
             background: linear-gradient(135deg, var(--feedback-primary), var(--feedback-secondary));
             color: white;
-            padding: 20px 15px;
+            padding: 30px 20px;
             text-align: center;
         }
 
         .feedback-thank-you {
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             border-bottom: 1px solid #eee;
         }
@@ -685,7 +674,6 @@
         .feedback-thank-you h2 {
             color: var(--feedback-secondary);
             margin-top: 0;
-            font-size: 1.2rem;
         }
 
         .dark-mode .feedback-thank-you h2 {
@@ -693,9 +681,9 @@
         }
 
         .feedback-arabic {
-            font-size: 1.1em;
+            font-size: 1.3em;
             color: var(--feedback-secondary);
-            margin: 12px 0;
+            margin: 15px 0;
             font-weight: bold;
         }
 
@@ -704,19 +692,18 @@
         }
 
         .feedback-form {
-            padding: 20px;
+            padding: 25px;
         }
 
         .feedback-form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .feedback-form label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 600;
             color: var(--text);
-            font-size: 0.95rem;
         }
 
         .dark-mode .feedback-form label {
@@ -726,12 +713,12 @@
         .feedback-form input, 
         .feedback-form textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 6px;
             box-sizing: border-box;
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 16px;
             transition: border 0.3s;
         }
 
@@ -746,18 +733,18 @@
         .feedback-form textarea:focus {
             border-color: var(--feedback-accent);
             outline: none;
-            box-shadow: 0 0 0 2px rgba(139, 195, 74, 0.2);
+            box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.2);
         }
 
         .feedback-form textarea {
-            height: 120px;
+            height: 150px;
             resize: vertical;
         }
 
         .feedback-rating {
             display: flex;
             justify-content: center;
-            margin: 15px 0;
+            margin: 20px 0;
             direction: rtl;
         }
 
@@ -766,10 +753,10 @@
         }
 
         .feedback-rating label {
-            font-size: 25px;
+            font-size: 30px;
             color: #ddd;
             cursor: pointer;
-            padding: 0 4px;
+            padding: 0 5px;
         }
 
         .feedback-rating input:checked ~ label,
@@ -786,25 +773,25 @@
             background: linear-gradient(135deg, var(--feedback-primary), var(--feedback-secondary));
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 25px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 16px;
             font-weight: 600;
             width: 100%;
             transition: all 0.3s;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .feedback-submit-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .feedback-confirmation {
             display: none;
-            padding: 25px;
+            padding: 30px;
             text-align: center;
         }
 
@@ -813,30 +800,30 @@
         }
 
         .feedback-confirmation i {
-            font-size: 40px;
+            font-size: 50px;
             color: var(--feedback-primary);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .feedback-close-btn {
             position: absolute;
-            top: 8px;
-            right: 8px;
+            top: 10px;
+            right: 10px;
             background: transparent;
             border: none;
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
             color: white;
         }
 
         /* Nouveau style pour le score dans le feedback */
         .feedback-score {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            margin: 12px 0;
-            padding: 8px;
+            margin: 15px 0;
+            padding: 10px;
             background-color: #e0f2fe;
-            border-radius: 6px;
+            border-radius: 8px;
             color: var(--primary);
         }
 
@@ -853,11 +840,11 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: var(--card);
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             z-index: 1100;
-            max-width: 450px;
+            max-width: 500px;
             width: 90%;
             text-align: center;
         }
@@ -871,15 +858,14 @@
         }
 
         .confirmation-message i {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--correct);
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .confirmation-message h2 {
             color: var(--primary);
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
+            margin-bottom: 1rem;
         }
 
         .dark-mode .confirmation-message h2 {
@@ -887,15 +873,14 @@
         }
 
         .confirmation-message p {
-            margin-bottom: 1.2rem;
-            line-height: 1.5;
-            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
         .confirmation-message .arabic-text {
             font-family: var(--arabic-font);
-            font-size: 1.3rem;
-            margin: 0.8rem 0;
+            font-size: 1.5rem;
+            margin: 1rem 0;
             color: var(--primary);
         }
 
@@ -904,165 +889,87 @@
         }
 
         .confirmation-message button {
-            margin-top: 0.8rem;
-            font-size: 0.95rem;
+            margin-top: 1rem;
         }
 
-        @media (min-width: 768px) {
-            body {
-                padding: 15px;
-            }
-            
+        @media (max-width: 768px) {
             .content-wrapper {
-                flex-direction: row;
-                gap: 20px;
+                flex-direction: column;
             }
             
-            .quiz-section {
-                flex: 2;
-                order: 1;
-            }
-            
-            .info-section {
-                flex: 1;
-                order: 2;
+            body {
+                padding: 1rem;
             }
             
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
             
             h2 {
-                font-size: 1.3rem;
+                font-size: 1.1rem;
             }
             
             .sourate-display {
-                font-size: 1.8rem;
-                padding: 1.2rem;
+                font-size: 1.5rem;
+                padding: 1rem;
             }
             
             .sourate-arabic {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
             
             .controls {
-                flex-direction: row;
+                flex-direction: column;
             }
             
             button {
-                width: auto;
+                width: 100%;
             }
 
             .wisdom-tooltip {
-                width: 300px;
+                width: 250px;
+                right: 10px;
             }
 
             .sourate-header-arabic {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
 
             .sourate-header-latin {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
             
             .feedback-container {
-                width: 90%;
+                width: 95%;
             }
             
             .feedback-header {
-                padding: 25px 20px;
+                padding: 20px 15px;
             }
             
             .feedback-thank-you {
-                padding: 25px;
+                padding: 15px;
             }
             
             .feedback-form {
-                padding: 25px;
+                padding: 15px;
             }
             
             .confirmation-message {
-                padding: 2rem;
+                padding: 1.5rem;
             }
             
             .confirmation-message i {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
             
             .confirmation-message .arabic-text {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (min-width: 992px) {
-            body {
-                padding: 20px;
-            }
-            
-            .theme-toggle, .wisdom-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-            
-            .wisdom-icon {
-                bottom: 80px;
-            }
-            
-            .wisdom-tooltip {
-                bottom: 140px;
-            }
-        }
-
-        /* Option de zoom */
-        .zoom-controls {
-            position: fixed;
-            bottom: 15px;
-            left: 15px;
-            display: flex;
-            gap: 5px;
-            z-index: 100;
-        }
-
-        .zoom-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            font-size: 1.1rem;
-        }
-
-        .dark-mode .zoom-btn {
-            background: var(--dark-primary);
-        }
-
-        @media (min-width: 768px) {
-            .zoom-controls {
-                bottom: 20px;
-                left: 20px;
-            }
-            
-            .zoom-btn {
-                width: 45px;
-                height: 45px;
+                font-size: 1.3rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="zoom-controls">
-        <button class="zoom-btn" id="zoomIn">+</button>
-        <button class="zoom-btn" id="zoomOut">-</button>
-        <button class="zoom-btn" id="zoomReset">↻</button>
-    </div>
-    
     <button class="theme-toggle" id="themeToggle">🌙</button>
     <button class="wisdom-icon" id="wisdomIcon">💡</button>
     <div class="wisdom-tooltip" id="wisdomTooltip">
@@ -1353,7 +1260,7 @@
                 confirmationCloseBtn: "إغلاق"
             }
         };
-        
+
         const sourates = [
             {num: 114, name: "An-Nas", arabic: "الناس", 
              info: {fr: "Dernière sourate du Coran. Elle traite de la recherche de protection auprès d'Allah contre les mauvaises suggestions.", 
@@ -1744,7 +1651,8 @@
                 fr: "Les endurants auront leur pleine récompense sans compter.",
                 reference: "Sourate Az-Zumar (39), verset 10"
             }
-       
+        ];
+
         // ==================== ÉTAT DE L'APPLICATION ====================
         let currentSourate = null;
         let shuffledSourates = [];
@@ -1828,11 +1736,7 @@
             confirmationTitle: document.getElementById('confirmationTitle'),
             confirmationText: document.getElementById('confirmationText'),
             confirmationArabic: document.getElementById('confirmationArabic'),
-            confirmationCloseBtn: document.getElementById('confirmationCloseBtn'),
-            // Zoom controls
-            zoomIn: document.getElementById('zoomIn'),
-            zoomOut: document.getElementById('zoomOut'),
-            zoomReset: document.getElementById('zoomReset')
+            confirmationCloseBtn: document.getElementById('confirmationCloseBtn')
         };
 
         // ==================== INITIALISATION ====================
@@ -1876,11 +1780,6 @@
             elements.confirmationCloseBtn.addEventListener('click', () => {
                 elements.confirmationMessage.style.display = 'none';
             });
-            
-            // Contrôles de zoom
-            elements.zoomIn.addEventListener('click', () => adjustZoom(0.1));
-            elements.zoomOut.addEventListener('click', () => adjustZoom(-0.1));
-            elements.zoomReset.addEventListener('click', resetZoom);
             
             // Vérifier si on doit afficher la confirmation de feedback
             if (window.location.search.includes('feedback=success')) {
@@ -1995,18 +1894,6 @@
             darkMode = false;
             elements.themeToggle.textContent = translations[currentLanguage].themeToggle.light;
             localStorage.setItem('theme', 'light');
-        }
-
-        function adjustZoom(change) {
-            const currentZoom = parseFloat(document.body.style.zoom) || 1;
-            const newZoom = Math.min(Math.max(currentZoom + change, 0.5), 1.5); // Limite entre 50% et 150%
-            document.body.style.zoom = newZoom;
-            localStorage.setItem('zoomLevel', newZoom);
-        }
-
-        function resetZoom() {
-            document.body.style.zoom = 1;
-            localStorage.setItem('zoomLevel', 1);
         }
 
         function updateElementText(id, text) {
@@ -2354,7 +2241,7 @@
                 console.error('Error:', error);
                 alert(currentLanguage === 'fr' 
                     ? "Une erreur s'est produite. Veuillez réessayer." 
-‎                    : "حدث خطأ. يرجى المحاولة مرة أخرى.");
+                    : "حدث خطأ. يرجى المحاولة مرة أخرى.");
             });
         }
 
